@@ -32,6 +32,12 @@ GEM
       sprockets
       tilt
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (5.0.0.3)
+      execjs
+      json
+    bootstrap-sass (3.3.3)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     bower-rails (0.9.2)
     builder (3.2.2)
     coffee-rails (4.0.1)
@@ -135,6 +141,7 @@ PLATFORMS
 
 DEPENDENCIES
   angular-rails-templates
+  bootstrap-sass (~> 3.3.3)
   bower-rails
   coffee-rails (~> 4.0.0)
   haml

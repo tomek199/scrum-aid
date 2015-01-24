@@ -1,6 +1,7 @@
 @scrumAid = angular.module("ScrumAid", [
   "ngRoute"
   "templates"
+  "ui.bootstrap"
 ])
 scrumAid.config ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
