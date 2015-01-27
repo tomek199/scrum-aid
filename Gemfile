@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.1.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -15,3 +14,5 @@ gem 'angular-rails-templates'
 gem 'haml'
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.3'
+gem 'mongoid'
+gem 'bson_ext'
