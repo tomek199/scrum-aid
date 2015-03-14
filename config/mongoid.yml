@@ -12,9 +12,9 @@ test:
   sessions:
     default:
       database: scrum-aid-test
-      username: scrum-aid-test
-      password: scrum-aid-test
       hosts:
-        - ds037571.mongolab.com:37571
+        - localhost:27017
       options:
-        timeout: 30
+        read: primary
+        max_retries: 1
+        retry_interval: 0
