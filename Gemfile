@@ -16,3 +16,5 @@ gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'mongoid'
 gem 'bson_ext'
+gem 'mongoid-rspec', group: [:development, :test]
+gem 'rspec-rails', group: [:development, :test]
