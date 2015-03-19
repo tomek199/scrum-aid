@@ -1,0 +1,16 @@
+.jumbotron
+  .row
+    .col-md-6
+      %h1 ScrumAid
+      %p Simple and flexible tool to make your Scrum process easier.
+    .col-md-5
+      %form
+        .form-group
+          %input#userName.form-control.input-lg{type: "text", placeholder: "Username", "ng-model" => "newUser.username"}
+        .form-group
+          %input#email.form-control.input-lg{type: "email", placeholder: "Email", "ng-model" => "newUser.email"}
+        .form-group
+          %input#password.form-control.input-lg{type: "password", placeholder: "Password", "ng-model" => "newUser.password"}
+        .form-group
+          %button.btn.btn-large.btn-success{type: "button", "ng-click" => "signUp()"}
+            Sign up for free

@@ -5,8 +5,11 @@
 ])
 scrumAid.config ($routeProvider, $locationProvider) ->
   $routeProvider.when "/",
-    templateUrl: "home.html"
-    controller: "HomeCtrl"
+    templateUrl: "register.html"
+    controller: "RegisterCtrl"
+  $routeProvider.when "/register",
+    templateUrl: "register.html"
+    controller: "RegisterCtrl"
 
   $locationProvider.html5Mode
     enabled: true
