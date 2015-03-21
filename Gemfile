@@ -18,3 +18,4 @@ gem 'mongoid'
 gem 'bson_ext'
 gem 'mongoid-rspec', group: [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
+gem 'devise'
