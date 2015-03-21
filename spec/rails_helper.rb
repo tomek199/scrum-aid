@@ -22,6 +22,18 @@ require 'rspec/rails'
 
 RSpec.configure do |config|
   config.include Mongoid::Matchers, type: :model
+  config.include Devise::TestHelpers, type: :controller
+
+  # Clean up the database
+  require 'database_cleaner'
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.orm = "mongoid"
+  end
+
+  config.before(:all) do
+    DatabaseCleaner.clean
+  end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

@@ -19,3 +19,5 @@ gem 'bson_ext'
 gem 'mongoid-rspec', group: [:development, :test]
 gem 'rspec-rails', group: [:development, :test]
 gem 'devise'
+gem 'database_cleaner', group: :test
+gem 'factory_girl_rails', group: :test
