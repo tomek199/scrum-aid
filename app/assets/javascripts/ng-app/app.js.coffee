@@ -1,5 +1,6 @@
 @scrumAid = angular.module("ScrumAid", [
   "ngRoute"
+  "ngResource"
   "templates"
   "ui.bootstrap"
 ])
