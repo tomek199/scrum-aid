@@ -4,13 +4,20 @@
       %h1 ScrumAid
       %p Simple and flexible tool to make your Scrum process easier.
     .col-md-5
-      %form
+      %form{name: "registerForm"}
         .form-group
-          %input#userName.form-control.input-lg{type: "text", placeholder: "Username", "ng-model" => "newUser.username"}
+          %input#userName.form-control.input-lg{type: "text", name: "username",
+          placeholder: "Username", "ng-model" => "user.username", required: true}
         .form-group
-          %input#email.form-control.input-lg{type: "email", placeholder: "Email", "ng-model" => "newUser.email"}
+          %input#email.form-control.input-lg{type: "email", name: "email",
+          placeholder: "Email", "ng-model" => "user.email", required: true}
         .form-group
-          %input#password.form-control.input-lg{type: "password", placeholder: "Password", "ng-model" => "newUser.password"}
+          %input#password.form-control.input-lg{type: "password", name: "password",
+          placeholder: "Password", "ng-model" => "user.password", required: true}
         .form-group
-          %button.btn.btn-large.btn-success{type: "button", "ng-click" => "signUp()"}
+          %button.btn.btn-large.btn-success{type: "button", "ng-click" => "signUp()",
+          "ng-disabled" => "!registerForm.$valid"}
             Sign up for free
+
+%pre
+  {{registerForm | json}}

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'application#index'
+  root to: 'application#index'
   get '*path' => 'application#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
