@@ -1,7 +1,4 @@
-scrumAid.factory 'DeviseService', ($resource) ->
-
-  # Current user
-  _currentUser = null;
+scrumAid.factory 'DeviseService', ($resource, $cacheFactory) ->
 
   # Sign up resource
   signUpResource = $resource '/users.json', {},
@@ -21,7 +18,7 @@ scrumAid.factory 'DeviseService', ($resource) ->
       (response) ->
         signIn(user,
           (authResponse) ->
-            success(_currentUser)
+            success(currentUser())
           (authResponse) ->
             error(authResponse)
         )
@@ -33,15 +30,15 @@ scrumAid.factory 'DeviseService', ($resource) ->
   signIn = (user, success, error) ->
     signInResource.post(user:user).$promise.then(
       (response) ->
-        _currentUser = response
-        success(_currentUser)
+        $cacheFactory.get('$http').put('currentUser', response)
+        success(currentUser())
       (reponse) ->
         error(response)
     )
 
   # Current user API
   currentUser = () ->
-    _currentUser
+    $cacheFactory.get('$http').get('currentUser')
 
 
   # API return
