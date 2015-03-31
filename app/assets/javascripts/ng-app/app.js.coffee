@@ -11,6 +11,9 @@ scrumAid.config ($routeProvider, $locationProvider) ->
   $routeProvider.when "/register",
     templateUrl: "register.html"
     controller: "SessionsCtrl"
+  $routeProvider.when "/dashboard",
+    templateUrl: "dashboard.html"
+    controller: "DashboardCtrl"
   $routeProvider.otherwise
     templateUrl: "register.html"
     controller: "SessionsCtrl"

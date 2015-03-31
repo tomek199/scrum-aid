@@ -1,11 +1,12 @@
-scrumAid.controller "SessionsCtrl", ($scope, DeviseService) ->
+scrumAid.controller "SessionsCtrl", ($scope, $location, DeviseService) ->
   $scope.user = {}
 
   $scope.signUp = () ->
     $scope.user.password_confirmation = $scope.user.password
-    DeviseService.signUp(user: $scope.user).$promise.then (
-      (value) ->
-        console.log value
-    ), (error) ->
-      console.log error
-      alert "Registration failure"
+    DeviseService.signUp($scope.user,
+      (success) ->
+        if success._id != null && success.email == $scope.user.email
+          $location.path "/dashboard"
+      (error) ->
+        console.log error
+    )
