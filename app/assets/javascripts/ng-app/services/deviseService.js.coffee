@@ -44,10 +44,15 @@ scrumAid.factory 'DeviseService', ($resource, $cookies) ->
   currentUser = () ->
     JSON.parse($cookies.currentUser)
 
+  # Is authenticated API
+  isAuthenticated = () ->
+    !!$cookies.currentUser
+
 
   # API return
   {
     signUp: signUp
     signIn: signIn
     currentUser: currentUser
+    isAuthenticated: isAuthenticated
   }

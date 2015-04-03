@@ -1,6 +1,9 @@
 %nav.navbar.navbar-default
-  .container
+  .container{"ng-controller" => "HeaderCtrl"}
     .navbar-header
       %span.navbar-brand ScrumAid
+    %ul.nav.navbar-nav.navbar-right
+      %li
+        %a {{isAuthenticated()}}
 .container
   %div{"ng-view" => ""}
