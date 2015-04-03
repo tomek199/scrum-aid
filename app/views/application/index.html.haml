@@ -2,8 +2,14 @@
   .container{"ng-controller" => "HeaderCtrl"}
     .navbar-header
       %span.navbar-brand ScrumAid
-    %ul.nav.navbar-nav.navbar-right
-      %li
-        %a{href: "", "ng-show" => "isAuthenticated()", "ng-click" => "signOut()"} Sign out
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          %a{href: "", "ng-show" => "isAuthenticated()", "ng-click" => "signOut()"} Sign out
+        %li
+          %button.btn.btn-success.navbar-btn{"ng-show" => "!isAuthenticated()",
+          "ng-click" => "redirectTo('/register')"} Sign up
+          %button.btn.btn-default.navbar-btn{"ng-show" => "!isAuthenticated()",
+          "ng-click" => "redirectTo('/login')"} Sign in
 .container
   %div{"ng-view" => ""}

@@ -4,8 +4,11 @@ scrumAid.controller "HeaderCtrl", ($scope, $location, DeviseService) ->
   $scope.signOut = () ->
     DeviseService.signOut(
       (success) ->
-        $location.path '/'
+        $location.path '/login'
       (error) ->
         console.log(error)
         $location.path '/'
     )
+
+  $scope.redirectTo = (path) ->
+    $location.path path

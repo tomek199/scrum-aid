@@ -7,16 +7,19 @@
 ])
 scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/",
-    templateUrl: "register.html"
+    templateUrl: "devise/register.html"
     controller: "SessionsCtrl"
   $routeProvider.when "/register",
-    templateUrl: "register.html"
+    templateUrl: "devise/register.html"
+    controller: "SessionsCtrl"
+  $routeProvider.when "/login",
+    templateUrl: "devise/login.html"
     controller: "SessionsCtrl"
   $routeProvider.when "/dashboard",
-    templateUrl: "dashboard.html"
+    templateUrl: "dashboard/dashboard.html"
     controller: "DashboardCtrl"
   $routeProvider.otherwise
-    templateUrl: "register.html"
+    templateUrl: "devise/register.html"
     controller: "SessionsCtrl"
 
   $locationProvider.html5Mode

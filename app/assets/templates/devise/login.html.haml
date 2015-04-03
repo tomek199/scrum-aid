@@ -1,0 +1,18 @@
+.row
+  .col-md-4.col-md-offset-4
+    .panel.panel-primary
+      .panel-heading Sign in
+      .panel-body
+        %form{name: "loginForm"}
+          .form-group
+            %label{for: :email} Email
+            %input#email.form-control.input{type: "email", name: "email",
+            "ng-model" => "user.email", required: true}
+          .form-group
+            %label{for: :password} Password
+            %input#password.form-control.input{type: "password", name: "password",
+            "ng-model" => "user.password", required: true}
+          .form-group
+            %button.btn.btn-large.btn-default{type: "button", "ng-click" => "signIn()",
+            "ng-disabled" => "!loginForm.$valid"}
+              Sign in
