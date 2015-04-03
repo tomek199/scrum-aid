@@ -4,6 +4,6 @@
       %span.navbar-brand ScrumAid
     %ul.nav.navbar-nav.navbar-right
       %li
-        %a {{isAuthenticated()}}
+        %a{href: "", "ng-show" => "isAuthenticated()", "ng-click" => "signOut()"} Sign out
 .container
   %div{"ng-view" => ""}

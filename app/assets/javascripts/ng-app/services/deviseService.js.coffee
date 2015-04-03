@@ -12,9 +12,19 @@ scrumAid.factory 'DeviseService', ($resource, $cookies) ->
       method: 'POST'
       isArray: false
 
-  # Save sign in user data to cookie
+  # Sign out resource
+  signOutResource = $resource '/users/sign_out.json', {},
+    delete:
+      method: 'DELETE'
+      isArray: false
+
+  # Save signed in user data to cookie
   saveUser = (user) ->
     $cookies.currentUser = JSON.stringify(user)
+
+  # Delete signed out user from cookie
+  deleteUser = () ->
+    $cookies.currentUser = ""
 
   # Sign up API
   signUp = (user, success, error) ->
@@ -40,6 +50,15 @@ scrumAid.factory 'DeviseService', ($resource, $cookies) ->
         error(response)
     )
 
+  # Sign out API
+  signOut = (success, error) ->
+    signOutResource.delete().$promise.then(
+      (response) ->
+        deleteUser()
+        success()
+      (response) ->
+        error(response)
+    )
   # Current user API
   currentUser = () ->
     JSON.parse($cookies.currentUser)
@@ -53,6 +72,7 @@ scrumAid.factory 'DeviseService', ($resource, $cookies) ->
   {
     signUp: signUp
     signIn: signIn
+    signOut: signOut
     currentUser: currentUser
     isAuthenticated: isAuthenticated
   }
