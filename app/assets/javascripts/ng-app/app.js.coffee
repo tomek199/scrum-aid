@@ -5,7 +5,7 @@
   "ngCookies"
   "ui.bootstrap"
 ])
-scrumAid.config ($routeProvider, $locationProvider) ->
+scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/",
     templateUrl: "register.html"
     controller: "SessionsCtrl"
@@ -22,3 +22,15 @@ scrumAid.config ($routeProvider, $locationProvider) ->
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
+
+  $httpProvider.interceptors.push('httpInterceptor')
+
+scrumAid.factory 'httpInterceptor', ($q) ->
+  {
+    request: (config) ->
+      config
+    response: (result) ->
+      result
+    responseError: (error) ->
+      error
+  }
