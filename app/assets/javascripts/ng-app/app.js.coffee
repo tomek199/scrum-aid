@@ -2,6 +2,7 @@
   "ngRoute"
   "ngResource"
   "templates"
+  "ngCookies"
   "ui.bootstrap"
 ])
 scrumAid.config ($routeProvider, $locationProvider) ->
