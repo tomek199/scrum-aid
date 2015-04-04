@@ -30,12 +30,11 @@ scrumAid.factory 'DeviseService', ($resource, $cookies) ->
   signUp = (user, success, error) ->
     signUpResource.post(user: user).$promise.then(
       (response) ->
-        signIn(user,
-          (authResponse) ->
-            success(currentUser())
-          (authResponse) ->
-            error(authResponse)
-        )
+        if !response.errors?
+          saveUser(response)
+          success(currentUser())
+        else
+          error(response.errors)
       (response) ->
         error(response)
     )
@@ -44,8 +43,11 @@ scrumAid.factory 'DeviseService', ($resource, $cookies) ->
   signIn = (user, success, error) ->
     signInResource.post(user:user).$promise.then(
       (response) ->
-        saveUser(response)
-        success(currentUser())
+        if !response.error?
+          saveUser(response)
+          success(currentUser())
+        else
+          error(response.error)
       (reponse) ->
         error(response)
     )

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: :index
   before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
+  skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 
   # default action to render view
   def index
