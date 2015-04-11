@@ -1,2 +1,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+#blockLayer {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  div {
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    height: auto;
+    position: relative;
+    text-align: center;
+  }
+}
