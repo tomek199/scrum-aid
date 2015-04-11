@@ -21,3 +21,4 @@ gem 'rspec-rails', group: [:development, :test]
 gem 'devise'
 gem 'database_cleaner', group: :test
 gem 'factory_girl_rails', group: :test
+gem 'rails_12factor', group: :production
