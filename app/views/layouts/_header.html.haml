@@ -1,0 +1,16 @@
+%nav.navbar.navbar-default
+  .container{"ng-controller" => "HeaderCtrl"}
+    .navbar-header
+      %span.navbar-brand ScrumAid
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li.dropdown{"ng-show" => "isAuthenticated()", dropdown: ""}
+          %a.dropdown-toggle{href: "#", "dropdown-toggle" => ""}
+            {{currentUser().email}}
+            %span.caret
+          %ul.dropdown-menu{"dropdown-menu" => ""}
+            %li
+              %a{href: "#", "ng-click" => "signOut()"} Sign out
+        %li{"ng-show" => "!isAuthenticated()"}
+          %button.btn.btn-success.navbar-btn{"ng-click" => "redirectTo('/register')"} Sign up
+          %button.btn.btn-default.navbar-btn{"ng-click" => "redirectTo('/login')"} Sign in

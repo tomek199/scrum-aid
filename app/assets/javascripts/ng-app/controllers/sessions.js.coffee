@@ -1,6 +1,9 @@
 scrumAid.controller "SessionsCtrl", ($scope, $location, DeviseService) ->
   $scope.user = {}
 
+  if DeviseService.isAuthenticated() == true
+    $location.path '/dashboard'
+
   $scope.signUp = () ->
     $scope.user.password_confirmation = $scope.user.password
     DeviseService.signUp($scope.user,
