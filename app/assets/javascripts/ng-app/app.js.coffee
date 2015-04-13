@@ -18,6 +18,10 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/dashboard",
     templateUrl: "dashboard/dashboard.html"
     controller: "DashboardCtrl"
+
+  $routeProvider.when "/project",
+    templateUrl: "project/index.html"
+    controller: "ProjectIndexCtrl"
   $routeProvider.otherwise
     templateUrl: "devise/register.html"
     controller: "SessionsCtrl"

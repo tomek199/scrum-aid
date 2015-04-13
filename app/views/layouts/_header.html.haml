@@ -1,8 +1,23 @@
 %nav.navbar.navbar-default
   .container{"ng-controller" => "HeaderCtrl"}
     .navbar-header
-      %span.navbar-brand ScrumAid
+      %a.navbar-brand{href: "#", "ng-click" => "redirectTo('/')"} ScrumAid
     .collapse.navbar-collapse
+      -# main menu
+      %ul.nav.navbar-nav{"ng-show" => "isAuthenticated()"}
+        -# Dashboard
+        %li
+          %a{href: "#", "ng-click" => "redirectTo('/dashboard')"} Dashboard
+        -# Projects
+        %li.dropdown{dropdown: ""}
+          %a.dropdown-toggle{href: "#", "dropdown-toggle" => ""}
+            Projects
+            %span.caret
+          %ul.dropdown-menu{"dropdown-menu" => ""}
+            %li
+              %a{href: "#", "ng-click" => "redirectTo('/project')"} Show all
+            %li.divider
+      -# right menu
       %ul.nav.navbar-nav.navbar-right
         %li.dropdown{"ng-show" => "isAuthenticated()", dropdown: ""}
           %a.dropdown-toggle{href: "#", "dropdown-toggle" => ""}
@@ -11,6 +26,7 @@
           %ul.dropdown-menu{"dropdown-menu" => ""}
             %li
               %a{href: "#", "ng-click" => "signOut()"} Sign out
+        -# auth buttons
         %li{"ng-show" => "!isAuthenticated()"}
           %button.btn.btn-success.navbar-btn{"ng-click" => "redirectTo('/register')"} Sign up
           %button.btn.btn-default.navbar-btn{"ng-click" => "redirectTo('/login')"} Sign in

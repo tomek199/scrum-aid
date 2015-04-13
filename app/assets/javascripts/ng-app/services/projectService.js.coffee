@@ -1,0 +1,2 @@
+scrumAid.service 'ProjectService', ($resource) ->
+  
