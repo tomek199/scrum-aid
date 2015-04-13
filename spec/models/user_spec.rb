@@ -10,6 +10,8 @@ describe User do
     }
   end
 
+  it {is_expected.to have_and_belong_to_many(:projects)}
+
   it "should create new User instance" do
     User.create! @attr
   end

@@ -24,6 +24,8 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
+  has_and_belongs_to_many :projects
+
   # Hack for Devise 3.4.1
   def self.serialize_from_session(key, salt)
     record = to_adapter.get(key[0]["$oid"])
