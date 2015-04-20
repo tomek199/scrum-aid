@@ -17,6 +17,7 @@ describe User do
   end
 
   it "should return User instance" do
-    User.where(email: @attr[:email]).count.should == 1
+    user = User.where(email: @attr[:email])
+    expect(user.count).to eq 1
   end
 end
