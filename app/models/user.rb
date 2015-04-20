@@ -27,9 +27,11 @@ class User
   has_and_belongs_to_many :projects
 
   # Hack for Devise 3.4.1
-  def self.serialize_from_session(key, salt)
-    record = to_adapter.get(key[0]["$oid"])
-    record if record && record.authenticatable_salt == salt
+  class << self
+    def serialize_from_session(key, salt)
+      record = to_adapter.get(key[0].to_param)
+      record if record && record.authenticatable_salt == salt
+    end
   end
 
   ## Confirmable

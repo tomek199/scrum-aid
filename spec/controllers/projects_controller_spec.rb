@@ -1,11 +1,13 @@
 require 'rails_helper'
+include Devise::TestHelpers
 
 RSpec.describe ProjectsController, type: :controller do
 
-  # before(:all) do
-  #   user = FactoryGirl.create(:user)
-  #   sign_in user
-  # end
+  before(:each) do
+    user = FactoryGirl.create(:user)
+    user.save
+    sign_in user
+  end
 
   describe 'POST #create' do
 
@@ -16,6 +18,7 @@ RSpec.describe ProjectsController, type: :controller do
       result = JSON.parse(response.body)
       expect(result['_id']).to_not be_nil
       expect(result['name']).to eq params[:project][:name]
+      expect(result['user_ids']).to_not be_nil
     end
 
     it 'should return error message when project name is nil' do
