@@ -1,12 +1,12 @@
-scrumAid.controller "HeaderCtrl", ($scope, $location, DeviseService) ->
-  $scope.isAuthenticated = DeviseService.isAuthenticated
-  $scope.currentUser = DeviseService.currentUser
+scrumAid.controller "HeaderCtrl", ($scope, $location, DeviseFactory) ->
+  $scope.isAuthenticated = DeviseFactory.isAuthenticated
+  $scope.currentUser = DeviseFactory.currentUser
 
   if $scope.isAuthenticated() == false
     $location.path '/login'
 
   $scope.signOut = () ->
-    DeviseService.signOut(
+    DeviseFactory.signOut(
       (success) ->
         $location.path '/login'
       (error) ->

@@ -1,12 +1,12 @@
-scrumAid.controller "SessionsCtrl", ($scope, $location, DeviseService) ->
+scrumAid.controller "SessionsCtrl", ($scope, $location, DeviseFactory) ->
   $scope.user = {}
 
-  if DeviseService.isAuthenticated() == true
+  if DeviseFactory.isAuthenticated() == true
     $location.path '/dashboard'
 
   $scope.signUp = () ->
     $scope.user.password_confirmation = $scope.user.password
-    DeviseService.signUp($scope.user,
+    DeviseFactory.signUp($scope.user,
       (success) ->
         if success._id? and success.email == $scope.user.email
           $location.path '/dashboard'
@@ -15,7 +15,7 @@ scrumAid.controller "SessionsCtrl", ($scope, $location, DeviseService) ->
     )
 
   $scope.signIn = () ->
-    DeviseService.signIn($scope.user,
+    DeviseFactory.signIn($scope.user,
       (success) ->
         if success._id? and success.email = $scope.user.email
           $location.path '/dashboard'

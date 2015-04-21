@@ -1,4 +1,4 @@
-scrumAid.factory 'DeviseService', ($resource, $cookies) ->
+scrumAid.factory 'DeviseFactory', ($resource, $cookies) ->
 
   # Sign up resource
   signUpResource = $resource '/users.json', {},
