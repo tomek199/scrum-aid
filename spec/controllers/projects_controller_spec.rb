@@ -4,13 +4,12 @@ include Devise::TestHelpers
 RSpec.describe ProjectsController, type: :controller do
 
   before(:each) do
-    user = FactoryGirl.create(:user)
-    user.save
-    sign_in user
+    @user = FactoryGirl.create(:user)
+    @user.save
+    sign_in @user
   end
 
   describe 'POST #create' do
-
     it 'should create new Project' do
       params = {project: {name: "Test project", description: "Test description"}}
       get :create, params
@@ -31,7 +30,17 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe 'GET #index' do
-    it 'should return projects list'
+    it 'should return current user projects list' do
+      COUNT = 3
+      COUNT.times do
+        project = Project.new(name: Faker::Company.name)
+        project.save
+        project.users << @user
+      end
+      get :index
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result.count).to eq COUNT
+    end
   end
-
 end
