@@ -9,7 +9,7 @@
         %li
           %a{href: "#", "ng-click" => "redirectTo('/dashboard')"} Dashboard
         -# Projects
-        %li.dropdown{dropdown: ""}
+        %li.dropdown{dropdown: "", "ng-click" => "getProjects()"}
           %a.dropdown-toggle{href: "#", "dropdown-toggle" => ""}
             Projects
             %span.caret
@@ -17,6 +17,9 @@
             %li
               %a{href: "#", "ng-click" => "redirectTo('/projects')"} Show all
             %li.divider
+            %li{"ng-repeat" => "project in projects"}
+              %a{href: "#", "ng-click" => "projectShow($index)"}
+                {{project.name}}
       -# right menu
       %ul.nav.navbar-nav.navbar-right
         %li.dropdown{"ng-show" => "isAuthenticated()", dropdown: ""}

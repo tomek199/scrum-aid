@@ -1,6 +1,7 @@
-scrumAid.controller "HeaderCtrl", ($scope, $location, DeviseFactory) ->
+scrumAid.controller "HeaderCtrl", ($scope, $location, DeviseFactory, ProjectsService) ->
   $scope.isAuthenticated = DeviseFactory.isAuthenticated
   $scope.currentUser = DeviseFactory.currentUser
+  $scope.projects = []
 
   if $scope.isAuthenticated() == false
     $location.path '/login'
@@ -16,3 +17,15 @@ scrumAid.controller "HeaderCtrl", ($scope, $location, DeviseFactory) ->
 
   $scope.redirectTo = (path) ->
     $location.path path
+
+  $scope.getProjects = () ->
+    ProjectsService.index().$promise.then(
+      (response) ->
+        $scope.projects = response
+      (error) ->
+        console.log error
+    )
+
+  $scope.projectShow = (index) ->
+    console.log index
+    # todo
