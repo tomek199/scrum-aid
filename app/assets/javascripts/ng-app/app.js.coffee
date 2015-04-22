@@ -30,6 +30,8 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
     enabled: true
     requireBase: false
 
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+
   $httpProvider.interceptors.push('httpInterceptor')
 
 scrumAid.factory 'httpInterceptor', ($q) ->
