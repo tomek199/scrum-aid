@@ -1,2 +1,5 @@
-scrumAid.controller 'ProjectsIndexCtrl', ($scope) ->
-  $scope.controllerName = 'ProjectsIndexCtrl'
+scrumAid.controller 'ProjectsIndexCtrl', [
+  '$scope'
+  ($scope) ->
+    $scope.controllerName = 'ProjectsIndexCtrl'
+]

@@ -1,4 +1,7 @@
-scrumAid.controller "DashboardCtrl", ($scope, DeviseFactory) ->
-  $scope.ctrlName = "DashboardCtrl"
+scrumAid.controller "DashboardCtrl", [
+  '$scope', 'DeviseFactory'
+  ($scope, DeviseFactory) ->
+    $scope.ctrlName = "DashboardCtrl"
 
-  $scope.currentUser = DeviseFactory.currentUser()
+    $scope.currentUser = DeviseFactory.currentUser()
+]

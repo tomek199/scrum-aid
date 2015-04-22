@@ -34,12 +34,15 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
 
   $httpProvider.interceptors.push('httpInterceptor')
 
-scrumAid.factory 'httpInterceptor', ($q) ->
-  {
-    request: (config) ->
-      config
-    response: (result) ->
-      result
-    responseError: (error) ->
-      error
-  }
+scrumAid.factory 'httpInterceptor', [
+  '$q'
+  ($q) ->
+    {
+      request: (config) ->
+        config
+      response: (result) ->
+        result
+      responseError: (error) ->
+        error
+    }
+]
