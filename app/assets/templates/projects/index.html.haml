@@ -11,15 +11,13 @@
     %th Name
     %th Description
     %th.text-right Actions
-  %tbody{{"ng-repeat" => "project in projects"}}
+  %tbody{"ng-repeat" => "project in projects"}
     %tr
       %td {{$index + 1}}
       %td
         %a{href: "#"} {{project.name}}
       %td {{project.description}}
       %td.text-right
-        %button.btn.btn-xs.btn-default{tooltip: "Edit"}
-          %span.glyphicon.glyphicon-edit
         %button.btn.btn-xs.btn-danger{tooltip: "Delete"}
           %span.glyphicon.glyphicon-remove
 
