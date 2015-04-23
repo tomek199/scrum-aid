@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   # POST /project.new
   def create
     project = Project.new(project_params)
-    project.users
+    project.owner_id = current_user._id
     if project.save
       project.users << current_user
       render json: project
