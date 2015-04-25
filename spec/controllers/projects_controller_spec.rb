@@ -35,6 +35,7 @@ RSpec.describe ProjectsController, type: :controller do
       COUNT = 3
       COUNT.times do
         project = Project.new(name: Faker::Company.name)
+        project.owner_id = @user._id
         project.save
         project.users << @user
       end
