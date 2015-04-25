@@ -8,12 +8,15 @@
         .form-group{"sc-valid" => "{{registerForm.username}}"}
           %input#userName.form-control.input-lg{type: "text", name: "username",
           placeholder: "Username", "ng-model" => "user.username", required: true}
+          %sc-invalid{value: "{{registerForm.username}}"}
         .form-group{"sc-valid" => "{{registerForm.email}}"}
           %input#email.form-control.input-lg{type: "email", name: "email",
           placeholder: "Email", "ng-model" => "user.email", required: true}
+          %sc-invalid{value: "{{registerForm.email}}"}
         .form-group{"sc-valid" => "{{registerForm.password}}"}
           %input#password.form-control.input-lg{type: "password", name: "password",
           placeholder: "Password", "ng-model" => "user.password", required: true}
+          %sc-invalid{value: "{{registerForm.password}}"}
         .form-group
           %button.btn.btn-large.btn-success{type: "button", "ng-click" => "signUp()",
           "ng-disabled" => "!registerForm.$valid"}

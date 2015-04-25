@@ -9,6 +9,8 @@
       .col-sm-10
         %input#name.form-control.input{type: "text", name: "name",
         "ng-model" => "project.name", required: true}
+        %sc-invalid{value: "{{createProjectForm.name}}"}
+
     .form-group
       %label.control-label.col-sm-2{for: :description} Description
       .col-sm-10

@@ -8,10 +8,12 @@
             %label{for: :email} Email
             %input#email.form-control.input{type: "email", name: "email",
             "ng-model" => "user.email", required: true}
+            %sc-invalid{value: "{{loginForm.email}}"}
           .form-group{"sc-valid" => "{{loginForm.password}}"}
             %label{for: :password} Password
             %input#password.form-control.input{type: "password", name: "password",
             "ng-model" => "user.password", required: true}
+            %sc-invalid{value: "{{loginForm.password}}"}
           .form-group
             %button.btn.btn-large.btn-primary{type: "button", "ng-click" => "signIn()",
             "ng-disabled" => "!loginForm.$valid"}
