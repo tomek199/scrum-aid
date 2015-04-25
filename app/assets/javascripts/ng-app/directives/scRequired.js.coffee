@@ -2,7 +2,6 @@ scrumAid.directive 'scValid', [
   () ->
     restrict: 'A'
     link: (scope, elem, attr) ->
-      console.log elem
       scope.$watch (() ->
         attr.scValid
       ), (value) ->
