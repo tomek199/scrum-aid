@@ -1,0 +1,22 @@
+.modal-header
+  %h3 New project
+.modal-body
+  %form.form-horizontal{name: "createProjectForm"}
+    .form-group
+      %label.control-label.col-sm-2{for: :name}
+        %span.text-danger*
+        Name
+      .col-sm-10
+        %input#name.form-control.input{type: "text", name: "name",
+        "ng-model" => "project.name", required: true}
+    .form-group
+      %label.control-label.col-sm-2{for: :description} Description
+      .col-sm-10
+        %textarea.form-control{rows: "3", name: "description",
+        "ng-model" => "project.description"}
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "create()",
+  "ng-disabled" => "!createProjectForm.$valid"}
+    Create
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Cancel

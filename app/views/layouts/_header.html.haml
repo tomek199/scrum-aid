@@ -15,7 +15,9 @@
             %span.caret
           %ul.dropdown-menu{"dropdown-menu" => ""}
             %li
-              %a{href: "#", "ng-click" => "redirectTo('/projects')"} Show all
+              %a{href: "#", "ng-click" => "redirectTo('/projects')"}
+                %span.glyphicon.glyphicon-list
+                Show all
             %li.divider
             %li{"ng-repeat" => "project in projects"}
               %a{href: "#", "ng-click" => "projectShow($index)"}

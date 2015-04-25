@@ -1,7 +1,7 @@
 .page-header
   %h2
     Projects
-    %button.btn.btn-success.pull-right
+    %button.btn.btn-success.pull-right{"ng-click" => "new()"}
       %span.glyphicon.glyphicon-plus
       New
 
@@ -16,7 +16,8 @@
       %td {{$index + 1}}
       %td
         %a{href: "#"} {{project.name}}
-      %td {{project.description}}
+      %td
+        {{project.description}}
       %td.text-right
         %button.btn.btn-xs.btn-danger{tooltip: "Delete"}
           %span.glyphicon.glyphicon-remove
