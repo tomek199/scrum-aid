@@ -17,3 +17,8 @@
     text-align: center;
   }
 }
+
+// workaroud for modal-backdrop
+.modal-backdrop {
+  bottom: 0;
+}
