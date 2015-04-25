@@ -4,11 +4,11 @@
       .panel-heading Sign in
       .panel-body
         %form{name: "loginForm"}
-          .form-group
+          .form-group{"sc-valid" => "{{loginForm.email}}"}
             %label{for: :email} Email
             %input#email.form-control.input{type: "email", name: "email",
             "ng-model" => "user.email", required: true}
-          .form-group
+          .form-group{"sc-valid" => "{{loginForm.password}}"}
             %label{for: :password} Password
             %input#password.form-control.input{type: "password", name: "password",
             "ng-model" => "user.password", required: true}

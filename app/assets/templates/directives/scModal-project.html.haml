@@ -2,7 +2,7 @@
   %h3 New project
 .modal-body
   %form.form-horizontal{name: "createProjectForm"}
-    .form-group
+    .form-group{"sc-valid" => '{{createProjectForm.name}}'}
       %label.control-label.col-sm-2{for: :name}
         %span.text-danger*
         Name
