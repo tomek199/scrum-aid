@@ -1,6 +1,6 @@
 scrumAid.factory 'DeviseFactory', [
-  '$resource', '$cookies'
-  ($resource, $cookies) ->
+  '$resource', 'CookiesFactory'
+  ($resource, CookiesFactory) ->
 
     # Sign up resource
     signUpResource = $resource '/users.json', {},
@@ -22,11 +22,16 @@ scrumAid.factory 'DeviseFactory', [
 
     # Save signed in user data to cookie
     saveUser = (user) ->
-      $cookies.currentUser = JSON.stringify(user)
+      userToSave = {}
+      userToSave._id = user._id
+      userToSave.username = user.username
+      userToSave.email = user.email
+      console.log userToSave
+      CookiesFactory.putUser(userToSave)
 
     # Delete signed out user from cookie
     deleteUser = () ->
-      $cookies.currentUser = ""
+      CookiesFactory.deleteUser()
 
     # Sign up API
     signUp = (user, success, error) ->
@@ -65,15 +70,11 @@ scrumAid.factory 'DeviseFactory', [
       )
     # Current user API
     currentUser = () ->
-      user = $cookies.currentUser
-      if user != undefined && user.length > 0
-        return JSON.parse($cookies.currentUser)
-      else
-        return null
+      CookiesFactory.getUser()
 
     # Is authenticated API
     isAuthenticated = () ->
-      !!$cookies.currentUser
+      !!CookiesFactory.getUser()
 
 
     # API return
