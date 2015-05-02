@@ -26,7 +26,6 @@ scrumAid.factory 'DeviseFactory', [
       userToSave._id = user._id
       userToSave.username = user.username
       userToSave.email = user.email
-      console.log userToSave
       CookiesFactory.putUser(userToSave)
 
     # Delete signed out user from cookie
