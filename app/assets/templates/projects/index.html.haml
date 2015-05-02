@@ -5,7 +5,8 @@
       %span.glyphicon.glyphicon-plus
       New
 
-%table.table.table-hover
+%sc-empty-list{list: "{{projects}}"}
+%table.table.table-hover{"ng-show" => "projects.length"}
   %thead
     %th #
     %th Name
