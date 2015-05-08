@@ -21,6 +21,6 @@
         {{project.description}}
         %sc-empty{value: "{{project.description}}"}
       %td.text-right
-        %button.btn.btn-xs.btn-danger{tooltip: "Delete"}
+        %button.btn.btn-xs.btn-danger{tooltip: "Delete", "ng-click" => "delete($index)"}
           %span.glyphicon.glyphicon-remove
 

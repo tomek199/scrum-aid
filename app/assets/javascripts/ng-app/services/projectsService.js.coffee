@@ -10,4 +10,7 @@ scrumAid.service 'ProjectsService', [
         method: 'POST'
         params: action: ''
         isArray: false
+      delete:
+        method: 'DELETE'
+        params: action: ''
 ]

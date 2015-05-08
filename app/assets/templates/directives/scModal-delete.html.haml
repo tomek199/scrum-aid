@@ -1,0 +1,9 @@
+.modal-header
+  %h3 Delete
+.modal-body.text-danger
+  %h4 Are you sure you want to delete?
+.modal-footer
+  %button.btn.btn-danger{"ng-click" => "$close(true)"}
+    Yes
+  %button.btn.btn-default{"ng-click" => "$dismiss()"}
+    No
