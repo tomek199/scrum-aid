@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     render json: user.projects
   end
 
-  # POST /project.new
+  # POST /projects
   def create
     project = Project.new(project_params)
     project.owner_id = current_user._id
@@ -17,6 +17,16 @@ class ProjectsController < ApplicationController
       render json: project
     else
       render json: {errors: project.errors}, status: 422
+    end
+  end
+
+  # DELETE /projects/:id
+  def destroy
+    project = Project.find params[:id]
+    if project.destroy
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 422
     end
   end
 

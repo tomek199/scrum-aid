@@ -45,4 +45,18 @@ RSpec.describe ProjectsController, type: :controller do
       expect(result.count).to eq COUNT
     end
   end
+
+  describe 'DELETE #destroy' do
+    it 'should delete Project' do
+      project = Project.new(name: Faker::Company.name)
+      project.owner_id = @user.id
+      project.save
+      project_id = project.id
+      params = {id: project_id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      count = Project.where(id: project_id).count
+      expect(count).to eql 0
+    end
+  end
 end
