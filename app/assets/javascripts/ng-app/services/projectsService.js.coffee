@@ -6,6 +6,10 @@ scrumAid.service 'ProjectsService', [
         method: 'GET'
         params: action: ''
         isArray: true
+      show:
+        method: 'GET'
+        params: action: ''
+        isArray: false
       create:
         method: 'POST'
         params: action: ''

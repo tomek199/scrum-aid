@@ -29,6 +29,6 @@ scrumAid.controller "HeaderCtrl", [
       )
 
     $scope.projectShow = (index) ->
-      console.log index
-      # todo
+      id = $scope.projects[index]._id.$oid
+      $location.path '/projects/' + id
 ]

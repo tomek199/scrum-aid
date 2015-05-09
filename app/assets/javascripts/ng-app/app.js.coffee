@@ -6,6 +6,7 @@
   "ui.bootstrap"
 ])
 scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
+# Sessions
   $routeProvider.when "/",
     templateUrl: "devise/register.html"
     controller: "SessionsCtrl"
@@ -15,16 +16,20 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/login",
     templateUrl: "devise/login.html"
     controller: "SessionsCtrl"
-  $routeProvider.when "/dashboard",
-    templateUrl: "dashboard/dashboard.html"
-    controller: "DashboardCtrl"
-
-  $routeProvider.when "/projects",
-    templateUrl: "projects/index.html"
-    controller: "ProjectsIndexCtrl"
   $routeProvider.otherwise
     templateUrl: "devise/register.html"
     controller: "SessionsCtrl"
+# Dashboard
+  $routeProvider.when "/dashboard",
+    templateUrl: "dashboard/dashboard.html"
+    controller: "DashboardCtrl"
+# Projects
+  $routeProvider.when "/projects",
+    templateUrl: "projects/index.html"
+    controller: "ProjectsIndexCtrl"
+  $routeProvider.when "/projects/:id",
+    templateUrl: "projects/show.html"
+    controller: "ProjectsShowCtrl"
 
   $locationProvider.html5Mode
     enabled: true
