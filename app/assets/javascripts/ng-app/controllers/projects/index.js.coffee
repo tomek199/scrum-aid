@@ -1,6 +1,6 @@
 scrumAid.controller 'ProjectsIndexCtrl', [
-  '$scope', '$modal', 'ProjectsService'
-  ($scope, $modal, ProjectsService) ->
+  '$scope','$location', '$modal', 'ProjectsService'
+  ($scope, $location, $modal, ProjectsService) ->
     ProjectsService.index().$promise.then(
       (response) ->
         $scope.projects = response
@@ -30,4 +30,7 @@ scrumAid.controller 'ProjectsIndexCtrl', [
           (error) ->
         )
 
+    $scope.projectShow = (index) ->
+      id = $scope.projects[index]._id.$oid
+      $location.path '/projects/' + id
 ]

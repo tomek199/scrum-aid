@@ -1,9 +1,10 @@
 scrumAid.controller "HeaderCtrl", [
-  '$scope', '$location', 'DeviseFactory', 'ProjectsService'
-  ($scope, $location, DeviseFactory, ProjectsService) ->
+  '$scope', '$location', 'DeviseFactory', 'CookiesFactory', 'ProjectsService'
+  ($scope, $location, DeviseFactory, CookiesFactory, ProjectsService) ->
     $scope.isAuthenticated = DeviseFactory.isAuthenticated
     $scope.currentUser = DeviseFactory.currentUser
     $scope.projects = []
+    $scope.currentProject = CookiesFactory.getProject
 
     if $scope.isAuthenticated() == false
       $location.path '/login'
@@ -29,6 +30,9 @@ scrumAid.controller "HeaderCtrl", [
       )
 
     $scope.projectShow = (index) ->
-      id = $scope.projects[index]._id.$oid
+      if typeof(index) == 'object'
+        id = index.$oid
+      else
+        id = $scope.projects[index]._id.$oid
       $location.path '/projects/' + id
 ]

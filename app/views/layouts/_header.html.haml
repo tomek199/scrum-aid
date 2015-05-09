@@ -22,15 +22,31 @@
             %li{"ng-repeat" => "project in projects"}
               %a{href: "#", "ng-click" => "projectShow($index)"}
                 {{project.name}}
+        -# Current project
+        %li
+          .btn-group{role: :group}
+            %button.btn.btn-default.navbar-btn.btn-sm{"ng-click" => "projectShow(currentProject()._id)",
+            tooltip: "Current project", "tooltip-placement" => "bottom"}
+              {{currentProject().name}}
       -# right menu
       %ul.nav.navbar-nav.navbar-right
+        %li{"ng-show" => "isAuthenticated()"}
+          %a{href: "#", tooltip: "Help", "tooltip-placement" => "bottom"}
+            %span.glyphicon.glyphicon-question-sign
         %li.dropdown{"ng-show" => "isAuthenticated()", dropdown: ""}
           %a.dropdown-toggle{href: "#", "dropdown-toggle" => ""}
-            {{currentUser().email}}
+            %span.glyphicon.glyphicon-user
             %span.caret
           %ul.dropdown-menu{"dropdown-menu" => ""}
             %li
-              %a{href: "#", "ng-click" => "signOut()"} Sign out
+              %a{href: "#"}
+                %span.glyphicon.glyphicon-cog
+                Profile settings
+            %li
+              %a{href: "#", "ng-click" => "signOut()"}
+                %span.glyphicon.glyphicon-log-out
+                Sign out
+
         -# auth buttons
         %li{"ng-show" => "!isAuthenticated()"}
           %button.btn.btn-success.navbar-btn{"ng-click" => "redirectTo('/register')"} Sign up

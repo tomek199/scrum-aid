@@ -16,7 +16,7 @@
     %tr
       %td {{$index + 1}}
       %td
-        %a{href: "#"} {{project.name}}
+        %a{href: "#", "ng-click" => "projectShow($index)"} {{project.name}}
       %td
         {{project.description}}
         %sc-empty{value: "{{project.description}}"}
