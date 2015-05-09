@@ -42,7 +42,7 @@ RSpec.describe ProjectsController, type: :controller do
       get :index
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
-      expect(result.count).to eq COUNT
+      expect(result.count).to eql COUNT
     end
   end
 
@@ -57,6 +57,21 @@ RSpec.describe ProjectsController, type: :controller do
       expect(response).to have_http_status(:ok)
       count = Project.where(id: project_id).count
       expect(count).to eql 0
+    end
+  end
+
+  describe 'GET #show' do
+    it 'should show Project by Id' do
+      project = Project.new(name: Faker::Company.name)
+      project.owner_id = @user.id
+      project.save
+      project.users << @user
+      project_id = project.id
+      params = {id: project_id}
+      get :show, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['_id']['$oid']).to eql project_id.to_s
     end
   end
 end

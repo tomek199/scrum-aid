@@ -8,6 +8,16 @@ class ProjectsController < ApplicationController
     render json: user.projects
   end
 
+  # GET /projects/:id
+  def show
+    project = Project.find params[:id]
+    if project
+      render json: project
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
+
   # POST /projects
   def create
     project = Project.new(project_params)
@@ -26,7 +36,7 @@ class ProjectsController < ApplicationController
     if project.destroy
       render json: {}
     else
-      render json: {errors: "Unexpected error"}, status: 422
+      render json: {errors: "Unexpected error"}, status: 412
     end
   end
 
