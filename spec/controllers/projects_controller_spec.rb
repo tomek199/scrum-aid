@@ -36,6 +36,7 @@ RSpec.describe ProjectsController, type: :controller do
       COUNT.times do
         project = Project.new(name: Faker::Company.name)
         project.owner_id = @user._id
+        project.owner_username = @user.username
         project.save
         project.users << @user
       end
@@ -50,6 +51,7 @@ RSpec.describe ProjectsController, type: :controller do
     it 'should delete Project' do
       project = Project.new(name: Faker::Company.name)
       project.owner_id = @user.id
+      project.owner_username = @user.username
       project.save
       project_id = project.id
       params = {id: project_id}
@@ -64,6 +66,7 @@ RSpec.describe ProjectsController, type: :controller do
     it 'should show Project by Id' do
       project = Project.new(name: Faker::Company.name)
       project.owner_id = @user.id
+      project.owner_username = @user.username
       project.save
       project.users << @user
       project_id = project.id

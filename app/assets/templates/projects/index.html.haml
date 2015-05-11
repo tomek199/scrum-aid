@@ -11,6 +11,7 @@
     %th #
     %th Name
     %th Description
+    %th Owner
     %th.text-right Actions
   %tbody{"ng-repeat" => "project in projects"}
     %tr
@@ -20,7 +21,8 @@
       %td
         {{project.description}}
         %sc-empty{value: "{{project.description}}"}
+      %td
+        {{project.owner_username}}
       %td.text-right
         %button.btn.btn-xs.btn-danger{tooltip: "Delete", "ng-click" => "delete($index)"}
           %span.glyphicon.glyphicon-remove
-

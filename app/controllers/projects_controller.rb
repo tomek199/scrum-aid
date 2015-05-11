@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   def create
     project = Project.new(project_params)
     project.owner_id = current_user._id
+    project.owner_username = current_user.username
     if project.save
       project.users << current_user
       render json: project
