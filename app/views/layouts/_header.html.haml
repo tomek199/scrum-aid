@@ -23,7 +23,7 @@
               %a{href: "#", "ng-click" => "projectShow($index)"}
                 {{project.name}}
         -# Current project
-        %li
+        %li{"ng-show" => "isCurrentProject()"}
           .btn-group{role: :group}
             %button.btn.btn-default.navbar-btn.btn-sm{"ng-click" => "projectShow(currentProject()._id)",
             tooltip: "Current project", "tooltip-placement" => "bottom"}

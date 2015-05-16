@@ -1,6 +1,6 @@
 scrumAid.controller 'ProjectsIndexCtrl', [
-  '$scope','$location', '$modal', 'ProjectsService'
-  ($scope, $location, $modal, ProjectsService) ->
+  '$scope','$location', '$modal', 'ProjectsService', 'CookiesFactory'
+  ($scope, $location, $modal, ProjectsService, CookiesFactory) ->
     ProjectsService.index().$promise.then(
       (response) ->
         $scope.projects = response
@@ -26,6 +26,7 @@ scrumAid.controller 'ProjectsIndexCtrl', [
         project_id = $scope.projects[index]._id.$oid
         ProjectsService.delete(id: project_id).$promise.then(
           (response) ->
+            CookiesFactory.deleteProject(project_id)
             $scope.projects.splice(index, 1)
           (error) ->
         )

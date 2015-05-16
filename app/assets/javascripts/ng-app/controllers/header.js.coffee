@@ -29,6 +29,12 @@ scrumAid.controller "HeaderCtrl", [
           console.log error
       )
 
+    $scope.isCurrentProject = () ->
+      if $scope.currentProject()
+        return true
+      else
+        return false
+
     $scope.projectShow = (index) ->
       if typeof(index) == 'object'
         id = index.$oid

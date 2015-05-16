@@ -25,8 +25,14 @@ scrumAid.factory 'CookiesFactory', [
     putProject = (project) ->
       $cookies.currentProject = JSON.stringify(project)
 
-    deleteProject = () ->
-      $cookies.currentProject = ""
+    deleteProject = (id) ->
+      if id
+        project = $cookies.currentProject
+        if project != undefined && project.length > 0
+          if JSON.parse(project)._id.$oid == id
+            $cookies.currentProject = ""
+      else
+        $cookies.currentProject = ""
 
     {
       getUser: getUser
