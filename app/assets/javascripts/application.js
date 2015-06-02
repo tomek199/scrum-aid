@@ -17,6 +17,7 @@
 //= require angular-resource
 //= require angular-bootstrap
 //= require angular-cookies
+//= require angular-xeditable
 //= require angular-rails-templates
 //= require_tree ../templates
 //= require_tree .

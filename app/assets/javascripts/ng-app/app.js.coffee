@@ -4,6 +4,7 @@
   "templates"
   "ngCookies"
   "ui.bootstrap"
+  "xeditable"
 ])
 scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
 # Sessions
@@ -38,6 +39,9 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 
   $httpProvider.interceptors.push('httpInterceptor')
+
+scrumAid.run (editableOptions) ->
+  editableOptions.theme = 'bs3'
 
 scrumAid.factory 'httpInterceptor', [
   '$q'
