@@ -31,6 +31,16 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # PUT /projects/:id
+  def update
+    project = Project.find params[:id]
+    if project.update(project_params)
+      render json: project
+    else
+      render json: {errors: project.errors}, status: 422
+    end
+  end
+
   # DELETE /projects/:id
   def destroy
     project = Project.find params[:id]

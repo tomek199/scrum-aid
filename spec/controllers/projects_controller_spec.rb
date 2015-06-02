@@ -77,4 +77,48 @@ RSpec.describe ProjectsController, type: :controller do
       expect(result['_id']['$oid']).to eql project_id.to_s
     end
   end
+
+  describe 'POST #update' do
+    it 'should update Project name' do
+      project = Project.new(name: Faker::Company.name)
+      project.owner_id = @user.id
+      project.owner_username = @user.username
+      project.save
+      project.users << @user
+      project_id = project.id
+      params = {id: project_id, project: {name: "New name"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['name']).to eql "New name"
+    end
+
+    it 'should update Project description' do
+      project = Project.new(name: Faker::Company.name, description: Faker::Company.name)
+      project.owner_id = @user.id
+      project.owner_username = @user.username
+      project.save
+      project.users << @user
+      project_id = project.id
+      params = {id: project_id, project: {description: "New description"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['description']).to eql "New description"
+    end
+
+    it 'should return error when update Project by empty name' do
+      project = Project.new(name: Faker::Company.name)
+      project.owner_id = @user.id
+      project.owner_username = @user.username
+      project.save
+      project.users << @user
+      project_id = project.id
+      params = {id: project_id, project: {name: ""}}
+      put :update, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      result = JSON.parse(response.body)
+      expect(result['errors']).to_not be_nil
+    end
+  end
 end
