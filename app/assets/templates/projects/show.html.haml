@@ -1,6 +1,21 @@
 .page-header
   %h2
     Project
-    %small {{project.name}}
+    %small{"editable-text" => "project.name"} {{project.name}}
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
+.col-md-10
+  .form-horizontal{name: "ProjectForm"}
+    .form-group-lg
+      %label.control-label.col-md-2{for: :name}
+        Name:
+      .col-md-10
+        %p.form-control-static.text-muted{"editable-text" => "project.name"}
+          {{project.name}}
+    .form-group-lg
+      %label.control-label.col-md-2{for: :description}
+        Description:
+      .col-md-10
+        %p.form-control-static.text-muted{"editable-textarea" => "project.description"}
+          {{project.description}}
+

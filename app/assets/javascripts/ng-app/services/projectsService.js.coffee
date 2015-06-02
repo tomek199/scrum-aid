@@ -1,20 +1,20 @@
 scrumAid.service 'ProjectsService', [
   '$resource'
   ($resource) ->
-    $resource '/projects/:action/:id', {},
+    $resource '/projects/:id', {},
       index:
         method: 'GET'
-        params: action: ''
         isArray: true
       show:
         method: 'GET'
-        params: action: ''
         isArray: false
       create:
         method: 'POST'
-        params: action: ''
+        isArray: false
+      update:
+        method: 'PUT'
         isArray: false
       delete:
         method: 'DELETE'
-        params: action: ''
+        isArray: false
 ]
