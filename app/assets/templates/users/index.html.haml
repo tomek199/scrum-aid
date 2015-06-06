@@ -1,9 +1,25 @@
 .page-header
   %h2
-    Project
-    %small {{project.name}}
+    Project's
+    %small {{project().name}}
     users
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
-  %pre {{name}}
+  %sc-empty-list{list: "{{users}}"}
+  %table.table.table-hover{"ng-show" => "users.length"}
+    %thead
+      %th #
+      %th username
+      %th email
+      %th.text-right Actions
+    %tbody{"ng-repeat" => "user in users"}
+      %tr
+        %td {{$index + 1}}
+        %td
+          %a{href: "#"} {{user.username}}
+        %td
+          {{user.email}}
+        %td.text-right
+          %button.btn.btn-xs.btn-danger{tooltip: "Remove user from project"}
+            %span.glyphicon.glyphicon-remove
