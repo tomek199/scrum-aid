@@ -7,12 +7,18 @@ RSpec.describe ProjectsController, type: :controller do
     @user = FactoryGirl.create(:user)
     @user.save
     sign_in @user
+
+    @project = Project.new(name: Faker::Company.name)
+    @project.owner_id = @user.id
+    @project.owner_username = @user.username
+    @project.save
+    @project.users << @user
   end
 
   describe 'POST #create' do
     it 'should create new Project' do
       params = {project: {name: "Test project", description: "Test description"}}
-      get :create, params
+      post :create, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       expect(result['_id']).to_not be_nil
@@ -23,7 +29,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'should return error message when project name is nil' do
       params = {project: {description: "Test description"}}
-      get :create, params
+      post :create, params
       expect(response).to have_http_status(:unprocessable_entity)
       result = JSON.parse(response.body)
       expect(result['errors']).to_not be_nil
@@ -43,17 +49,13 @@ RSpec.describe ProjectsController, type: :controller do
       get :index
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
-      expect(result.count).to eql COUNT
+      expect(result.count).to eql COUNT + 1 # COUNT + project from before method
     end
   end
 
   describe 'DELETE #destroy' do
     it 'should delete Project' do
-      project = Project.new(name: Faker::Company.name)
-      project.owner_id = @user.id
-      project.owner_username = @user.username
-      project.save
-      project_id = project.id
+      project_id = @project.id
       params = {id: project_id}
       delete :destroy, params
       expect(response).to have_http_status(:ok)
@@ -64,12 +66,7 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'GET #show' do
     it 'should show Project by Id' do
-      project = Project.new(name: Faker::Company.name)
-      project.owner_id = @user.id
-      project.owner_username = @user.username
-      project.save
-      project.users << @user
-      project_id = project.id
+      project_id = @project.id
       params = {id: project_id}
       get :show, params
       expect(response).to have_http_status(:ok)
@@ -80,12 +77,7 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'POST #update' do
     it 'should update Project name' do
-      project = Project.new(name: Faker::Company.name)
-      project.owner_id = @user.id
-      project.owner_username = @user.username
-      project.save
-      project.users << @user
-      project_id = project.id
+      project_id = @project.id
       params = {id: project_id, project: {name: "New name"}}
       put :update, params
       expect(response).to have_http_status(:ok)
@@ -94,12 +86,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'should update Project description' do
-      project = Project.new(name: Faker::Company.name, description: Faker::Company.name)
-      project.owner_id = @user.id
-      project.owner_username = @user.username
-      project.save
-      project.users << @user
-      project_id = project.id
+      project_id = @project.id
       params = {id: project_id, project: {description: "New description"}}
       put :update, params
       expect(response).to have_http_status(:ok)
@@ -108,12 +95,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'should return error when update Project by empty name' do
-      project = Project.new(name: Faker::Company.name)
-      project.owner_id = @user.id
-      project.owner_username = @user.username
-      project.save
-      project.users << @user
-      project_id = project.id
+      project_id = @project.id
       params = {id: project_id, project: {name: ""}}
       put :update, params
       expect(response).to have_http_status(:unprocessable_entity)

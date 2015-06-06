@@ -11,6 +11,7 @@ RSpec.describe UsersController, type: :controller do
     @project.owner_id = @user._id
     @project.owner_username = @user.username
     @project.save
+    @project.users << @user
 
     @params = {project_id: @project._id}
   end
@@ -29,8 +30,7 @@ RSpec.describe UsersController, type: :controller do
      get :index, @params
      expect(response).to have_http_status(:ok)
      result = JSON.parse(response.body)
-     expect(result.count).to eql COUNT
-     puts result
+     expect(result.count).to eql COUNT + 1 # COUNT + user from before method
    end
  end
 end
