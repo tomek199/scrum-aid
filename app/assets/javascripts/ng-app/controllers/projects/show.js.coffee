@@ -1,7 +1,10 @@
 scrumAid.controller 'ProjectsShowCtrl', [
   '$scope','$routeParams', 'ProjectsService', 'CookiesFactory'
   ($scope, $routeParams, ProjectsService, CookiesFactory) ->
-    $scope.project = {}
+    $scope.project = {
+      name: ""
+      description: ""
+    }
 
     ProjectsService.show(id: $routeParams.id).$promise.then(
       (response) ->
