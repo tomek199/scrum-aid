@@ -38,7 +38,6 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'GET #index' do
     it 'should return current user projects list' do
-      COUNT = 3
       COUNT.times do
         project = Project.new(name: Faker::Company.name)
         project.owner_id = @user._id

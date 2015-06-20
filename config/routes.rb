@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :projects do
-    resources :users, only: [:index]
+    resources :users, only: [:index] do
+      get 'to_add', on: :collection
+    end
   end
 
   root to: 'application#index'
