@@ -1,6 +1,6 @@
 scrumAid.controller 'UsersIndexCtrl', [
-  '$scope', '$location', 'CookiesFactory', 'ProjectsUsersService'
-  ($scope, $location, CookiesFactory, ProjectsUsersService) ->
+  '$scope', '$location', '$modal', 'CookiesFactory', 'ProjectsUsersService'
+  ($scope, $location, $modal, CookiesFactory, ProjectsUsersService) ->
     $scope.project = CookiesFactory.getProject
     $scope.users = []
 
@@ -10,4 +10,14 @@ scrumAid.controller 'UsersIndexCtrl', [
       (error) ->
         console.log error
     )
+
+    $scope.addUsers = () ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-addUserToProject.html'
+        controller: 'UsersAddToProjectCtrl'
+        size: 'md'
+        resolve:
+          project_id: ->
+            $scope.project()._id.$oid
+      modalInstance.result.then (result) ->
 ]

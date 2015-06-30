@@ -3,6 +3,9 @@
     Project's
     %small {{project().name}}
     users
+    %button.btn.btn-success.pull-right{"ng-click" => "addUsers()"}
+      %span.glyphicon.glyphicon-plus
+      Add
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
