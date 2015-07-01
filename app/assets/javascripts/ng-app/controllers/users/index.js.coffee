@@ -20,4 +20,8 @@ scrumAid.controller 'UsersIndexCtrl', [
           project_id: ->
             $scope.project()._id.$oid
       modalInstance.result.then (result) ->
+        if result._id?
+          $scope.users.push(result)
+        else
+          console.log(result)
 ]

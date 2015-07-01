@@ -8,13 +8,12 @@
         User
       .col-sm-10
         %input#name.form-control.input{type: "text", name: "user", "ng-model" => "userToAdd",
-        typeahead: "users for users in getUser($viewValue)", required: true}
-
-  %pre {{usersToAdd | json}}
+        typeahead: "user as user.email for user in getUser($viewValue)",
+        required: true, placeholder: "Put email or username"}
 
 .modal-footer
   %button.btn.btn-primary{"ng-click" => "add()",
-  "ng-disabled" => "!createProjectForm.$valid"}
+  "ng-disabled" => "!userToAdd._id"}
     Add
   %button.btn.btn-default{"ng-click" => "cancel()"}
     Cancel

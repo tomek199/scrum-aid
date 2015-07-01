@@ -1,7 +1,7 @@
 scrumAid.service 'ProjectsUsersService', [
   '$resource'
   ($resource) ->
-    $resource '/projects/:project_id/users/:id/:action', {},
+    $resource '/projects/:project_id/users/:user_id/:action', {},
       index:
         method: 'GET'
         isArray: true
@@ -10,5 +10,9 @@ scrumAid.service 'ProjectsUsersService', [
         params:
           action: 'to_add'
         isArray: true
-
+      addToProject:
+        method: 'GET'
+        params:
+          action: 'add_to_project'
+        isArray: false
 ]
