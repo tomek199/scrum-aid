@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :users, only: [:index] do
       get 'to_add', on: :collection
-      post 'add_to_project'
+      get 'add_to_project'
     end
   end
 

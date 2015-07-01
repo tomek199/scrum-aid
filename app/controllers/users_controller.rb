@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     render json: (all_users - project_users), status: 200
   end
 
-  # POST /projects/:id/users/:user_id/add_to_project
+  # GET /projects/:id/users/:user_id/add_to_project
   def add_to_project
     project = Project.find(params[:project_id])
     user = User.find(params[:user_id])

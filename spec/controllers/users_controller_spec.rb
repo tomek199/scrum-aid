@@ -53,7 +53,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'POST #project/:id/users/:user_id/add_to_project' do
+  describe 'GET #project/:id/users/:user_id/add_to_project' do
     it 'should add user to project' do
       user = User.new({
                           username: Faker::Internet.user_name,
@@ -63,7 +63,7 @@ RSpec.describe UsersController, type: :controller do
       user.save
       users_count =  @project.users.size
       project_id = @project._id
-      post :add_to_project, {project_id: project_id, user_id: user._id}
+      get :add_to_project, {project_id: project_id, user_id: user._id}
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       current_users_count = Project.find(project_id).users.count
