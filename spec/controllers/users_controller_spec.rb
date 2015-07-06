@@ -71,4 +71,22 @@ RSpec.describe UsersController, type: :controller do
       expect(current_users_count).to eql (users_count + 1)
     end
   end
+
+  describe 'DELETE #project/:project_id/users/:user_id/remove_from_project' do
+    it 'should remove user from project' do
+      user = User.new({
+                          username: Faker::Internet.user_name,
+                          email: Faker::Internet.email,
+                          password: Faker::Internet.password(8)
+                      })
+      user.save
+      @project.users << user
+      project_id = @project._id
+      user_id = user._id
+      delete :remove_from_project, {project_id: project_id, user_id: user_id}
+      expect(response).to have_http_status(:ok)
+      project_users = Project.find(project_id).users
+      expect(project_users.count).to eql 1
+    end
+  end
 end

@@ -26,6 +26,17 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /projects/:id/users/:user_id/remove_from_project
+  def remove_from_project
+    project = Project.find(params[:project_id])
+    user = User.find(params[:user_id])
+    if project.users.delete(user)
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
+
   private
 
   def project_params

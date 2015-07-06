@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index] do
       get 'to_add', on: :collection
       get 'add_to_project'
+      delete 'remove_from_project'
     end
   end
 
