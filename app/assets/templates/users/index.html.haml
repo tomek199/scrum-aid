@@ -1,7 +1,7 @@
 .page-header
   %h2
     Project's
-    %small {{project().name}}
+    %small {{project.name}}
     users
     %button.btn.btn-success.pull-right{"ng-click" => "addUsers()"}
       %span.glyphicon.glyphicon-plus
@@ -24,5 +24,6 @@
         %td
           {{user.email}}
         %td.text-right
-          %button.btn.btn-xs.btn-danger{tooltip: "Remove user from project"}
+          %button.btn.btn-xs.btn-danger{tooltip: "Remove user from project",
+          "ng-click" => "delete($index)", "ng-hide" => "isOwner($index)"}
             %span.glyphicon.glyphicon-remove

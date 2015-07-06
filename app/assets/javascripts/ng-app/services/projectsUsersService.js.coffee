@@ -15,4 +15,9 @@ scrumAid.service 'ProjectsUsersService', [
         params:
           action: 'add_to_project'
         isArray: false
+      removeFromProject:
+        method: 'DELETE'
+        params:
+          action: 'remove_from_project'
+        isArray: false
 ]
