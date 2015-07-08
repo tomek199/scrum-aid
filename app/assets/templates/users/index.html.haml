@@ -24,6 +24,9 @@
         %td
           {{user.email}}
         %td.text-right
+          %button.btn.btn-xs.btn-default{tooltip: "Change owner",
+          "ng-click" => "changeOwner($index)", "ng-hide" => "isOwner($index)"}
+            %span.glyphicon.glyphicon-briefcase
           %button.btn.btn-xs.btn-danger{tooltip: "Remove user from project",
-          "ng-click" => "delete($index)", "ng-hide" => "isOwnerOrCurrentUser($index)"}
+          "ng-click" => "delete($index)", "ng-hide" => "isOwner($index) || isCurrentUser($index)"}
             %span.glyphicon.glyphicon-remove

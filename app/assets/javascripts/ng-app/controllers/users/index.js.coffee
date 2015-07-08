@@ -43,10 +43,25 @@ scrumAid.controller 'UsersIndexCtrl', [
           (error) ->
         )
 
-    $scope.isOwnerOrCurrentUser = (index) ->
-      if $scope.users[index]._id.$oid == $scope.project.owner_id.$oid
-        return true
+    $scope.isCurrentUser = (index) ->
       if $scope.users[index]._id.$oid == CookiesFactory.getUser()._id.$oid
         return true
       false
+
+    $scope.isOwner = (index) ->
+      if $scope.users[index]._id.$oid == $scope.project.owner_id.$oid
+        return true
+      false
+
+    $scope.changeOwner = (index) ->
+      user = $scope.users[index]
+      properties = {owner_id: user._id.$oid, owner_username: user.username}
+      project_id = $routeParams.id
+      ProjectsService.update(id: project_id, properties).$promise.then(
+        (response) ->
+          $scope.project = response
+        (error) ->
+          console.log error
+      )
+
 ]
