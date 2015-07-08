@@ -101,5 +101,17 @@ RSpec.describe ProjectsController, type: :controller do
       result = JSON.parse(response.body)
       expect(result['errors']).to_not be_nil
     end
+
+    it 'should update Project onwer_id and owner_username' do
+      new_owner = FactoryGirl.create(:user)
+      new_owner.save
+      @project.users << new_owner
+      params = {id: @project.id, project: {owner_id: new_owner.id, owner_username: new_owner.username}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['owner_id']['$oid']).to eql new_owner.id.to_s
+      expect(result['owner_username']).to eql new_owner.username
+    end
   end
 end
