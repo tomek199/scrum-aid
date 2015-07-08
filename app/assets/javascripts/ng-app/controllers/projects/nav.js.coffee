@@ -1,15 +1,14 @@
 scrumAid.controller 'ProjectsNavCtrl', [
-  '$scope', '$location', 'CookiesFactory'
-  ($scope, $location, CookiesFactory) ->
-    $scope.currentProject = CookiesFactory.getProject
+  '$scope', '$routeParams'
+  ($scope, $routeParams) ->
     $scope.tabs = [
       {
         title: 'Overview'
-        href: '/projects/' + $scope.currentProject()._id.$oid
+        href: '/projects/' + $routeParams.id
       }
       {
         title: 'Users'
-        href: '/projects/' + $scope.currentProject()._id.$oid + '/users'
+        href: '/projects/' + $routeParams.id + '/users'
       }
     ]
 ]
