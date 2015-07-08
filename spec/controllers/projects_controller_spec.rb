@@ -54,30 +54,27 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'should delete Project' do
-      project_id = @project.id
-      params = {id: project_id}
+      params = {id: @project.id}
       delete :destroy, params
       expect(response).to have_http_status(:ok)
-      count = Project.where(id: project_id).count
+      count = Project.where(id: @project.id).count
       expect(count).to eql 0
     end
   end
 
   describe 'GET #show' do
     it 'should show Project by Id' do
-      project_id = @project.id
-      params = {id: project_id}
+      params = {id: @project.id}
       get :show, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
-      expect(result['_id']['$oid']).to eql project_id.to_s
+      expect(result['_id']['$oid']).to eql @project.id.to_s
     end
   end
 
   describe 'POST #update' do
     it 'should update Project name' do
-      project_id = @project.id
-      params = {id: project_id, project: {name: "New name"}}
+      params = {id: @project.id, project: {name: "New name"}}
       put :update, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -85,8 +82,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'should update Project description' do
-      project_id = @project.id
-      params = {id: project_id, project: {description: "New description"}}
+      params = {id: @project.id, project: {description: "New description"}}
       put :update, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -94,8 +90,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'should return error when update Project by empty name' do
-      project_id = @project.id
-      params = {id: project_id, project: {name: ""}}
+      params = {id: @project.id, project: {name: ""}}
       put :update, params
       expect(response).to have_http_status(:unprocessable_entity)
       result = JSON.parse(response.body)
