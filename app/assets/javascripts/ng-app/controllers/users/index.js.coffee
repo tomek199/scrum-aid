@@ -43,8 +43,10 @@ scrumAid.controller 'UsersIndexCtrl', [
           (error) ->
         )
 
-    $scope.isOwner = (index) ->
+    $scope.isOwnerOrCurrentUser = (index) ->
       if $scope.users[index]._id.$oid == $scope.project.owner_id.$oid
         return true
-      return false
+      if $scope.users[index]._id.$oid == CookiesFactory.getUser()._id.$oid
+        return true
+      false
 ]

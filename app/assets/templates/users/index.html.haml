@@ -25,5 +25,5 @@
           {{user.email}}
         %td.text-right
           %button.btn.btn-xs.btn-danger{tooltip: "Remove user from project",
-          "ng-click" => "delete($index)", "ng-hide" => "isOwner($index)"}
+          "ng-click" => "delete($index)", "ng-hide" => "isOwnerOrCurrentUser($index)"}
             %span.glyphicon.glyphicon-remove
