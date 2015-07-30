@@ -2,6 +2,12 @@ class RolesController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
 
+  # GET /projects/:project_id/roles
+  def index
+    project = Project.find params[:project_id]
+    render json: project.roles, status: 200
+  end
+
   # POST /projects/:project_id/roles
   def create
     project = Project.find params[:project_id]

@@ -12,9 +12,6 @@ RSpec.describe RolesController, type: :controller do
     @project.owner_username = @user.username
     @project.save
     @project.users << @user
-
-    @role = Role.new(name: Faker::Name.title)
-    @role.save
   end
 
   describe 'POST #create' do
@@ -34,6 +31,21 @@ RSpec.describe RolesController, type: :controller do
       expect(response).to have_http_status(:unprocessable_entity)
       result = JSON.parse(response.body)
       expect(result['errors']).to_not be_nil
+    end
+  end
+
+  describe 'POST #index' do
+    it 'should return project roles list' do
+      COUNT.times do
+        role = Role.new(name: Faker::Name.title)
+        role.save
+        @project.roles << role
+      end
+      params = {project_id: @project.id}
+      get :index, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result.count).to eql COUNT
     end
   end
 end

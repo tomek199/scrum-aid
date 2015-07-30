@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get 'add_to_project'
       delete 'remove_from_project'
     end
-    resources :roles, only: [:create]
+    resources :roles, only: [:index, :create]
   end
 
   root to: 'application#index'
