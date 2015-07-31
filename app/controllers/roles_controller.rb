@@ -20,6 +20,16 @@ class RolesController < ApplicationController
     end
   end
 
+  # DELETE /projects/:project_id/roles/:id
+  def destroy
+    role = Role.find params[:id]
+    if role.destroy
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
+
   private
 
   def role_params

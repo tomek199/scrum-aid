@@ -48,4 +48,17 @@ RSpec.describe RolesController, type: :controller do
       expect(result.count).to eql COUNT
     end
   end
+
+  describe 'DELETE #destroy' do
+    it 'should remove role from project' do
+      role = Role.new(name: Faker::Name.title)
+      role.save
+      @project.roles << role
+      params = {project_id: @project.id, id: role.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      @project = Project.find @project.id
+      expect(@project.roles.count).to eql 0
+    end
+  end
 end
