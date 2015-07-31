@@ -73,7 +73,8 @@ Build date: 2014-01-10
 .editable-click:hover, a.editable-click:hover {
     text-decoration: none;
     color: #2a6496;
-    border-bottom-color: #2a6496
+    border-bottom-color: #2a6496;
+    cursor: text;
 }
 
 .editable-empty, .editable-empty:hover, .editable-empty:focus, a.editable-empty, a.editable-empty:hover, a.editable-empty:focus {
