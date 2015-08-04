@@ -1,6 +1,6 @@
 scrumAid.controller 'UsersIndexCtrl', [
-  '$scope', '$location', '$routeParams', '$modal', 'CookiesFactory', 'ProjectsService', 'ProjectsUsersService'
-  ($scope, $location, $routeParams, $modal, CookiesFactory, ProjectsService, ProjectsUsersService) ->
+  '$scope', '$location', '$routeParams', '$modal', 'CookiesFactory', 'ProjectsService', 'ProjectsUsersService', 'ProjectsRolesService'
+  ($scope, $location, $routeParams, $modal, CookiesFactory, ProjectsService, ProjectsUsersService, ProjectsRolesService) ->
 
     ProjectsService.show(id: $routeParams.id).$promise.then(
       (response) ->
@@ -13,6 +13,13 @@ scrumAid.controller 'UsersIndexCtrl', [
     ProjectsUsersService.index(project_id: $routeParams.id).$promise.then(
       (response) ->
         $scope.users = response
+      (error) ->
+        console.log error
+    )
+
+    ProjectsRolesService.index(project_id: $routeParams.id).$promise.then(
+      (response) ->
+        $scope.roles = response
       (error) ->
         console.log error
     )

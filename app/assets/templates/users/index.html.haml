@@ -3,12 +3,15 @@
     Project's
     %small {{project.name}}
     users
-    %button.btn.btn-success.pull-right{"ng-click" => "addUsers()"}
-      %span.glyphicon.glyphicon-plus
-      Add
+
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
+  %h3
+    Users list
+    %button.btn.btn-success.pull-right{"ng-click" => "addUsers()"}
+      %span.glyphicon.glyphicon-plus
+      Add
   %sc-empty-list{list: "{{users}}"}
   %table.table.table-hover{"ng-show" => "users.length"}
     %thead
@@ -30,3 +33,18 @@
           %button.btn.btn-xs.btn-danger{tooltip: "Remove user from project",
           "ng-click" => "delete($index)", "ng-hide" => "isOwner($index) || isCurrentUser($index)"}
             %span.glyphicon.glyphicon-remove
+  %h3
+    User roles
+    %button.btn.btn-success.pull-right
+      %span.glyphicon.glyphicon-plus
+      Add
+  %table.table.table-hover{"ng-show" => "roles.length"}
+    %thead
+      %th #
+      %th role name
+      %th.text-right Actions
+    %tbody{"ng-repeat" => "role in roles"}
+      %tr
+        %td {{$index + 1}}
+        %td
+          %a{href: "#"} {{role.name}}
