@@ -64,6 +64,18 @@ scrumAid.controller 'UsersIndexCtrl', [
         else
           console.log(result)
 
+    $scope.deleteRole = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        project_id = $scope.project._id.$oid
+        role_id = $scope.roles[index]._id.$oid
+        ProjectsRolesService.delete(project_id: project_id, role_id: role_id).$promise.then(
+          (response) ->
+            $scope.roles.splice(index, 1)
+          (error) ->
+        )
+
     $scope.isCurrentUser = (index) ->
       if $scope.users[index]._id.$oid == CookiesFactory.getUser()._id.$oid
         return true

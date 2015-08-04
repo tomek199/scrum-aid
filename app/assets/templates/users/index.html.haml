@@ -48,3 +48,7 @@
         %td {{$index + 1}}
         %td
           %a{href: "#"} {{role.name}}
+        %td.text-right
+          %button.btn.btn-xs.btn-danger{tooltip: "Remove role",
+          "ng-click" => "deleteRole($index)"}
+            %span.glyphicon.glyphicon-remove
