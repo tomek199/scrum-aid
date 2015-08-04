@@ -35,7 +35,7 @@
             %span.glyphicon.glyphicon-remove
   %h3
     User roles
-    %button.btn.btn-success.pull-right
+    %button.btn.btn-success.pull-right{"ng-click" => "addRole()"}
       %span.glyphicon.glyphicon-plus
       Add
   %table.table.table-hover{"ng-show" => "roles.length"}

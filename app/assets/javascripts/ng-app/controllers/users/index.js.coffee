@@ -50,6 +50,20 @@ scrumAid.controller 'UsersIndexCtrl', [
           (error) ->
         )
 
+    $scope.addRole = () ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-role.html'
+        controller: 'RolesCreateCtrl'
+        size: 'md'
+        resolve:
+          project_id: ->
+            $scope.project._id.$oid
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.roles.push(result)
+        else
+          console.log(result)
+
     $scope.isCurrentUser = (index) ->
       if $scope.users[index]._id.$oid == CookiesFactory.getUser()._id.$oid
         return true
