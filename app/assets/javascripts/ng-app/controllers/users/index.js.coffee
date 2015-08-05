@@ -26,7 +26,7 @@ scrumAid.controller 'UsersIndexCtrl', [
 
     $scope.addUsers = () ->
       modalInstance = $modal.open
-        templateUrl: 'directives/scModal-addUserToProject.html'
+        templateUrl: 'users/addUserToProject.html'
         controller: 'UsersAddToProjectCtrl'
         size: 'md'
         resolve:
@@ -52,7 +52,7 @@ scrumAid.controller 'UsersIndexCtrl', [
 
     $scope.addRole = () ->
       modalInstance = $modal.open
-        templateUrl: 'directives/scModal-role.html'
+        templateUrl: 'roles/add.html'
         controller: 'RolesCreateCtrl'
         size: 'md'
         resolve:

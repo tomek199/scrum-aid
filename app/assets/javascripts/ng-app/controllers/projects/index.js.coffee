@@ -10,7 +10,7 @@ scrumAid.controller 'ProjectsIndexCtrl', [
 
     $scope.new = () ->
       modalInstance = $modal.open
-        templateUrl: 'directives/scModal-project.html'
+        templateUrl: 'projects/add.html'
         controller: 'ProjectsCreateCtrl'
         size: 'lg'
       modalInstance.result.then (result) ->
