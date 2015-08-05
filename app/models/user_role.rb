@@ -1,4 +1,4 @@
-class ProjectUser
+class UserRole
   include Mongoid::Document
 
   belongs_to :project

@@ -4,7 +4,7 @@ class Role
   field :name, type: String
 
   belongs_to :project
-  has_many :project_users
+  has_many :user_roles
 
   validates_presence_of :name
 end
