@@ -25,6 +25,8 @@ RSpec.describe ProjectsController, type: :controller do
       expect(result['name']).to eq params[:project][:name]
       expect(result['user_ids']).to_not be_nil
       expect(result['owner_id']['$oid']).to eql @user._id.to_s
+      project = Project.find result['_id']['$oid']
+      expect(project.roles.count).to eql 3
     end
 
     it 'should return error message when project name is nil' do
