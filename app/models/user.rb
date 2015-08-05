@@ -25,6 +25,7 @@ class User
   field :last_sign_in_ip,    type: String
 
   has_and_belongs_to_many :projects
+  has_many :project_users
 
   # Hack for Devise 3.4.1
   def self.serialize_into_session(record)
