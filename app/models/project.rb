@@ -13,8 +13,8 @@ class Project
   validates_presence_of :name, :owner_id, :owner_username
 
   def add_default_roles
-    self.roles << Role.create(name: ProjectsHelper::PRODUCT_OWNER)
-    self.roles << Role.create(name: ProjectsHelper::SCRUM_MASTER)
-    self.roles << Role.create(name: ProjectsHelper::DEVELOPER)
+    self.roles << Role.create(name: ProjectsHelper::PRODUCT_OWNER, removable: false, editable: false)
+    self.roles << Role.create(name: ProjectsHelper::SCRUM_MASTER, removable: false, editable: false)
+    self.roles << Role.create(name: ProjectsHelper::DEVELOPER, removable: false, editable: true)
   end
 end

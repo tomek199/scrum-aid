@@ -25,6 +25,16 @@ RSpec.describe RolesController, type: :controller do
       expect(result['project_id']).to_not be_nil
     end
 
+    it 'should create uneditable and unremovable Role' do
+      role = {name: Faker::Name.title, removable: false, editable: false}
+      params = {project_id: @project._id, role: role}
+      post :create, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['removable']).to eql false
+      expect(result['editable']).to eql false
+    end
+
     it 'should return error message when role name is empty' do
       params = {project_id: @project._id, role: {name: ""}}
       post :create, params
