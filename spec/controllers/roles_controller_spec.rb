@@ -71,4 +71,19 @@ RSpec.describe RolesController, type: :controller do
       expect(@project.roles.count).to eql 0
     end
   end
+
+  describe 'POST #mark_as_default' do
+    it 'should mark role as default' do
+      role = Role.new(name: Faker::Name.title)
+      role.save
+      @project.add_default_roles
+      @project.roles << role
+      params = {project_id: @project.id, role_id: role.id}
+      post :mark_as_default, params
+      expect(response).to have_http_status(:ok)
+      default_roles = Role.where(project_id: @project.id, default: true)
+      expect(default_roles.count).to eql 1
+      expect(default_roles[0].name).to eql role.name
+    end
+  end
 end

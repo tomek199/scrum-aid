@@ -30,6 +30,16 @@ class RolesController < ApplicationController
     end
   end
 
+  # POST /projects/:project_id/roles/:id/mark_as_default
+  def mark_as_default
+    role = Role.find params[:role_id]
+    if role.mark_as_default
+      render json: Role.where(project_id: params[:project_id])
+    else
+      render json: {errors: "Unexpeced error"}, status: 412
+    end
+  end
+
   private
 
   def role_params

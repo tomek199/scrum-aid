@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       get 'add_to_project'
       delete 'remove_from_project'
     end
-    resources :roles, only: [:index, :create, :destroy]
+    resources :roles, only: [:index, :create, :destroy] do
+      post 'mark_as_default'
+    end
   end
 
   root to: 'application#index'

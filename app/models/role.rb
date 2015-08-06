@@ -10,4 +10,10 @@ class Role
   has_many :user_roles
 
   validates_presence_of :name
+
+  def mark_as_default
+    last_default = Role.find_by(project_id: self.project_id, default: true)
+    last_default.update(default: false, removable: true)
+    self.update(default: true, removable: false)
+  end
 end
