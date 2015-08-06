@@ -44,11 +44,12 @@
       %th role name
       %th.text-right Actions
     %tbody{"ng-repeat" => "role in roles"}
-      %tr
+      %tr{"ng-class" => "{'bg-warning': !role.removable && !role.editable}"}
         %td {{$index + 1}}
         %td
           %a{href: "#"} {{role.name}}
         %td.text-right
           %button.btn.btn-xs.btn-danger{tooltip: "Remove role",
-          "ng-click" => "deleteRole($index)"}
+          "ng-click" => "deleteRole($index)",
+          "ng-hide" => "!role.removable"}
             %span.glyphicon.glyphicon-remove
