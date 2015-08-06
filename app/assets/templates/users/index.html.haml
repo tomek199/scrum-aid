@@ -44,11 +44,16 @@
       %th role name
       %th.text-right Actions
     %tbody{"ng-repeat" => "role in roles"}
-      %tr{"ng-class" => "{'bg-warning': !role.removable && !role.editable}"}
+      %tr{"ng-class" => "{'bg-warning': !role.removable && !role.editable,
+      'bg-success': role.default}"}
         %td {{$index + 1}}
         %td
           %a{href: "#"} {{role.name}}
         %td.text-right
+          %button.btn.btn-xs.btn-default{tooltip: "Mark as default",
+          "ng-click" => "markAsDefault($index)",
+          "ng-hide" => "role.default || !role.removable"}
+            %span.glyphicon.glyphicon-star
           %button.btn.btn-xs.btn-danger{tooltip: "Remove role",
           "ng-click" => "deleteRole($index)",
           "ng-hide" => "!role.removable"}

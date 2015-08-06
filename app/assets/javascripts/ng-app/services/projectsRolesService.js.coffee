@@ -11,4 +11,9 @@ scrumAid.service 'ProjectsRolesService', [
       delete:
         method: 'DELETE'
         isArray: false
+      markAsDefault:
+        method: 'POST'
+        params:
+          action: 'mark_as_default'
+        isArray: true
 ]

@@ -92,7 +92,17 @@ scrumAid.controller 'UsersIndexCtrl', [
       project_id = $routeParams.id
       ProjectsService.update(id: project_id, properties).$promise.then(
         (response) ->
-          $scope.project = response
+          $scope.roles = response
+        (error) ->
+          console.log error
+      )
+
+    $scope.markAsDefault = (index) ->
+      role = $scope.roles[index]
+      project_id = $routeParams.id
+      ProjectsRolesService.markAsDefault({project_id: project_id, role_id: role._id.$oid}, {}).$promise.then(
+        (response) ->
+          $scope.roles = response
         (error) ->
           console.log error
       )
