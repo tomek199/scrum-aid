@@ -45,12 +45,12 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'GET #project/:id/users/:user_id/add_to_project' do
+  describe 'POST #project/:id/users/:user_id/add_to_project' do
     it 'should add user to project' do
       user = FactoryGirl.create(:user)
       user.save
       users_count =  @project.users.size
-      get :add_to_project, {project_id: @project.id, user_id: user._id}
+      post :add_to_project, {project_id: @project.id, user_id: user._id}
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       current_users_count = Project.find(@project.id).users.count

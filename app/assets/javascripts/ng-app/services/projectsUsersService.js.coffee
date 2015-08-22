@@ -11,7 +11,7 @@ scrumAid.service 'ProjectsUsersService', [
           action: 'to_add'
         isArray: true
       addToProject:
-        method: 'GET'
+        method: 'POST'
         params:
           action: 'add_to_project'
         isArray: false

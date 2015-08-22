@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :users, only: [:index] do
       get 'to_add', on: :collection
-      get 'add_to_project'
+      post 'add_to_project'
       delete 'remove_from_project'
     end
     resources :roles, only: [:index, :create, :destroy] do

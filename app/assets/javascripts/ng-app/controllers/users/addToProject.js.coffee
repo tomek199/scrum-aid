@@ -18,7 +18,7 @@ scrumAid.controller 'UsersAddToProjectCtrl', [
 
     $scope.add = () ->
       user_id = $scope.userToAdd._id.$oid
-      ProjectsUsersService.addToProject(project_id: project_id, user_id: user_id).$promise.then(
+      ProjectsUsersService.addToProject({project_id: project_id, user_id: user_id}, {}).$promise.then(
         (response) ->
           $modalInstance.close(response)
         (error) ->
