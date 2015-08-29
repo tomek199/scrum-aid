@@ -113,4 +113,22 @@ scrumAid.controller 'UsersIndexCtrl', [
           console.log error
       )
 
+    $scope.updateRole = (index) ->
+      role = $scope.roles[index]
+      modalInstance = $modal.open
+        templateUrl: 'roles/update.html'
+        controller: 'RolesUpdateCtrl'
+        size: 'md'
+        resolve:
+          project_id: ->
+            $scope.project._id.$oid
+          role: ->
+            role
+
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.roles[index] = result
+        else
+          console.log(result)
+
 ]

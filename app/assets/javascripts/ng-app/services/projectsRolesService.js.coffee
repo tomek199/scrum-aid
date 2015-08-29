@@ -8,6 +8,9 @@ scrumAid.service 'ProjectsRolesService', [
       create:
         method: 'POST'
         isArray: false
+      update:
+        method: 'PUT'
+        isArray: false
       delete:
         method: 'DELETE'
         isArray: false

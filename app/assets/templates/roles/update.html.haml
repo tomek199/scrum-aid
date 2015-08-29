@@ -1,0 +1,18 @@
+.modal-header
+  %h3 Update role
+.modal-body
+  %form.form-horizontal{name: "updateRoleForm"}
+    .form-group{"sc-valid" => '{{updateRoleForm.name}}'}
+      %label.control-label.col-sm-2{for: :name}
+        %span.text-danger*
+        Name
+      .col-sm-10
+        %input#name.form-control.input{type: "text", name: "name",
+        "ng-model" => "roleName", required: true}
+        %sc-invalid{value: "{{updateRoleForm.name}}"}
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "update()",
+  "ng-disabled" => "!updateRoleForm.$valid"}
+    Update
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Cancel
