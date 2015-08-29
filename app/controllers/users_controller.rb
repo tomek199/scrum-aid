@@ -19,7 +19,9 @@ class UsersController < ApplicationController
   def add_to_project
     project = Project.find(params[:project_id])
     user = User.find(params[:user_id])
+    role = Role.find(params[:role_id])
     if project.users << user
+      UserRole.create({project: project, user: user, role: role})
       render json: user, status: 200
     else
       render render json: {errors: project.errors}, status: 422

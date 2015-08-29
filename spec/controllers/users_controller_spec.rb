@@ -50,12 +50,16 @@ RSpec.describe UsersController, type: :controller do
       user = FactoryGirl.create(:user)
       user.save
       users_count =  @project.users.size
-      post :add_to_project, {project_id: @project.id, user_id: user._id}
+      role = Role.new({name: Faker::Name.title})
+      @project.roles << role
+      post :add_to_project, {project_id: @project.id, user_id: user._id, role_id: role._id}
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       current_users_count = Project.find(@project.id).users.count
       expect(result['_id']['$oid']).to eql user._id.to_s
       expect(current_users_count).to eql (users_count + 1)
+      user_role = user.reload.user_roles[0]
+      expect(user_role.role._id).to eql role._id
     end
   end
 
