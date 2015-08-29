@@ -10,7 +10,14 @@
         %input#name.form-control.input{type: "text", name: "user", "ng-model" => "userToAdd",
         typeahead: "user as user.email for user in getUser($viewValue)",
         required: true, placeholder: "Put email or username"}
-
+    .form-group
+      %label.control-label.col-sm-2{for: :role}
+        Role
+      .col-sm-10
+        %select.form-control{"ng-model" => "role"}
+          %option{"ng-repeat" => "role in roles", name: "role",
+          value: "{{role._id.$oid}}", "ng-selected" => "role.default"}
+            {{role.name}}
 .modal-footer
   %button.btn.btn-primary{"ng-click" => "add()",
   "ng-disabled" => "!userToAdd._id"}

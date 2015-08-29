@@ -32,6 +32,12 @@ scrumAid.controller 'UsersIndexCtrl', [
         resolve:
           project_id: ->
             $scope.project._id.$oid
+          roles: ->
+            roles = []
+            for role in $scope.roles
+              if role.editable
+                roles.push role
+            return roles
       modalInstance.result.then (result) ->
         if result._id?
           $scope.users.push(result)

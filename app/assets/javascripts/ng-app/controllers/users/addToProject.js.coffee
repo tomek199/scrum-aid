@@ -1,8 +1,7 @@
 scrumAid.controller 'UsersAddToProjectCtrl', [
-  '$scope', '$modalInstance', 'ProjectsUsersService', 'project_id'
-  ($scope, $modalInstance, ProjectsUsersService, project_id) ->
-    $scope.usersToAdd = []
-    $scope.userToAdd = undefined
+  '$scope', '$modalInstance', 'ProjectsUsersService', 'project_id', 'roles'
+  ($scope, $modalInstance, ProjectsUsersService, project_id, roles) ->
+    $scope.roles = roles
 
     ProjectsUsersService.toAdd(project_id: project_id).$promise.then(
       (response) ->
@@ -18,7 +17,8 @@ scrumAid.controller 'UsersAddToProjectCtrl', [
 
     $scope.add = () ->
       user_id = $scope.userToAdd._id.$oid
-      ProjectsUsersService.addToProject({project_id: project_id, user_id: user_id}, {}).$promise.then(
+      console.log $scope.role
+      ProjectsUsersService.addToProject({project_id: project_id, user_id: user_id}, {role_id: $scope.role}).$promise.then(
         (response) ->
           $modalInstance.close(response)
         (error) ->
