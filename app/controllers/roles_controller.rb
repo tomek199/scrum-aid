@@ -20,6 +20,16 @@ class RolesController < ApplicationController
     end
   end
 
+  # PUT /projects/:project_id/roles/:id
+  def update
+    role = Role.find params[:id]
+    if role.update(role_params)
+      render json: role
+    else
+      render json: {errors: role.errors}, status: 422
+    end
+  end
+
   # DELETE /projects/:project_id/roles/:id
   def destroy
     role = Role.find params[:id]

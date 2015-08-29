@@ -59,6 +59,30 @@ RSpec.describe RolesController, type: :controller do
     end
   end
 
+  describe 'put #update' do
+    it 'should update role name' do
+      role = Role.new(name: Faker::Name.title)
+      role.save
+      @project.roles << role
+      params = {project_id: @project.id, id: role.id, role: {name: "New name"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result["name"]).to eql "New name"
+    end
+
+    it 'should return error when update Role by empty name' do
+      role = Role.new(name: Faker::Name.title)
+      role.save
+      @project.roles << role
+      params = {project_id: @project.id, id: role.id, role: {name: ""}}
+      put :update, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      result = JSON.parse(response.body)
+      expect(result['errors']).to_not be_nil
+    end
+  end
+
   describe 'DELETE #destroy' do
     it 'should remove role from project' do
       role = Role.new(name: Faker::Name.title)
