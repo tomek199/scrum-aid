@@ -9,6 +9,7 @@ class Project
   has_and_belongs_to_many :users
   has_many :roles, dependent: :destroy
   has_many :user_roles, dependent: :destroy
+  has_many :sprints, dependent: :destroy
 
   validates_presence_of :name, :owner_id, :owner_username
 

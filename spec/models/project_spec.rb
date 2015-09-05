@@ -8,4 +8,5 @@ RSpec.describe Project, type: :model do
   it {is_expected.to validate_presence_of(:owner_username)}
   it {is_expected.to have_many(:roles)}
   it {is_expected.to have_many(:user_roles)}
+  it {is_expected.to have_many(:sprints)}
 end
