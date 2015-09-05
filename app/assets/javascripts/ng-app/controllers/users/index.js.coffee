@@ -1,6 +1,6 @@
 scrumAid.controller 'UsersIndexCtrl', [
-  '$scope', '$location', '$routeParams', '$modal', 'CookiesFactory', 'ProjectsService', 'ProjectsUsersService', 'ProjectsRolesService'
-  ($scope, $location, $routeParams, $modal, CookiesFactory, ProjectsService, ProjectsUsersService, ProjectsRolesService) ->
+  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'ProjectsService', 'ProjectsUsersService', 'ProjectsRolesService'
+  ($scope, $routeParams, $modal, CookiesFactory, ProjectsService, ProjectsUsersService, ProjectsRolesService) ->
 
     ProjectsService.show(id: $routeParams.id).$promise.then(
       (response) ->
