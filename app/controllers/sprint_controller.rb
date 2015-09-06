@@ -2,6 +2,12 @@ class SprintController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
 
+  # GET /projects/:project_id/sprints
+  def index
+    project = Project.find params[:project_id]
+    render json: project.sprints, status: 200
+  end
+
   # POST /projects/:project_id/sprints
   def create
     project = Project.find params[:project_id]
