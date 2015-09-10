@@ -1,6 +1,6 @@
 scrumAid.controller 'UsersIndexCtrl', [
-  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'Restangular', 'ProjectsUsersService', 'ProjectsRolesService'
-  ($scope, $routeParams, $modal, CookiesFactory, Restangular, ProjectsUsersService, ProjectsRolesService) ->
+  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'Restangular', 'ProjectsUsersService'
+  ($scope, $routeParams, $modal, CookiesFactory, Restangular, ProjectsUsersService) ->
 
     project = Restangular.one('projects', $routeParams.id)
 
@@ -74,7 +74,7 @@ scrumAid.controller 'UsersIndexCtrl', [
       modalInstance.result.then (result) ->
         project_id = $scope.project._id.$oid
         role_id = $scope.roles[index]._id.$oid
-        ProjectsRolesService.delete(project_id: project_id, role_id: role_id).$promise.then(
+        project.one('roles', role_id).remove().then(
           (response) ->
             $scope.roles.splice(index, 1)
           (error) ->
@@ -102,11 +102,10 @@ scrumAid.controller 'UsersIndexCtrl', [
     $scope.markAsDefault = (index) ->
       role = $scope.roles[index]
       project_id = $routeParams.id
-      ProjectsRolesService.markAsDefault({project_id: project_id, role_id: role._id.$oid}, {}).$promise.then(
+#      project.one('markAsDefault', role._id.$oid).post().then(
+      project.one('roles', role._id.$oid).customPOST('', 'mark_as_default').then(
         (response) ->
           $scope.roles = response
-        (error) ->
-          console.log error
       )
 
     $scope.updateRole = (index) ->

@@ -1,9 +1,9 @@
 scrumAid.controller 'RolesCreateCtrl', [
-  '$scope', '$modalInstance', 'ProjectsRolesService', 'project_id'
-  ($scope, $modalInstance, ProjectsRolesService, project_id) ->
+  '$scope', '$modalInstance', 'Restangular', 'project_id'
+  ($scope, $modalInstance, Restangular, project_id) ->
 
     $scope.create = () ->
-      ProjectsRolesService.create(project_id: project_id, $scope.role).$promise.then(
+      Restangular.one('projects', project_id).one('roles').post('', $scope.role).then(
         (response) ->
           $modalInstance.close(response)
         (error) ->
