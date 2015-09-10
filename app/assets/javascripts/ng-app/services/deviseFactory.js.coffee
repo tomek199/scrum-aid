@@ -1,24 +1,6 @@
 scrumAid.factory 'DeviseFactory', [
-  '$resource', 'CookiesFactory'
-  ($resource, CookiesFactory) ->
-
-    # Sign up resource
-    signUpResource = $resource '/users.json', {},
-      post:
-        method: 'POST'
-        isArray: false
-
-    # Sign in resource
-    signInResource = $resource '/users/sign_in.json', {},
-      post:
-        method: 'POST'
-        isArray: false
-
-    # Sign out resource
-    signOutResource = $resource '/users/sign_out.json', {},
-      delete:
-        method: 'DELETE'
-        isArray: false
+  'Restangular', 'CookiesFactory'
+  (Restangular, CookiesFactory) ->
 
     # Save signed in user data to cookie
     saveUser = (user) ->
@@ -34,7 +16,7 @@ scrumAid.factory 'DeviseFactory', [
 
     # Sign up API
     signUp = (user, success, error) ->
-      signUpResource.post(user: user).$promise.then(
+      Restangular.oneUrl('users.json').post('', user: user).then(
         (response) ->
           if !response.errors?
             saveUser(response)
@@ -47,26 +29,27 @@ scrumAid.factory 'DeviseFactory', [
 
     # Sign in API
     signIn = (user, success, error) ->
-      signInResource.post(user:user).$promise.then(
+      Restangular.oneUrl('users/sign_in.json').post('', user: user).then(
         (response) ->
           if !response.error?
             saveUser(response)
             success(currentUser())
           else
             error(response.error)
-        (reponse) ->
+        (response) ->
           error(response)
       )
 
     # Sign out API
     signOut = (success, error) ->
-      signOutResource.delete().$promise.then(
+      Restangular.oneUrl('/users/sign_out.json').remove().then(
         (response) ->
           deleteUser()
           success()
         (response) ->
           error(response)
       )
+
     # Current user API
     currentUser = () ->
       CookiesFactory.getUser()
