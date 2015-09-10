@@ -1,9 +1,11 @@
 scrumAid.controller 'UsersAddToProjectCtrl', [
-  '$scope', '$modalInstance', 'ProjectsUsersService', 'project_id', 'roles'
-  ($scope, $modalInstance, ProjectsUsersService, project_id, roles) ->
+  '$scope', '$modalInstance', 'Restangular', 'project_id', 'roles'
+  ($scope, $modalInstance, Restangular, project_id, roles) ->
     $scope.roles = roles
 
-    ProjectsUsersService.toAdd(project_id: project_id).$promise.then(
+    project = Restangular.one('projects', project_id)
+
+    project.all('users').customGET('to_add').then(
       (response) ->
         $scope.usersToAdd = response
     )
@@ -18,7 +20,7 @@ scrumAid.controller 'UsersAddToProjectCtrl', [
     $scope.add = () ->
       user_id = $scope.userToAdd._id.$oid
       console.log $scope.role
-      ProjectsUsersService.addToProject({project_id: project_id, user_id: user_id}, {role_id: $scope.role}).$promise.then(
+      project.one('users', user_id).customPOST({role_id: $scope.role}, 'add_to_project').then(
         (response) ->
           $modalInstance.close(response)
         (error) ->

@@ -1,6 +1,6 @@
 scrumAid.controller 'UsersIndexCtrl', [
-  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'Restangular', 'ProjectsUsersService'
-  ($scope, $routeParams, $modal, CookiesFactory, Restangular, ProjectsUsersService) ->
+  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'Restangular'
+  ($scope, $routeParams, $modal, CookiesFactory, Restangular) ->
 
     project = Restangular.one('projects', $routeParams.id)
 
@@ -48,10 +48,9 @@ scrumAid.controller 'UsersIndexCtrl', [
       modalInstance.result.then (result) ->
         project_id = $scope.project._id.$oid
         user_id = $scope.users[index]._id.$oid
-        ProjectsUsersService.removeFromProject(project_id: project_id, user_id: user_id).$promise.then(
+        project.one('users', user_id).customDELETE('remove_from_project').then(
           (response) ->
             $scope.users.splice(index, 1)
-          (error) ->
         )
 
     $scope.addRole = () ->
