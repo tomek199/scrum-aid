@@ -1,10 +1,10 @@
 scrumAid.controller 'ProjectsCreateCtrl', [
-  '$scope', '$modalInstance', 'ProjectsService'
-  ($scope, $modalInstance, ProjectsService) ->
+  '$scope', '$modalInstance', 'Restangular'
+  ($scope, $modalInstance, Restangular) ->
     $scope.project = {}
 
     $scope.create = () ->
-      ProjectsService.create($scope.project).$promise.then(
+      Restangular.one('projects').post('', $scope.project).then(
         (response) ->
           $modalInstance.close(response)
         (error) ->

@@ -1,23 +1,21 @@
 scrumAid.controller 'UsersIndexCtrl', [
-  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'ProjectsService', 'ProjectsUsersService', 'ProjectsRolesService'
-  ($scope, $routeParams, $modal, CookiesFactory, ProjectsService, ProjectsUsersService, ProjectsRolesService) ->
+  '$scope', '$routeParams', '$modal', 'CookiesFactory', 'Restangular', 'ProjectsUsersService', 'ProjectsRolesService'
+  ($scope, $routeParams, $modal, CookiesFactory, Restangular, ProjectsUsersService, ProjectsRolesService) ->
 
-    ProjectsService.show(id: $routeParams.id).$promise.then(
+    project = Restangular.one('projects', $routeParams.id)
+
+    project.get().then(
       (response) ->
         $scope.project = response
         CookiesFactory.putProject({_id: response._id, name: response.name})
-      (error) ->
-        console.log error
     )
 
-    ProjectsUsersService.index(project_id: $routeParams.id).$promise.then(
+    project.getList('users').then(
       (response) ->
         $scope.users = response
-      (error) ->
-        console.log error
     )
 
-    ProjectsRolesService.index(project_id: $routeParams.id).$promise.then(
+    project.getList('roles').then(
       (response) ->
         $scope.roles = response
       (error) ->
@@ -96,11 +94,9 @@ scrumAid.controller 'UsersIndexCtrl', [
       user = $scope.users[index]
       properties = {owner_id: user._id.$oid, owner_username: user.username}
       project_id = $routeParams.id
-      ProjectsService.update(id: project_id, properties).$promise.then(
+      project.customPUT(properties).then(
         (response) ->
-          $scope.roles = response
-        (error) ->
-          console.log error
+          $scope.project = response
       )
 
     $scope.markAsDefault = (index) ->

@@ -1,6 +1,6 @@
 scrumAid.controller "HeaderCtrl", [
-  '$scope', '$location', 'DeviseFactory', 'CookiesFactory', 'ProjectsService'
-  ($scope, $location, DeviseFactory, CookiesFactory, ProjectsService) ->
+  '$scope', '$location', 'Restangular', 'DeviseFactory', 'CookiesFactory'
+  ($scope, $location, Restangular, DeviseFactory, CookiesFactory) ->
     $scope.isAuthenticated = DeviseFactory.isAuthenticated
     $scope.currentUser = DeviseFactory.currentUser
     $scope.projects = []
@@ -22,11 +22,9 @@ scrumAid.controller "HeaderCtrl", [
       $location.path path
 
     $scope.getProjects = () ->
-      ProjectsService.index().$promise.then(
+      Restangular.all('projects').getList().then(
         (response) ->
           $scope.projects = response
-        (error) ->
-          console.log error
       )
 
     $scope.isCurrentProject = () ->

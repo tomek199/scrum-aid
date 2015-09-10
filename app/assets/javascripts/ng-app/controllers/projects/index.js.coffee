@@ -1,11 +1,9 @@
 scrumAid.controller 'ProjectsIndexCtrl', [
-  '$scope','$location', '$modal', 'ProjectsService', 'CookiesFactory'
-  ($scope, $location, $modal, ProjectsService, CookiesFactory) ->
-    ProjectsService.index().$promise.then(
+  '$scope','$location', '$modal', 'Restangular', 'CookiesFactory'
+  ($scope, $location, $modal, Restangular, CookiesFactory) ->
+    Restangular.all('projects').getList().then(
       (response) ->
         $scope.projects = response
-      (error) ->
-        console.log error
     )
 
     $scope.new = () ->
@@ -24,11 +22,10 @@ scrumAid.controller 'ProjectsIndexCtrl', [
         templateUrl: 'directives/scModal-delete.html'
       modalInstance.result.then (result) ->
         project_id = $scope.projects[index]._id.$oid
-        ProjectsService.delete(id: project_id).$promise.then(
+        Restangular.one('projects', project_id).remove().then(
           (response) ->
             CookiesFactory.deleteProject(project_id)
             $scope.projects.splice(index, 1)
-          (error) ->
         )
 
     $scope.projectShow = (index) ->

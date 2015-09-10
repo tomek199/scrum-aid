@@ -1,11 +1,9 @@
 scrumAid.controller 'SprintsIndexCtrl', [
-  '$scope', '$routeParams', '$modal', 'ProjectsService'
-  ($scope, $routeParams, $modal, ProjectsService) ->
-    ProjectsService.show(id: $routeParams.id).$promise.then(
+  '$scope', '$routeParams', '$modal', 'Restangular'
+  ($scope, $routeParams, $modal, Restangular) ->
+    Restangular.one('projects', $routeParams.id).get().then(
       (response) ->
         $scope.project = response
-      (error) ->
-        console.log error
     )
 
     $scope.new = () ->

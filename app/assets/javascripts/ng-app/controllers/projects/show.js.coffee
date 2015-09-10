@@ -1,17 +1,15 @@
 scrumAid.controller 'ProjectsShowCtrl', [
-  '$scope','$routeParams', 'ProjectsService', 'CookiesFactory'
-  ($scope, $routeParams, ProjectsService, CookiesFactory) ->
+  '$scope','$routeParams', 'Restangular', 'CookiesFactory'
+  ($scope, $routeParams, Restangular, CookiesFactory) ->
     $scope.project = {
       name: ""
       description: ""
     }
 
-    ProjectsService.show(id: $routeParams.id).$promise.then(
+    Restangular.one('projects', $routeParams.id).get().then(
       (response) ->
         $scope.project = response
         CookiesFactory.putProject({_id: response._id, name: response.name})
-      (error) ->
-        console.log error
     )
 
     $scope.$watch 'project.name', (newVal, oldVal) ->
@@ -24,10 +22,8 @@ scrumAid.controller 'ProjectsShowCtrl', [
 
     updateAttribute = (property) ->
       project_id = $scope.project._id.$oid
-      ProjectsService.update(id: project_id, property).$promise.then(
+      Restangular.all('projects').customPUT(property, project_id).then(
         (response) ->
           CookiesFactory.putProject({_id: response._id, name: response.name})
-        (error) ->
-          console.log error
       )
 ]
