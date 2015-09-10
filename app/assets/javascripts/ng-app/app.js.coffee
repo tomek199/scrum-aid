@@ -5,6 +5,7 @@
   "ngCookies"
   "ui.bootstrap"
   "xeditable"
+  "restangular"
 ])
 scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
 # Sessions

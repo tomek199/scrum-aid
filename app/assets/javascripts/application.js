@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require lodash
 //= require angular
 //= require angular-route
 //= require angular-resource
@@ -19,5 +20,6 @@
 //= require angular-cookies
 //= require angular-xeditable
 //= require angular-rails-templates
+//= require restangular
 //= require_tree ../templates
 //= require_tree .
