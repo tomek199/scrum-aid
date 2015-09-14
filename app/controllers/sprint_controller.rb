@@ -13,6 +13,7 @@ class SprintController < ApplicationController
     project = Project.find params[:project_id]
     sprint = Sprint.new(sprint_params)
     sprint.project = project
+    sprint.generate_index
     if sprint.save
       render json: sprint
     else

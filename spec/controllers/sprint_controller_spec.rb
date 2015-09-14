@@ -26,6 +26,7 @@ RSpec.describe SprintController, type: :controller do
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       expect(result['name']).to eql sprint[:name]
+      expect(result['index']).to eql @project.sprints.size
       expect(result['goal']).to eql sprint[:goal]
       expect(result['project_id']['$oid']).to eql @project.id.to_s
     end
