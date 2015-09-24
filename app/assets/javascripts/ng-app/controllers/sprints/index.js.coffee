@@ -1,9 +1,17 @@
 scrumAid.controller 'SprintsIndexCtrl', [
   '$scope', '$routeParams', '$modal', 'Restangular'
   ($scope, $routeParams, $modal, Restangular) ->
-    Restangular.one('projects', $routeParams.id).get().then(
+
+    project = Restangular.one('projects', $routeParams.id)
+
+    project.get().then(
       (response) ->
         $scope.project = response
+    )
+
+    project.getList('sprints').then(
+      (response) ->
+        $scope.sprints = response
     )
 
     $scope.new = () ->
@@ -16,7 +24,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
             $scope.project
       modalInstance.result.then (result) ->
         if result._id?
-#          todo
+          $scope.sprints.push(result)
         else
           console.log(result)
 ]
