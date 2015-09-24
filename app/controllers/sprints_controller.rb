@@ -1,4 +1,4 @@
-class SprintController < ApplicationController
+class SprintsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
 

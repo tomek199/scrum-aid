@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-RSpec.describe SprintController, type: :controller do
+RSpec.describe SprintsController, type: :controller do
   before(:each) do
     @user = FactoryGirl.create(:user)
     @user.save

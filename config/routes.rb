@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :roles, only: [:index, :create, :update, :destroy] do
       post 'mark_as_default'
     end
-    resources :sprint, only: [:index, :create]
+    resources :sprints, only: [:index, :create]
   end
 
   root to: 'application#index'
