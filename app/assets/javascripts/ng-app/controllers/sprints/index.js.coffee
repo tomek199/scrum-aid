@@ -11,6 +11,9 @@ scrumAid.controller 'SprintsIndexCtrl', [
         templateUrl: 'sprints/add.html'
         controller: 'SprintsCreateCtrl'
         size: 'lg'
+        resolve:
+          project: ->
+            $scope.project
       modalInstance.result.then (result) ->
         if result._id?
 #          todo
