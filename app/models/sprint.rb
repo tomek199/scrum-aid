@@ -6,6 +6,7 @@ class Sprint
   field :start_date, type: DateTime
   field :end_date, type: DateTime
   field :current, type: Boolean, default: false
+  field :closed, type: Boolean, default: false
   field :goal, type: String
 
   belongs_to :project
@@ -15,5 +16,4 @@ class Sprint
   def generate_index
     self.index = self.project.sprints.size
   end
-
 end
