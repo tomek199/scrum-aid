@@ -5,6 +5,25 @@ scrumAid.controller 'ProjectsShowCtrl', [
       name: ""
       description: ""
     }
+    
+    $scope.lengths = [
+      {
+        key: 7
+        value: '1 week'
+      },
+      {
+        key: 14
+        value: '2 weeks'
+      },
+      {
+        key: 21
+        value: '3 weeks'
+      },
+      {
+        key: 28
+        value: '4 weeks'
+      }
+    ]
 
     Restangular.one('projects', $routeParams.id).get().then(
       (response) ->
@@ -19,6 +38,9 @@ scrumAid.controller 'ProjectsShowCtrl', [
     $scope.$watch 'project.description', (newVal, oldVal) ->
       if !!newVal and !!oldVal
         updateAttribute({description: newVal})
+        
+    $scope.updateSprintLength = () ->
+      updateAttribute({sprint_length: $scope.project.sprint_length})
 
     updateAttribute = (property) ->
       project_id = $scope.project._id.$oid

@@ -110,5 +110,13 @@ RSpec.describe ProjectsController, type: :controller do
       expect(result['owner_id']['$oid']).to eql new_owner.id.to_s
       expect(result['owner_username']).to eql new_owner.username
     end
+    
+    it 'should update Project sprint_length' do
+      params = {id: @project.id, project: {sprint_length: 28}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['sprint_length']).to eql 28
+    end
   end
 end
