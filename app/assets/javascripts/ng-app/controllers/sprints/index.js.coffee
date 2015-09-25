@@ -37,4 +37,15 @@ scrumAid.controller 'SprintsIndexCtrl', [
           (response) -> 
             $scope.sprints[index] = response
         )
+        
+    $scope.delete = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        project_id = $routeParams.id
+        sprint_id = $scope.sprints[index]._id.$oid
+        project.one('sprints', sprint_id).remove().then(
+          (response) ->
+            $scope.sprints.splice(index, 1)
+        )
 ]
