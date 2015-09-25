@@ -48,4 +48,14 @@ scrumAid.controller 'SprintsIndexCtrl', [
           (response) ->
             $scope.sprints.splice(index, 1)
         )
+        
+    $scope.start = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-startSprint.html'
+      modalInstance.result.then (result) ->
+        sprint_id = $scope.sprints[index]._id.$oid
+        project.one('sprints', sprint_id).customPOST('', 'start').then(
+          (response) ->
+            $scope.sprints = response
+        )
 ]

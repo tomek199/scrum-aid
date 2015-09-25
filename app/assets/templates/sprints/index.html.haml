@@ -7,6 +7,7 @@
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
+  %sc-empty-list{list: "{{sprints}}"}
   %accordion{"close-others" => "true"}
     %accordion-group{"ng-repeat" => "sprint in sprints", "ng-class" => "{'panel-success': sprint.current, 'panel-danger': sprint.closed}"}
       %accordion-heading
@@ -18,7 +19,7 @@
       .col-md-2.btn-group-vertical{role: :group}
         %button.btn.btn-danger{"ng-hide" => "sprint.current", "ng-click" => "delete($index)"} Remove sprint
         %button.btn.btn-danger{"ng-show" => "sprint.current", "ng-click" => "close($index)"} Close sprint
-        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current"} Start sprint
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "start($index)"} Start sprint
         %button.btn.btn-default Sprint details
   %button.btn.btn-success.pull-right{"ng-click" => "new()"}
     %span.glyphicon.glyphicon-plus

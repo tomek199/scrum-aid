@@ -1,0 +1,13 @@
+.modal-header
+  %h3 Start sprint
+.modal-body.text-info
+  %h4 
+    Are you sure you want to start this sprint?
+  %h4
+    Current sprint will be closed automatically.
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "$close(true)"}
+    Yes
+  %button.btn.btn-default{"ng-click" => "$dismiss()"}
+    No
+    
