@@ -14,10 +14,7 @@
       %label.control-label.col-sm-2{for: :role}
         Role
       .col-sm-10
-        %select.form-control{"ng-model" => "role"}
-          %option{"ng-repeat" => "role in roles", name: "role",
-          value: "{{role._id.$oid}}", "ng-selected" => "role.default"}
-            {{role.name}}
+        %select.form-control{"ng-model" => "role", "ng-options" => "role._id.$oid as role.name for role in roles"}
 .modal-footer
   %button.btn.btn-primary{"ng-click" => "add()",
   "ng-disabled" => "!userToAdd._id"}

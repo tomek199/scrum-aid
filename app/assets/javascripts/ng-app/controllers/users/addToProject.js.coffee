@@ -2,13 +2,20 @@ scrumAid.controller 'UsersAddToProjectCtrl', [
   '$scope', '$modalInstance', 'Restangular', 'project_id', 'roles'
   ($scope, $modalInstance, Restangular, project_id, roles) ->
     $scope.roles = roles
-
+    
     project = Restangular.one('projects', project_id)
 
     project.all('users').customGET('to_add').then(
       (response) ->
         $scope.usersToAdd = response
     )
+    
+    findDefaultRole = () ->
+      for role in $scope.roles
+        if role.default == true
+          $scope.role = role._id.$oid
+          
+    findDefaultRole()      
 
     $scope.getUser = (val) ->
       list = []
