@@ -8,11 +8,18 @@
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
   %accordion{"close-others" => "true"}
-    %accordion-group{"ng-repeat" => "sprint in sprints", "ng-class" => "{'panel-success': sprint.current}"}
-      %accordion-heading>
+    %accordion-group{"ng-repeat" => "sprint in sprints", "ng-class" => "{'panel-success': sprint.current, 'panel-danger': sprint.closed}"}
+      %accordion-heading
         {{sprint.name}}
         %i.pull-right{"ng-show" => "sprint.current"} current
-      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        %i.pull-right{"ng-show" => "sprint.closed"} closed
+      .col-md-10
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      .col-md-2.btn-group-vertical{role: :group}
+        %button.btn.btn-danger{"ng-hide" => "sprint.current"} Remove sprint
+        %button.btn.btn-danger{"ng-show" => "sprint.current", "ng-click" => "close($index)"} Close sprint
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current"} Start sprint
+        %button.btn.btn-default Sprint details
   %button.btn.btn-success.pull-right{"ng-click" => "new()"}
     %span.glyphicon.glyphicon-plus
     New

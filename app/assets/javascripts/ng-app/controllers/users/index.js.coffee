@@ -101,7 +101,6 @@ scrumAid.controller 'UsersIndexCtrl', [
     $scope.markAsDefault = (index) ->
       role = $scope.roles[index]
       project_id = $routeParams.id
-#      project.one('markAsDefault', role._id.$oid).post().then(
       project.one('roles', role._id.$oid).customPOST('', 'mark_as_default').then(
         (response) ->
           $scope.roles = response

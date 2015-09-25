@@ -27,4 +27,14 @@ scrumAid.controller 'SprintsIndexCtrl', [
           $scope.sprints.push(result)
         else
           console.log(result)
+          
+    $scope.close = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-closeSprint.html'
+      modalInstance.result.then (result) ->
+        sprint_id = $scope.sprints[index]._id.$oid
+        project.all('sprints').customPUT({closed: true, current: false}, sprint_id).then(
+          (response) -> 
+            $scope.sprints[index] = response
+        )
 ]
