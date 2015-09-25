@@ -55,7 +55,7 @@ RSpec.describe UsersController, type: :controller do
       post :add_to_project, {project_id: @project.id, user_id: user.id, role_id: role.id}
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
-      current_users_count = Project.find(@project.id).users.count
+      current_users_count = @project.reload.users.count
       expect(result['_id']['$oid']).to eql user.id.to_s
       expect(current_users_count).to eql (users_count + 1)
       user_role = user.reload.user_roles[0]
@@ -70,7 +70,7 @@ RSpec.describe UsersController, type: :controller do
       @project.users << user
       delete :remove_from_project, {project_id: @project.id, user_id: user.id}
       expect(response).to have_http_status(:ok)
-      project_users = Project.find(@project.id).users
+      project_users = @project.reload.users
       expect(project_users.count).to eql 1
     end
   end

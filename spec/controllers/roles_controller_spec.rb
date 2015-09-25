@@ -91,7 +91,7 @@ RSpec.describe RolesController, type: :controller do
       params = {project_id: @project.id, id: role.id}
       delete :destroy, params
       expect(response).to have_http_status(:ok)
-      @project = Project.find @project.id
+      @project.reload
       expect(@project.roles.count).to eql 0
     end
   end
