@@ -49,11 +49,25 @@ RSpec.describe SprintsController, type: :controller do
   describe 'PUT #update' do
     it 'should update sprint closed status' do
       sprint = FactoryGirl.create(:sprint)
+      @project.sprints << sprint
       params = {project_id: @project.id, id: sprint.id, sprint: {closed: true}}
       put :update, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       expect(result['closed']).to eql true
+    end
+  end
+  
+  describe 'DELETE #destroy' do
+    it 'should remove sprint from project' do
+      sprint = FactoryGirl.create(:sprint)
+      @project.sprints << sprint
+      project_sprints = @project.sprints.count
+      params = {project_id: @project.id, id: sprint.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      @project.reload
+      expect(@project.sprints.count).to eql project_sprints - 1
     end
   end
 end

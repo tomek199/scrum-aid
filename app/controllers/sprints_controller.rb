@@ -30,6 +30,16 @@ class SprintsController < ApplicationController
       render json: {errors: sprint.errors}, status: 422
     end
   end
+  
+  # DELETE /projects/:project_id/sprints/:id
+  def destroy
+    sprint = Sprint.find params[:id]
+    if sprint.destroy
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
 
   private
 
