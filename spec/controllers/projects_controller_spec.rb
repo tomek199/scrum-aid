@@ -24,7 +24,7 @@ RSpec.describe ProjectsController, type: :controller do
       expect(result['_id']).to_not be_nil
       expect(result['name']).to eq params[:project][:name]
       expect(result['user_ids']).to_not be_nil
-      expect(result['owner_id']['$oid']).to eql @user._id.to_s
+      expect(result['owner_id']['$oid']).to eql @user.id.to_s
       project = Project.find result['_id']['$oid']
       expect(project.roles.count).to eql 3
     end
@@ -42,7 +42,7 @@ RSpec.describe ProjectsController, type: :controller do
     it 'should return current user projects list' do
       COUNT.times do
         project = Project.new(name: Faker::Company.name)
-        project.owner_id = @user._id
+        project.owner_id = @user.id
         project.owner_username = @user.username
         project.save
         project.users << @user

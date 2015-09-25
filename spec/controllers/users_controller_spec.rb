@@ -8,12 +8,12 @@ RSpec.describe UsersController, type: :controller do
     sign_in @user
 
     @project = Project.new(name: Faker::Company.name, description: Faker::Company.name)
-    @project.owner_id = @user._id
+    @project.owner_id = @user.id
     @project.owner_username = @user.username
     @project.save
     @project.users << @user
 
-    @params = {project_id: @project._id}
+    @params = {project_id: @project.id}
   end
 
   describe 'GET #project/:id/users' do
@@ -52,14 +52,14 @@ RSpec.describe UsersController, type: :controller do
       users_count =  @project.users.size
       role = Role.new({name: Faker::Name.title})
       @project.roles << role
-      post :add_to_project, {project_id: @project.id, user_id: user._id, role_id: role._id}
+      post :add_to_project, {project_id: @project.id, user_id: user.id, role_id: role.id}
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
       current_users_count = Project.find(@project.id).users.count
-      expect(result['_id']['$oid']).to eql user._id.to_s
+      expect(result['_id']['$oid']).to eql user.id.to_s
       expect(current_users_count).to eql (users_count + 1)
       user_role = user.reload.user_roles[0]
-      expect(user_role.role._id).to eql role._id
+      expect(user_role.role.id).to eql role.id
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe UsersController, type: :controller do
       user = FactoryGirl.create(:user)
       user.save
       @project.users << user
-      delete :remove_from_project, {project_id: @project.id, user_id: user._id}
+      delete :remove_from_project, {project_id: @project.id, user_id: user.id}
       expect(response).to have_http_status(:ok)
       project_users = Project.find(@project.id).users
       expect(project_users.count).to eql 1

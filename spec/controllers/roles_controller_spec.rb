@@ -16,7 +16,7 @@ RSpec.describe RolesController, type: :controller do
 
   describe 'POST #create' do
     it 'should create new Role' do
-      params = {project_id: @project._id, role: {name: Faker::Name.title}}
+      params = {project_id: @project.id, role: {name: Faker::Name.title}}
       post :create, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -27,7 +27,7 @@ RSpec.describe RolesController, type: :controller do
 
     it 'should create uneditable and unremovable Role' do
       role = {name: Faker::Name.title, removable: false, editable: false}
-      params = {project_id: @project._id, role: role}
+      params = {project_id: @project.id, role: role}
       post :create, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -36,7 +36,7 @@ RSpec.describe RolesController, type: :controller do
     end
 
     it 'should return error message when role name is empty' do
-      params = {project_id: @project._id, role: {name: ""}}
+      params = {project_id: @project.id, role: {name: ""}}
       post :create, params
       expect(response).to have_http_status(:unprocessable_entity)
       result = JSON.parse(response.body)
