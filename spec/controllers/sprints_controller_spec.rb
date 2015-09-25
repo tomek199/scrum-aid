@@ -70,4 +70,32 @@ RSpec.describe SprintsController, type: :controller do
       expect(@project.sprints.count).to eql project_sprints - 1
     end
   end
+  
+  describe 'POST #start' do
+    it 'should start selected sprint' do
+      @project.sprints << sprint = FactoryGirl.create(:sprint)
+      params = {project_id: @project.id, sprint_id: sprint.id}
+      post :start, params
+      expect(response).to have_http_status(:ok)
+      expect(sprint.reload.current).to eql true
+    end
+    
+    it 'should close current sprint and start selected' do
+      COUNT.times do
+        @project.sprints << FactoryGirl.create(:sprint)
+      end
+      @project.sprints << current_sprint = FactoryGirl.create(:sprint)
+      @project.sprints << selected_sprint = FactoryGirl.create(:sprint)
+      current_sprint.update(current: true)
+      params = {project_id: @project.id, sprint_id: selected_sprint.id}
+      post :start, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      current_sprint.reload
+      sprint = Sprint.find_by(project_id: @project.id, current: true)
+      expect(sprint.id).to eql selected_sprint.id
+      expect(current_sprint.current).to eql false
+      expect(current_sprint.closed).to eql true
+    end
+  end
 end

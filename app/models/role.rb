@@ -12,8 +12,8 @@ class Role
   validates_presence_of :name
 
   def mark_as_default
-    last_default = Role.find_by(project_id: self.project_id, default: true)
-    last_default.update(default: false, removable: true)
+    last_default = Role.where(project_id: self.project_id, default: true)
+    last_default.update(default: false, removable: true) if last_default.exists?
     self.update(default: true, removable: false)
   end
 end

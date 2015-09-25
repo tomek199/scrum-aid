@@ -40,6 +40,16 @@ class SprintsController < ApplicationController
       render json: {errors: "Unexpected error"}, status: 412
     end
   end
+  
+  # POST /projects/:project_id/sprints/:id/start
+  def start
+    sprint = Sprint.find params[:sprint_id]
+    if sprint.start
+      render json: Sprint.where(project_id: params[:project_id])
+    else
+      render json: {errors: "Unexpeced error"}, status: 412
+    end      
+  end
 
   private
 
