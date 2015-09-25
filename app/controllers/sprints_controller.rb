@@ -20,10 +20,20 @@ class SprintsController < ApplicationController
       render json: {errors: sprint.errors}, status: 422
     end
   end
+  
+  # PUT /projects/:project_id/sprints/:id
+  def update
+    sprint = Sprint.find params[:id]
+    if sprint.update(sprint_params) 
+      render json: sprint
+    else
+      render json: {errors: sprint.errors}, status: 422
+    end
+  end
 
   private
 
   def sprint_params
-    params.require(:sprint).permit(:name, :start_date, :end_date, :goal, :current)
+    params.require(:sprint).permit(:name, :start_date, :end_date, :goal, :current, :closed)
   end
 end
