@@ -22,6 +22,11 @@ scrumAid.controller 'SprintsIndexCtrl', [
         resolve:
           project: ->
             $scope.project
+          lastSprint: ->
+            if $scope.sprints.length > 0
+              $scope.sprints[$scope.sprints.length - 1]
+            else
+              undefined
       modalInstance.result.then (result) ->
         if result._id?
           $scope.sprints.push(result)

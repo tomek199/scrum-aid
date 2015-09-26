@@ -18,7 +18,7 @@
         .input-group
           %input#start_date.form-control.input{type: :text, name: :start_date,
           "ng-model" => "sprint.start_date", "datepicker-popup" => "dd.MM.yyyy",
-          "is-open" => "datepickers[0].opened", required: true}
+          "is-open" => "datepickers[0].opened", "min-date" => "minDate", "ng-change" => "updateEndDate()", required: true}
           %span.input-group-btn
             %button.btn.btn-default{type: :button, "ng-click" => "open($event, 0)"}
               %span.glyphicon.glyphicon-calendar
@@ -34,7 +34,7 @@
         .input-group
           %input#end_date.form-control.input{type: :text, name: :end_date,
           "ng-model" => "sprint.end_date", "datepicker-popup" => "dd.MM.yyyy",
-          "is-open" => "datepickers[1].opened", required: true}
+          "is-open" => "datepickers[1].opened", "min-date" => "sprint.start_date", required: true}
           %span.input-group-btn
             %button.btn.btn-default{type: :button, "ng-click" => "open($event, 1)"}
               %span.glyphicon.glyphicon-calendar
