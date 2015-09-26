@@ -17,10 +17,18 @@
       .col-md-10
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       .col-md-2.btn-group-vertical{role: :group}
-        %button.btn.btn-danger{"ng-hide" => "sprint.current", "ng-click" => "delete($index)"} Remove sprint
-        %button.btn.btn-danger{"ng-show" => "sprint.current", "ng-click" => "close($index)"} Close sprint
-        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "start($index)"} Start sprint
-        %button.btn.btn-default Sprint details
+        %button.btn.btn-danger{"ng-hide" => "sprint.current", "ng-click" => "delete($index)", "tooltip-placement" => :right, tooltip: "Remove sprint"}
+          %span.glyphicon.glyphicon-remove
+          Remove
+        %button.btn.btn-danger{"ng-show" => "sprint.current", "ng-click" => "close($index)", "tooltip-placement" => :right, tooltip: "Close sprint"} 
+          %span.glyphicon.glyphicon-stop
+          Close
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "start($index)", "tooltip-placement" => :right, tooltip: "Start sprint"}
+          %span.glyphicon.glyphicon-play
+          Start
+        %button.btn.btn-default{"tooltip-placement" => :right, tooltip: "Sprint details"}
+          %span.glyphicon.glyphicon-search
+          Details
   %button.btn.btn-success.pull-right{"ng-click" => "new()"}
     %span.glyphicon.glyphicon-plus
     New
