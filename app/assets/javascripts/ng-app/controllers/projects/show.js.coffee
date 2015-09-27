@@ -1,10 +1,6 @@
 scrumAid.controller 'ProjectsShowCtrl', [
   '$scope','$routeParams', 'Restangular', 'CookiesFactory'
   ($scope, $routeParams, Restangular, CookiesFactory) ->
-    $scope.project = {
-      name: ""
-      description: ""
-    }
     
     $scope.lengths = [
       {
@@ -30,14 +26,18 @@ scrumAid.controller 'ProjectsShowCtrl', [
         $scope.project = response
         CookiesFactory.putProject({_id: response._id, name: response.name})
     )
-
-    $scope.$watch 'project.name', (newVal, oldVal) ->
-      if !!newVal and !!oldVal
-        updateAttribute({name: newVal})
-
-    $scope.$watch 'project.description', (newVal, oldVal) ->
-      if !!newVal and !!oldVal
-        updateAttribute({description: newVal})
+        
+    $scope.updateName = (data) ->
+      if data.length > 0
+        $scope.project.name = data
+        updateAttribute({name: $scope.project.name})
+        true
+      else
+        "Can't be blank"
+        
+    $scope.updateDescription = (data) ->
+      updateAttribute({description: $scope.project.description})
+      true
         
     $scope.updateSprintLength = () ->
       updateAttribute({sprint_length: $scope.project.sprint_length})

@@ -12,13 +12,13 @@
       %label.control-label.col-md-2{for: :name}
         Name:
       .col-md-10
-        %p.form-control-static.text-muted{"editable-text" => "project.name"}
+        %p.form-control-static.text-muted{"editable-text" => "project.name", onbeforesave: "updateName($data)"}
           {{project.name}}
     .form-group-lg
       %label.control-label.col-md-2{for: :description}
         Description:
       .col-md-10
-        %p.form-control-static.text-muted{"editable-textarea" => "project.description"}
+        %p.form-control-static.text-muted{"editable-textarea" => "project.description", onaftersave: "updateDescription($data)"}
           {{project.description}}
     .form-group-lg
       %label.control-label.col-md-2{for: :length}
