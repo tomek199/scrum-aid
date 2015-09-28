@@ -15,7 +15,23 @@
         %i.pull-right{"ng-show" => "sprint.current"} current
         %i.pull-right{"ng-show" => "sprint.closed"} closed
       .col-md-10
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        .form-horizontal
+          .form-group-lg
+            %label.control-label.col-md-2 Start date:
+            .col-md-2
+              %p.form-control-static.text-muted {{sprint.start_date | date: "dd.MM.yyyy"}}
+            .col-md-8
+              %p.form-control-static.text-muted {{sprint.start_date | date: "HH:mm"}}
+          .form-group-lg
+            %label.control-label.col-md-2 End date:
+            .col-md-2
+              %p.form-control-static.text-muted {{sprint.end_date | date: "dd.MM.yyyy"}}
+            .col-md-8
+              %p.form-control-static.text-muted {{sprint.end_date | date: "HH:mm"}}
+          .form-group-lg
+            %label.control-label.col-md-2 Goal:
+            .col-md-6
+              %p.form-control-static.text-muted {{sprint.goal}}
       .col-md-2.btn-group-vertical{role: :group}
         %button.btn.btn-danger{"ng-hide" => "sprint.current", "ng-click" => "delete($index)", "tooltip-placement" => :right, tooltip: "Remove sprint"}
           %span.glyphicon.glyphicon-remove
@@ -26,6 +42,9 @@
         %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "start($index)", "tooltip-placement" => :right, tooltip: "Start sprint"}
           %span.glyphicon.glyphicon-play
           Start
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "edit($index)", "tooltip-placement" => :right, tooltip: "Edit sprint"}
+          %span.glyphicon.glyphicon-edit
+          Edit
         %button.btn.btn-default{"tooltip-placement" => :right, tooltip: "Sprint details"}
           %span.glyphicon.glyphicon-search
           Details

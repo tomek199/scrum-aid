@@ -32,6 +32,10 @@ scrumAid.controller 'SprintsIndexCtrl', [
           $scope.sprints.push(result)
         else
           console.log(result)
+      
+    $scope.edit = (index) ->
+      console.log $scope.sprints[index]
+      # TODO
           
     $scope.close = (index) ->
       modalInstance = $modal.open
