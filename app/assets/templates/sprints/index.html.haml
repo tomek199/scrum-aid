@@ -42,7 +42,7 @@
         %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "start($index)", "tooltip-placement" => :right, tooltip: "Start sprint"}
           %span.glyphicon.glyphicon-play
           Start
-        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "edit($index)", "tooltip-placement" => :right, tooltip: "Edit sprint"}
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "update($index)", "tooltip-placement" => :right, tooltip: "Edit sprint"}
           %span.glyphicon.glyphicon-edit
           Edit
         %button.btn.btn-default{"tooltip-placement" => :right, tooltip: "Sprint details"}

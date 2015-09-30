@@ -30,12 +30,24 @@ scrumAid.controller 'SprintsIndexCtrl', [
       modalInstance.result.then (result) ->
         if result._id?
           $scope.sprints.push(result)
-        else
-          console.log(result)
       
-    $scope.edit = (index) ->
-      console.log $scope.sprints[index]
-      # TODO
+    $scope.update = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'sprints/update.html'
+        controller: 'SprintsUpdateCtrl'
+        size: 'lg'
+        resolve:
+          project: ->
+            $scope.project
+          sprint: ->
+            $scope.sprints[index]
+          lastSprint: ->
+            $scope.sprints[index - 1]
+          nextSprint: ->
+            $scope.sprints[index + 1]
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.sprints[index] = result
           
     $scope.close = (index) ->
       modalInstance = $modal.open
