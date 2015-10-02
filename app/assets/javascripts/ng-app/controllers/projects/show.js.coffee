@@ -21,7 +21,7 @@ scrumAid.controller 'ProjectsShowCtrl', [
       }
     ]
 
-    Restangular.one('projects', $routeParams.id).get().then(
+    Restangular.one('projects', $routeParams.project_id).get().then(
       (response) ->
         $scope.project = response
         CookiesFactory.putProject({_id: response._id, name: response.name})

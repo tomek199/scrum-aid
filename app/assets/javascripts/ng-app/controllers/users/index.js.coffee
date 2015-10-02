@@ -2,7 +2,7 @@ scrumAid.controller 'UsersIndexCtrl', [
   '$scope', '$routeParams', '$modal', 'CookiesFactory', 'Restangular'
   ($scope, $routeParams, $modal, CookiesFactory, Restangular) ->
 
-    project = Restangular.one('projects', $routeParams.id)
+    project = Restangular.one('projects', $routeParams.project_id)
 
     project.get().then(
       (response) ->
@@ -92,7 +92,7 @@ scrumAid.controller 'UsersIndexCtrl', [
     $scope.changeOwner = (index) ->
       user = $scope.users[index]
       properties = {owner_id: user._id.$oid, owner_username: user.username}
-      project_id = $routeParams.id
+      project_id = $routeParams.project_id
       project.customPUT(properties).then(
         (response) ->
           $scope.project = response
@@ -100,7 +100,7 @@ scrumAid.controller 'UsersIndexCtrl', [
 
     $scope.markAsDefault = (index) ->
       role = $scope.roles[index]
-      project_id = $routeParams.id
+      project_id = $routeParams.project_id
       project.one('roles', role._id.$oid).customPOST('', 'mark_as_default').then(
         (response) ->
           $scope.roles = response

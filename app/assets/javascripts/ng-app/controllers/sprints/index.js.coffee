@@ -2,7 +2,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
   '$scope', '$routeParams', '$modal', 'Restangular'
   ($scope, $routeParams, $modal, Restangular) ->
 
-    project = Restangular.one('projects', $routeParams.id)
+    project = Restangular.one('projects', $routeParams.project_id)
 
     project.get().then(
       (response) ->
@@ -63,7 +63,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-delete.html'
       modalInstance.result.then (result) ->
-        project_id = $routeParams.id
+        project_id = $routeParams.project_id
         sprint_id = $scope.sprints[index]._id.$oid
         project.one('sprints', sprint_id).remove().then(
           (response) ->

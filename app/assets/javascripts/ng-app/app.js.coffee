@@ -28,15 +28,15 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/projects",
     templateUrl: "projects/index.html"
     controller: "ProjectsIndexCtrl"
-  $routeProvider.when "/projects/:id",
+  $routeProvider.when "/projects/:project_id",
     templateUrl: "projects/show.html"
     controller: "ProjectsShowCtrl"
 # Users
-  $routeProvider.when "/projects/:id/users",
+  $routeProvider.when "/projects/:project_id/users",
     templateUrl: "users/index.html"
     controller: "UsersIndexCtrl"
 # Sprints
-  $routeProvider.when "/projects/:id/sprints",
+  $routeProvider.when "/projects/:project_id/sprints",
     templateUrl: "sprints/index.html"
     controller: "SprintsIndexCtrl"
 

@@ -4,15 +4,15 @@ scrumAid.controller 'ProjectsNavCtrl', [
     $scope.tabs = [
       {
         title: 'Overview'
-        href: '/projects/' + $routeParams.id
+        href: '/projects/' + $routeParams.project_id
       }
       {
         title: 'Users'
-        href: '/projects/' + $routeParams.id + '/users'
+        href: '/projects/' + $routeParams.project_id + '/users'
       }
       {
         title: 'Sprint'
-        href: '/projects/' + $routeParams.id + '/sprints'
+        href: '/projects/' + $routeParams.project_id + '/sprints'
       }
     ]
 ]
