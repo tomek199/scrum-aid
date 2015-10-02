@@ -39,8 +39,6 @@
       %label.control-label.col-sm-2{for: :goal} Goal
       .col-sm-10
         %textarea.form-control{rows: "3", name: "goal", "ng-model" => "sprint.goal"}
-  %pre {{minDate | json}}
-  %pre {{maxDate | json}}
 .modal-footer
   %button.btn.btn-primary{"ng-click" => "update()", "ng-disabled" => "!editSprintForm.$valid"}
     Update
