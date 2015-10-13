@@ -7,6 +7,16 @@ class SprintsController < ApplicationController
     project = Project.find params[:project_id]
     render json: project.sprints, status: 200
   end
+  
+  # GET /projects/:project_id/sprints/:id
+  def show
+    sprint = Sprint.find params[:id]
+    if sprint
+      render json: sprint
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
 
   # POST /projects/:project_id/sprints
   def create

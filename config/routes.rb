@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :projects do
+  resources :projects, only: [:index, :show, :create, :update, :destroy] do
     resources :users, only: [:index] do
       get 'to_add', on: :collection
       post 'add_to_project'
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :roles, only: [:index, :create, :update, :destroy] do
       post 'mark_as_default'
     end
-    resources :sprints, only: [:index, :create, :update, :destroy] do
+    resources :sprints, only: [:index, :show, :create, :update, :destroy] do
       post 'start'
     end
   end

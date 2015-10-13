@@ -46,6 +46,18 @@ RSpec.describe SprintsController, type: :controller do
     end
   end
   
+  describe 'GET #show' do
+    it 'should show sprint by Id' do
+      sprint = FactoryGirl.create(:sprint)
+      @project.sprints << sprint
+      params = {project_id: @project.id, id: sprint.id}
+      get :show, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['_id']['$oid']).to eql sprint.id.to_s
+    end
+  end
+  
   describe 'PUT #update' do
     it 'should update sprint closed status' do
       sprint = FactoryGirl.create(:sprint)
