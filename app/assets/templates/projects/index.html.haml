@@ -1,9 +1,6 @@
-.page-header
-  %h2
-    Projects
-    %button.btn.btn-success.pull-right{"ng-click" => "new()"}
-      %span.glyphicon.glyphicon-plus
-      New
+%h4
+  %ol.breadcrumb
+    %li.active Projects
 
 %sc-empty-list{list: "{{projects}}"}
 %table.table.table-hover{"ng-show" => "projects.length"}

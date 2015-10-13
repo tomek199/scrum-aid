@@ -1,7 +1,8 @@
-.page-header
-  %h2
-    Project
-    %small{"editable-text" => "project.name"} {{project.name}}
+%h4
+  %ol.breadcrumb
+    %li 
+      %a{href: "/projects"} Projects
+    %li.active {{project.name}}
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10

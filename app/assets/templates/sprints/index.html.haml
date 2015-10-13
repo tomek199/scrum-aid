@@ -1,9 +1,10 @@
-.page-header
-  %h2
-    Project's
-    %small {{project.name}}
-    sprints
-
+%h4
+  %ol.breadcrumb
+    %li 
+      %a{href: "/projects"} Projects
+    %li
+      %a{href: "/projects/{{project._id.$oid}}"} {{project.name}}
+    %li.active Sprints
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
