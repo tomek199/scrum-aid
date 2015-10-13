@@ -45,7 +45,7 @@
         %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "update($index)", "tooltip-placement" => :right, tooltip: "Edit sprint"}
           %span.glyphicon.glyphicon-edit
           Edit
-        %button.btn.btn-default{"tooltip-placement" => :right, tooltip: "Sprint details"}
+        %button.btn.btn-default{"tooltip-placement" => :right, "ng-click" => "show($index)", tooltip: "Sprint details"}
           %span.glyphicon.glyphicon-search
           Details
   %button.btn.btn-success.pull-right{"ng-click" => "new()"}

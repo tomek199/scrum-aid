@@ -1,6 +1,6 @@
 scrumAid.controller 'SprintsIndexCtrl', [
-  '$scope', '$routeParams', '$modal', 'Restangular'
-  ($scope, $routeParams, $modal, Restangular) ->
+  '$scope', '$routeParams', '$location', '$modal', 'Restangular'
+  ($scope, $routeParams, $location, $modal, Restangular) ->
 
     project = Restangular.one('projects', $routeParams.project_id)
 
@@ -79,4 +79,8 @@ scrumAid.controller 'SprintsIndexCtrl', [
           (response) ->
             $scope.sprints = response
         )
+        
+    $scope.show = (index) ->
+      sprint_id = $scope.sprints[index]._id.$oid
+      $location.path '/projects/' + $routeParams.project_id + '/sprints/' + sprint_id
 ]
