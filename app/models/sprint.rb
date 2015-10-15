@@ -10,6 +10,7 @@ class Sprint
   field :goal, type: String
 
   belongs_to :project
+  has_many :retrospectives
 
   validates_presence_of :name, :index, :start_date, :end_date
 
