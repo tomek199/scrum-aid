@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     resources :sprints, only: [:index, :show, :create, :update, :destroy] do
       post 'start'
+      resources :retrospectives, only: [:create]
     end
   end
 
