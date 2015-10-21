@@ -14,5 +14,9 @@ scrumAid.controller 'ProjectsNavCtrl', [
         title: 'Sprint'
         href: '/projects/' + $routeParams.project_id + '/sprints'
       }
+      {
+        title: 'Retrospective'
+        href: '/projects/' + $routeParams.project_id + '/retrospectives'
+      }
     ]
 ]

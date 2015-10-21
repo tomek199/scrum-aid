@@ -1,0 +1,12 @@
+%h4
+  %ol.breadcrumb
+    %li 
+      %a{href: "/projects"} Projects
+    %li
+      %a{href: "/projects/{{project._id.$oid}}"} {{project.name}}
+    %li.active Retrospectives
+.col-md-2
+  %ng-include{src: "'projects/nav.html'"}
+.col-md-10
+  / %sc-empty-list{list: "{{sprints}}"}
+  
