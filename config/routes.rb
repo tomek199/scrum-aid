@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post 'mark_as_default'
     end
     resources :sprints, only: [:index, :show, :create, :update, :destroy] do
+      get 'closed', on: :collection
       post 'start'
       resources :retrospectives, only: [:create]
     end

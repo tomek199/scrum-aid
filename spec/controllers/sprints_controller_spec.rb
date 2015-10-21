@@ -83,6 +83,24 @@ RSpec.describe SprintsController, type: :controller do
     end
   end
   
+  describe 'GET #closed' do
+    it 'should get only closed sprints' do
+      COUNT.times do
+        @project.sprints << FactoryGirl.create(:sprint)
+      end
+      COUNT.times do 
+        sprint = FactoryGirl.create(:sprint)
+        sprint.update(closed: true)
+        @project.sprints << sprint
+      end
+      params = {project_id: @project.id}
+      get :closed, params
+      result = JSON.parse(response.body)
+      expect(response).to have_http_status(:ok)
+      expect(result.count).to eql 3
+    end
+  end
+  
   describe 'POST #start' do
     it 'should start selected sprint' do
       @project.sprints << sprint = FactoryGirl.create(:sprint)

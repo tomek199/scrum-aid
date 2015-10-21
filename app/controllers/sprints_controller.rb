@@ -51,6 +51,12 @@ class SprintsController < ApplicationController
     end
   end
   
+  # GET /projects/:project_id/sprints/closed
+  def closed
+    sprints = Sprint.where(project_id: params[:project_id], closed: true)
+    render json: sprints, status: 200
+  end
+  
   # POST /projects/:project_id/sprints/:id/start
   def start
     sprint = Sprint.find params[:sprint_id]
