@@ -36,4 +36,17 @@ RSpec.describe RetrospectivesController, type: :controller do
       expect(result['ideas'].count).to eql COUNT
     end
   end
+  
+  describe 'GET #index' do
+    it 'should return sprint retrospectives list' do
+      COUNT.times do
+        @sprint.retrospectives << FactoryGirl.create(:classic_retrospective)
+      end
+      params = {project_id: @project.id, sprint_id: @sprint.id}
+      get :index, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result.count).to eql COUNT
+    end
+  end
 end
