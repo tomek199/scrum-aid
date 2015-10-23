@@ -8,4 +8,13 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
       (response) ->
         $scope.project = response
     )
+    
+    project.all('sprints').customGET('closed').then(
+      (response) ->
+        $scope.sprints = response
+    )
+    
+    $scope.get = () ->
+      console.log $scope.sprint
+      # TODO
 ]

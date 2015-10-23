@@ -9,4 +9,8 @@
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
   / %sc-empty-list{list: "{{sprints}}"}
-  
+  .input-group.input-group-lg
+    %select.form-control{"ng-model" => "sprint", "ng-options" => "sprint._id.$oid as sprint.name for sprint in sprints"}
+      %option{value: "", selected: :selected} --- select sprint ---
+    %span.input-group-btn
+      %button.btn.btn-primary{type: :button, "ng-disabled" => "!sprint", "ng-click" => "get()"} Choose
