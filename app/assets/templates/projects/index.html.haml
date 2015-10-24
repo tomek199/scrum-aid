@@ -1,7 +1,6 @@
 %h4
   %ol.breadcrumb
     %li.active Projects
-
 %sc-empty-list{list: "{{projects}}"}
 %table.table.table-hover{"ng-show" => "projects.length"}
   %thead
@@ -23,3 +22,6 @@
       %td.text-right
         %button.btn.btn-xs.btn-danger{tooltip: "Delete", "ng-click" => "delete($index)"}
           %span.glyphicon.glyphicon-remove
+%button.btn.btn-success.pull-right{"ng-click" => "new()"}
+  %span.glyphicon.glyphicon-plus
+  New
