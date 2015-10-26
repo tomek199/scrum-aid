@@ -1,6 +1,6 @@
 scrumAid.controller 'RetrospectivesIndexCtrl', [
-  '$scope', '$routeParams', 'Restangular'
-  ($scope, $routeParams, Restangular) ->
+  '$scope', '$routeParams', '$location', 'Restangular'
+  ($scope, $routeParams, $location, Restangular) ->
     
     project = Restangular.one('projects', $routeParams.project_id)
 
@@ -12,9 +12,18 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
     project.all('sprints').customGET('closed').then(
       (response) ->
         $scope.sprints = response
+        if $routeParams.sprint_id
+          for sprint in $scope.sprints
+            if sprint._id.$oid == $routeParams.sprint_id
+              $scope.sprint = sprint
     )
     
+    $scope.sprint = $routeParams.sprint_id
+    
     $scope.get = () ->
-      console.log $scope.sprint
       # TODO
+      
+    $scope.new = () ->
+      sprint_id = $scope.sprint._id.$oid
+      $location.path '/projects/' + $routeParams.project_id + '/sprints/' + sprint_id + '/retrospectives/new'
 ]

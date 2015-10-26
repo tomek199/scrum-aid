@@ -4,13 +4,31 @@
       %a{href: "/projects"} Projects
     %li
       %a{href: "/projects/{{project._id.$oid}}"} {{project.name}}
+    %li{"ng-show" => "sprint"}
+      %a{href: "/projects/{{project._id.$oid}}/sprints"} Sprints
+    %li{"ng-show" => "sprint"}
+      %a{href: "/projects/{{project._id.$oid}}/sprints/{{sprint}}"} {{sprint.name}}
     %li.active Retrospectives
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
-  / %sc-empty-list{list: "{{sprints}}"}
-  .input-group.input-group-lg
-    %select.form-control{"ng-model" => "sprint", "ng-options" => "sprint._id.$oid as sprint.name for sprint in sprints"}
-      %option{value: "", selected: :selected} --- select sprint ---
-    %span.input-group-btn
-      %button.btn.btn-primary{type: :button, "ng-disabled" => "!sprint", "ng-click" => "get()"} Choose
+  %select.form-control.input-lg{"ng-model" => "sprint", "ng-options" => "sprint as sprint.name for sprint in sprints", "ng-change" => "get()"}
+    %option{value: "", selected: :selected} --- select sprint ---
+  %hr
+  .alert.alert-info{"ng-hide" => "sprint"} 
+    %span.glyphicon.glyphicon-info-sign
+    Please select sprint to show sprint's retrospectives list.
+  %h3{"ng-hide" => "!sprint"}
+    Retrospectives
+    %button.btn.btn-success.pull-right{"ng-click" => "new()"}
+      %span.glyphicon.glyphicon-plus
+      New
+  %sc-empty-list{list: "{{retrospectives}}", "ng-hide" => "!sprint"}    
+  %table.table.table-hover{"ng-show" => "retrospectives"}
+    %thead
+      %th #
+      %th Name
+      %th Date
+      %th.text-right Actions
+    %tbody
+      / TODO
