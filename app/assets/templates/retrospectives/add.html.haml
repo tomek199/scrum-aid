@@ -14,5 +14,55 @@
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
-  / TODO
+  .row
+    .col-md-12
+      %form.form-inline{name: "primaryForm"}
+        .form-group.form-group-lg{"sc-valid" => "{{primaryForm.name}}"}
+          %label.input-lg{for: :name}
+            %span.text-danger*
+            Name
+          %input#name.form-control{type: :text, name: :name, "ng-model" => "retrospective.name", required: true}
+          %sc-invalid{value: "{{primaryForm.name}}"}
+        .form-group.form-group-lg{"sc-valid" => "{{primaryForm.date}}"}
+          %label.input-lg{for: :date}
+            %span.text-danger*
+            Date
+          .input-group
+            %input#date.form-control.input{type: :text, name: :date, "ng-model" => "retrospective.date", required: true, readonly: "", "datepicker-popup" => "dd.MM.yyyy", "is-open" => "datepicker.opened", }
+            %span.input-group-btn
+              %button.btn.btn-lg.btn-default{type: :button, "ng-click" => "open($event)"}
+                %span.glyphicon.glyphicon-calendar
+          %sc-invalid{value: "{{primaryForm.date}}"}
+      %hr
+  .row
+    .col-md-6
+      .panel.panel-success
+        .panel-heading 
+          .panel-title
+            %span.glyphicon.glyphicon-plus-sign
+            Pluses
+        .panel-body
+          Some text
+    .col-md-6
+      .panel.panel-danger
+        .panel-heading 
+          .panel-title 
+            %span.glyphicon.glyphicon-minus-sign
+            Minuses
+        .panel-body
+          Some text
+  .row
+    .col-md-12
+      .panel.panel-info
+        .panel-heading 
+          .panel-title 
+            %span.glyphicon.glyphicon-exclamation-sign
+            Ideas
+        .panel-body
+          Some text
+  %hr
+  .row
+    .col-md-12.text-right
+      .btn.btn-link{"ng-click" => "back()"} Back
+      .btn.btn-primary Create
   
