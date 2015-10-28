@@ -16,12 +16,18 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
           for sprint in $scope.sprints
             if sprint._id.$oid == $routeParams.sprint_id
               $scope.sprint = sprint
+              $scope.get()
     )
     
     $scope.sprint = $routeParams.sprint_id
     
     $scope.get = () ->
-      # TODO
+      if $scope.sprint
+        sprint_id = $scope.sprint._id.$oid
+        project.one('sprints', sprint_id).all('retrospectives').getList().then(
+          (response) -> 
+            $scope.retrospectives = response
+        )
       
     $scope.new = () ->
       sprint_id = $scope.sprint._id.$oid
