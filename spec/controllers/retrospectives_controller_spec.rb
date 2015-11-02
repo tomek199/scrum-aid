@@ -49,4 +49,17 @@ RSpec.describe RetrospectivesController, type: :controller do
       expect(result.count).to eql COUNT
     end
   end
+  
+  describe 'DELETE #destroy' do
+    it 'should remove retrospective' do
+      retrospective = FactoryGirl.create(:classic_retrospective)
+      @sprint.retrospectives << retrospective
+      sprint_retrospectives = @sprint.retrospectives.count
+      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      @sprint.reload
+      expect(@sprint.retrospectives.count).to eql sprint_retrospectives - 1
+    end
+  end 
 end
