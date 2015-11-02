@@ -20,6 +20,16 @@ class RetrospectivesController < ApplicationController
     end
   end
   
+  # GET /projects/:project_id/sprints/:sprint_id/retrospectives/:id
+  def show
+    retrospective = Retrospective.find params[:id]
+    if retrospective
+      render json: retrospective
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end
+  end
+  
   # DELETE /projects/:project_id/sprints/:sprint_id/retrospectives/:id
   def destroy
     retrospective = Retrospective.find params[:id]

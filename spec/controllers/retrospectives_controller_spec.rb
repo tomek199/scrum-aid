@@ -50,6 +50,21 @@ RSpec.describe RetrospectivesController, type: :controller do
     end
   end
   
+  describe 'GET #show' do
+    it 'should show Retrospective by Id' do
+      retrospective = FactoryGirl.create(:classic_retrospective)
+      @sprint.retrospectives << retrospective
+      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id}
+      get :show, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['_id']['$oid']).to eql retrospective.id.to_s
+      expect(result['name']).to eql retrospective.name
+      expect(result['pluses'].count).to eql retrospective.pluses.count
+      expect(result['minuses'].count).to eql retrospective.minuses.count
+    end
+  end
+  
   describe 'DELETE #destroy' do
     it 'should remove retrospective' do
       retrospective = FactoryGirl.create(:classic_retrospective)
