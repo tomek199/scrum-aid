@@ -46,7 +46,7 @@
             %span.glyphicon.glyphicon-search
           %button.btn.btn-xs.btn-default{tooltip: "Edit"}
             %span.glyphicon.glyphicon-edit
-          %button.btn.btn-xs.btn-danger{tooltip: "Remove retrospective"}
+          %button.btn.btn-xs.btn-danger{"ng-click" => "delete($index)", tooltip: "Remove retrospective"}
             %span.glyphicon.glyphicon-remove
           
         
