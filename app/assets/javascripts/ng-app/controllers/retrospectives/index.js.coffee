@@ -33,6 +33,14 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
       sprint_id = $scope.sprint._id.$oid
       $location.path '/projects/' + $routeParams.project_id + '/sprints/' + sprint_id + '/retrospectives/new'
       
+    $scope.show = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'retrospectives/show.html'
+        controller: 'RetrospectivesShowCtrl'
+        size: 'lg'
+        resolve:
+          retrospective: $scope.retrospectives[index]
+      
     $scope.delete = (index) ->
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-delete.html'

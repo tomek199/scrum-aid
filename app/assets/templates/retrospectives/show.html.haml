@@ -1,0 +1,41 @@
+.modal-header
+  %h3 
+    {{retrospective.name}}
+    %small {{retrospective.date}}
+.modal-body
+  .row
+    .col-md-6
+      .panel.panel-success
+        .panel-heading 
+          .panel-title
+            %span.glyphicon.glyphicon-plus-sign
+            Pluses
+            %span.badge.pull-right {{retrospective.pluses.length}}
+        %ul.list-group{"ng-repeat" => "plus in retrospective.pluses"}
+          %li.list-group-item {{plus}}
+    .col-md-6
+      .panel.panel-danger
+        .panel-heading
+          .panel-title
+            %span.glyphicon.glyphicon-minus-sign
+            Minuses
+            %span.badge.pull-right {{retrospective.minuses.length}}
+        %ul.list-group{"ng-repeat" => "minus in retrospective.minuses"}
+          %li.list-group-item {{minus}}
+  .row
+    .col-md-12
+      .panel.panel-info
+        .panel-heading 
+          .panel-title
+            %span.glyphicon.glyphicon-exclamation-sign
+            Ideas
+            %span.badge.pull-right {{retrospective.ideas.length}}
+        %ul.list-group{"ng-repeat" => "idea in retrospective.ideas"}
+          %li.list-group-item 
+            {{idea.description}}
+            %a.pull-right{href: "#", tooltip: "Change status"}
+              %span.glyphicon{"ng-class" => "{'glyphicon-remove': !idea.done, 'glyphicon-ok': idea.done}"}
+.modal-footer
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Close
+    

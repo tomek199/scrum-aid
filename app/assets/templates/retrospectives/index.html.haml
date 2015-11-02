@@ -42,7 +42,7 @@
           %span.label.label-danger {{retrospective.minuses.length || 0}} minuses
           %span.label.label-info {{retrospective.ideas.length || 0}} ideas
         %td.text-right
-          %button.btn.btn-xs.btn-default{tooltip: "Show"}
+          %button.btn.btn-xs.btn-default{"ng-click" => "show($index)", tooltip: "Show"}
             %span.glyphicon.glyphicon-search
           %button.btn.btn-xs.btn-default{tooltip: "Edit"}
             %span.glyphicon.glyphicon-edit
