@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :sprints, only: [:index, :show, :create, :update, :destroy] do
       get 'closed', on: :collection
       post 'start'
-      resources :retrospectives, only: [:create, :index, :show, :destroy]
+      resources :retrospectives, only: [:create, :index, :update, :show, :destroy]
     end
   end
 

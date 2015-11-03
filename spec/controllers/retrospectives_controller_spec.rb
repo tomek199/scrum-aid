@@ -65,6 +65,52 @@ RSpec.describe RetrospectivesController, type: :controller do
     end
   end
   
+  describe 'PUT #update' do
+    it 'should update Retrospective name' do
+      retrospective = FactoryGirl.create(:classic_retrospective)
+      @sprint.retrospectives << retrospective
+      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id, retrospective: {name: "New name"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['name']).to eql "New name"
+      expect(retrospective.reload.name).to eql "New name"
+    end
+    
+    it 'should update Retrospective pluses' do
+      retrospective = FactoryGirl.create(:classic_retrospective)
+      @sprint.retrospectives << retrospective
+      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id, 
+        retrospective: {pluses: ["Plus", "Plus", "Plus"]}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      retrospective.reload.pluses.each do |plus|
+        expect(plus).to eql "Plus"
+      end
+    end
+    
+    it 'should update Retrospective ideas statuses [done]' do
+      retrospective = FactoryGirl.create(:classic_retrospective)
+      @sprint.retrospectives << retrospective
+      retrospective.ideas = []
+      COUNT.times do |index|
+        retrospective.ideas << {description: "Idea", done: false}
+      end
+      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id, 
+        retrospective: {ideas: [
+          {description: "Idea", done: true},
+          {description: "Idea", done: true},
+          {description: "Idea", done: true}
+        ]}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      retrospective.reload.ideas.each do |idea|
+        expect(idea['done']).to eql true
+      end
+    end
+    
+  end
+  
   describe 'DELETE #destroy' do
     it 'should remove retrospective' do
       retrospective = FactoryGirl.create(:classic_retrospective)
