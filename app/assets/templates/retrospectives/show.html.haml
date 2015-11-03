@@ -30,10 +30,13 @@
             %span.glyphicon.glyphicon-exclamation-sign
             Ideas
             %span.badge.pull-right {{retrospective.ideas.length}}
+        .panel-body
+          %h5 Completed
+          %progressbar{value: "done", max: "count", type: "{{type}}"} {{done}} / {{count}}
         %ul.list-group{"ng-repeat" => "idea in retrospective.ideas"}
           %li.list-group-item 
             {{idea.description}}
-            %a.pull-right{href: "#", tooltip: "Change status"}
+            %a.pull-right{href: "#", tooltip: "Change status", "ng-click" => "update($index)"}
               %span.glyphicon{"ng-class" => "{'glyphicon-remove': !idea.done, 'glyphicon-ok': idea.done}"}
 .modal-footer
   %button.btn.btn-default{"ng-click" => "cancel()"}

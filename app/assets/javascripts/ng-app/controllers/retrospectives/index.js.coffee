@@ -28,6 +28,8 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
           (response) -> 
             $scope.retrospectives = response
         )
+      else 
+        $scope.retrospectives = []
       
     $scope.new = () ->
       sprint_id = $scope.sprint._id.$oid
@@ -39,7 +41,12 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
         controller: 'RetrospectivesShowCtrl'
         size: 'lg'
         resolve:
-          retrospective: $scope.retrospectives[index]
+          project_id: ->
+            $routeParams.project_id
+          sprint_id: -> 
+            $scope.sprint._id.$oid
+          retrospective_id: ->
+            $scope.retrospectives[index]._id.$oid
       
     $scope.delete = (index) ->
       modalInstance = $modal.open
