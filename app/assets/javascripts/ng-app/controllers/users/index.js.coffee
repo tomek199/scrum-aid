@@ -71,9 +71,8 @@ scrumAid.controller 'UsersIndexCtrl', [
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-delete.html'
       modalInstance.result.then (result) ->
-        project_id = $scope.project._id.$oid
         role_id = $scope.roles[index]._id.$oid
-        project.one('roles', role_id).remove().then(
+        Restangular.one('roles', role_id).remove().then(
           (response) ->
             $scope.roles.splice(index, 1)
           (error) ->
@@ -113,10 +112,7 @@ scrumAid.controller 'UsersIndexCtrl', [
         controller: 'RolesUpdateCtrl'
         size: 'md'
         resolve:
-          project_id: ->
-            $scope.project._id.$oid
-          role: ->
-            role
+          role: role
 
       modalInstance.result.then (result) ->
         if result._id?

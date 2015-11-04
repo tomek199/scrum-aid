@@ -20,7 +20,7 @@ class RolesController < ApplicationController
     end
   end
 
-  # PUT /projects/:project_id/roles/:id
+  # PUT /roles/:id
   def update
     role = Role.find params[:id]
     if role.update(role_params)
@@ -30,7 +30,7 @@ class RolesController < ApplicationController
     end
   end
 
-  # DELETE /projects/:project_id/roles/:id
+  # DELETE /roles/:id
   def destroy
     role = Role.find params[:id]
     if role.destroy

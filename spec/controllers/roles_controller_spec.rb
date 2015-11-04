@@ -64,7 +64,7 @@ RSpec.describe RolesController, type: :controller do
       role = Role.new(name: Faker::Name.title)
       role.save
       @project.roles << role
-      params = {project_id: @project.id, id: role.id, role: {name: "New name"}}
+      params = {id: role.id, role: {name: "New name"}}
       put :update, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -75,7 +75,7 @@ RSpec.describe RolesController, type: :controller do
       role = Role.new(name: Faker::Name.title)
       role.save
       @project.roles << role
-      params = {project_id: @project.id, id: role.id, role: {name: ""}}
+      params = {id: role.id, role: {name: ""}}
       put :update, params
       expect(response).to have_http_status(:unprocessable_entity)
       result = JSON.parse(response.body)
@@ -88,7 +88,7 @@ RSpec.describe RolesController, type: :controller do
       role = Role.new(name: Faker::Name.title)
       role.save
       @project.roles << role
-      params = {project_id: @project.id, id: role.id}
+      params = {id: role.id}
       delete :destroy, params
       expect(response).to have_http_status(:ok)
       @project.reload
