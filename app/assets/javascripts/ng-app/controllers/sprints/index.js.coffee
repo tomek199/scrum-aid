@@ -37,8 +37,6 @@ scrumAid.controller 'SprintsIndexCtrl', [
         controller: 'SprintsUpdateCtrl'
         size: 'lg'
         resolve:
-          project: ->
-            $scope.project
           sprint: ->
             $scope.sprints[index]
           lastSprint: ->
@@ -63,9 +61,8 @@ scrumAid.controller 'SprintsIndexCtrl', [
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-delete.html'
       modalInstance.result.then (result) ->
-        project_id = $routeParams.project_id
         sprint_id = $scope.sprints[index]._id.$oid
-        project.one('sprints', sprint_id).remove().then(
+        Restangular.one('sprints', sprint_id).remove().then(
           (response) ->
             $scope.sprints.splice(index, 1)
         )

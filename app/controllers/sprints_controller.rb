@@ -8,7 +8,7 @@ class SprintsController < ApplicationController
     render json: project.sprints, status: 200
   end
   
-  # GET /projects/:project_id/sprints/:id
+  # GET /sprints/:id
   def show
     sprint = Sprint.find params[:id]
     if sprint
@@ -31,7 +31,7 @@ class SprintsController < ApplicationController
     end
   end
   
-  # PUT /projects/:project_id/sprints/:id
+  # PUT /sprints/:id
   def update
     sprint = Sprint.find params[:id]
     if sprint.update(sprint_params) 
@@ -41,7 +41,7 @@ class SprintsController < ApplicationController
     end
   end
   
-  # DELETE /projects/:project_id/sprints/:id
+  # DELETE /sprints/:id
   def destroy
     sprint = Sprint.find params[:id]
     if sprint.destroy

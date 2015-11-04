@@ -9,7 +9,7 @@ scrumAid.controller 'SprintsShowCtrl', [
         $scope.project = response
     )
     
-    project.one('sprints', $routeParams.sprint_id).get().then(
+    Restangular.one('sprints', $routeParams.sprint_id).get().then(
       (response) ->
         $scope.sprint = response
     )

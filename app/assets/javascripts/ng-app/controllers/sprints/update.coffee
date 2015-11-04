@@ -1,6 +1,6 @@
 scrumAid.controller 'SprintsUpdateCtrl', [
-  '$scope', '$modalInstance', 'Restangular', 'project', 'sprint', 'lastSprint', 'nextSprint'
-  ($scope, $modalInstance, Restangular, project, sprint, lastSprint, nextSprint) ->
+  '$scope', '$modalInstance', 'Restangular', 'sprint', 'lastSprint', 'nextSprint'
+  ($scope, $modalInstance, Restangular, sprint, lastSprint, nextSprint) ->
     
     init = () ->    
       $scope.datepickers = [
@@ -38,7 +38,7 @@ scrumAid.controller 'SprintsUpdateCtrl', [
       $scope.datepickers[index].opened = true
 
     $scope.update = () ->
-      Restangular.one('projects', project._id.$oid).one('sprints').customPUT($scope.sprint, sprint._id.$oid).then(
+      Restangular.one('sprints').customPUT($scope.sprint, sprint._id.$oid).then(
         (response) ->
           $modalInstance.close(response)
         (error) ->

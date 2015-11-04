@@ -50,7 +50,7 @@ RSpec.describe SprintsController, type: :controller do
     it 'should show sprint by Id' do
       sprint = FactoryGirl.create(:sprint)
       @project.sprints << sprint
-      params = {project_id: @project.id, id: sprint.id}
+      params = {id: sprint.id}
       get :show, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -62,7 +62,7 @@ RSpec.describe SprintsController, type: :controller do
     it 'should update sprint closed status' do
       sprint = FactoryGirl.create(:sprint)
       @project.sprints << sprint
-      params = {project_id: @project.id, id: sprint.id, sprint: {closed: true}}
+      params = {id: sprint.id, sprint: {closed: true}}
       put :update, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -75,7 +75,7 @@ RSpec.describe SprintsController, type: :controller do
       sprint = FactoryGirl.create(:sprint)
       @project.sprints << sprint
       project_sprints = @project.sprints.count
-      params = {project_id: @project.id, id: sprint.id}
+      params = {id: sprint.id}
       delete :destroy, params
       expect(response).to have_http_status(:ok)
       @project.reload

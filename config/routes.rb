@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :roles, only: [:index, :create] do
       post 'mark_as_default'
     end
-    resources :sprints, only: [:index, :show, :create, :update, :destroy] do
+    resources :sprints, only: [:index, :create] do
       get 'closed', on: :collection
       post 'start'
       resources :retrospectives, only: [:create, :index, :update, :show, :destroy]
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
   
   resources :roles, only: [:update, :destroy]
+  resources :sprints, only: [:show, :update, :destroy]
 
   root to: 'application#index'
   get '*path' => 'application#index'
