@@ -7,7 +7,7 @@
     %li
       %a{href: "/projects/{{project._id.$oid}}/sprints"} Sprints
     %li
-      %a{href: "/projects/{{project._id.$oid}}/sprints/{{sprint}}"} {{sprint.name}}
+      %a{href: "/projects/{{project._id.$oid}}/sprints/{{sprint._id.$oid}}"} {{sprint.name}}
     %li
       %a{href: "/projects/{{project._id.$oid}}/sprints/{{sprint._id.$oid}}/retrospectives"} Retrospectives
     %li.active New

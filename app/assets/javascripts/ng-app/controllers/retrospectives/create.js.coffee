@@ -4,6 +4,12 @@ scrumAid.controller 'RetrospectivesCreateCtrl', [
     
     init = () ->
       $scope.datepicker = {opened: false}
+      
+      Restangular.one('projects', $routeParams.project_id).get().then(
+        (response) ->
+          $scope.project = response
+      )
+      
       Restangular.one('sprints', $routeParams.sprint_id).get().then(
         (response) ->
           $scope.sprint = response
