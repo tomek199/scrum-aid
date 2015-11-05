@@ -1,0 +1,129 @@
+%h4
+  %ol.breadcrumb
+    %li 
+      %a{href: "/projects"} Projects
+    %li
+      %a{href: "/projects/{{project._id.$oid}}"} {{project.name}}
+    %li
+      %a{href: "/projects/{{project._id.$oid}}/sprints"} Sprints
+    %li
+      %a{href: "/projects/{{project._id.$oid}}/sprints/{{sprint._id.$oid}}"} {{sprint.name}}
+    %li
+      %a{href: "/projects/{{project._id.$oid}}/sprints/{{sprint._id.$oid}}/retrospectives"} Retrospectives
+    %li.active {{retrospective.name}}
+.col-md-2
+  %ng-include{src: "'projects/nav.html'"}
+.col-md-10
+  .row
+    .col-md-12
+      %form.form-inline{name: "primaryForm"}
+        .form-group.form-group-lg{"sc-valid" => "{{primaryForm.name}}"}
+          %label.input-lg{for: :name}
+            %span.text-danger*
+            Name
+          %input#name.form-control{type: :text, name: :name, "ng-model" => "retrospective.name", required: true}
+          %sc-invalid{value: "{{primaryForm.name}}"}
+        .form-group.form-group-lg{"sc-valid" => "{{primaryForm.date}}"}
+          %label.input-lg{for: :date}
+            %span.text-danger*
+            Date
+          .input-group
+            %input#date.form-control.input{type: :text, name: :date, "ng-model" => "retrospective.date", required: true, readonly: "", "datepicker-popup" => "dd.MM.yyyy", "is-open" => "datepicker.opened", }
+            %span.input-group-btn
+              %button.btn.btn-lg.btn-default{type: :button, "ng-click" => "open($event)"}
+                %span.glyphicon.glyphicon-calendar
+          %sc-invalid{value: "{{primaryForm.date}}"}
+      %hr
+  .row
+    .col-md-6
+      .panel.panel-success
+        .panel-heading 
+          .panel-title
+            %span.glyphicon.glyphicon-plus-sign
+            Pluses
+            %span.badge.pull-right {{retrospective.pluses.length}}
+        %table.table.table-hover{"ng-show" => "retrospective.pluses.length"}
+          %thead
+            %th Description
+            %th.text-right Actions
+          %tbody{"ng-repeat" => "plus in retrospective.pluses track by $index"}
+            %tr
+              %td
+                %span{"editable-text" => "plus", "e-name" => "description", "e-form" => "plusesForm", "e-required" => "", "onbeforesave" => "checkName($data)"} {{plus}}
+              %td.text-right
+                %form{"editable-form" => "", name: "plusesForm", "ng-show" => "plusesForm.$visible", "shown" => "temp.description == plus", "onbeforesave" => "savePlus($data, $index)"}
+                  %button.btn.btn-primary{type: :submit, "shown" => "temp.description == plus"} Save
+                  %button.btn.btn-default{"ng-click" => "plusesForm.$cancel(); cancelPlus($index)"} Cancel
+                %button.btn.btn-xs.btn-default{"ng-show" => "!plusesForm.$visible", "ng-click" => "plusesForm.$show()", tooltip: "Edit"}
+                  %span.glyphicon.glyphicon-edit
+                %button.btn.btn-xs.btn-danger{"ng-show" => "!plusesForm.$visible", "ng-click" => "deletePlus($index)", tooltip: "Delete"}
+                  %span.glyphicon.glyphicon-remove
+        .panel-body
+          %button.btn.btn-sm.btn-success.pull-right{"ng-hide" => "temp", "ng-click" => "addPlus()"}
+            %span.glyphicon.glyphicon-plus 
+            Add
+    .col-md-6
+      .panel.panel-danger
+        .panel-heading 
+          .panel-title 
+            %span.glyphicon.glyphicon-minus-sign
+            Minuses
+            %span.badge.pull-right {{retrospective.minuses.length}}
+        %table.table.table-hover{"ng-show" => "retrospective.minuses.length"}
+          %thead
+            %th Description
+            %th.text-right Actions
+          %tbody{"ng-repeat" => "minus in retrospective.minuses track by $index"}
+            %tr
+              %td
+                %span{"editable-text" => "minus", "e-name" => "description", "e-form" => "minusesForm", "e-required" => "", "onbeforesave" => "checkName($data)"} {{minus}}
+              %td.text-right
+                %form{"editable-form" => "", name: "minusesForm", "ng-show" => "minusesForm.$visible", "shown" => "temp.description == minus", "onbeforesave" => "saveMinus($data, $index)"}
+                  %button.btn.btn-primary{type: :submit, "shown" => "temp.description == minus"} Save
+                  %button.btn.btn-default{"ng-click" => "minusesForm.$cancel(); cancelMinus($index)"} Cancel
+                %button.btn.btn-xs.btn-default{"ng-show" => "!minusesForm.$visible", "ng-click" => "minusesForm.$show()", tooltip: "Edit"}
+                  %span.glyphicon.glyphicon-edit
+                %button.btn.btn-xs.btn-danger{"ng-show" => "!minusesForm.$visible", "ng-click" => "deleteMinus($index)", tooltip: "Delete"}
+                  %span.glyphicon.glyphicon-remove
+        .panel-body
+          %button.btn.btn-sm.btn-success.pull-right{"ng-hide" => "temp", "ng-click" => "addMinus()"}
+            %span.glyphicon.glyphicon-plus 
+            Add
+  .row
+    .col-md-12
+      .panel.panel-info
+        .panel-heading 
+          .panel-title 
+            %span.glyphicon.glyphicon-exclamation-sign
+            Ideas
+            %span.badge.pull-right {{retrospective.ideas.length}}
+        %table.table.table-hover{"ng-show" => "retrospective.ideas.length"}
+          %thead
+            %th Done
+            %th Description
+            %th.text-right Actions
+          %tbody{"ng-repeat" => "idea in retrospective.ideas track by $index"}
+            %tr
+              %td
+                %a{href: "#", "editable-checkbox" => "idea.done", "e-name" => "done", "e-form" => "ideasForm", tooltip: ""}
+                  %span.glyphicon{"ng-class" => "{'glyphicon-remove': !idea.done, 'glyphicon-ok': idea.done}"}
+              %td
+                %span{"editable-text" => "idea.description", "e-name" => "description", "e-form" => "ideasForm", "e-required" => "", "onbeforesave" => "checkName($data)"} {{idea.description}}
+              %td.text-right
+                %form{"editable-form" => "", name: "ideasForm", "ng-show" => "ideasForm.$visible", "shown" => "temp.idea == idea", "onbeforesave" => "saveIdea($data, $index)"}
+                  %button.btn.btn-primary{type: :submit, "shown" => "temp.idea == idea"} Save
+                  %button.btn.btn-default{"ng-click" => "ideasForm.$cancel(); cancelIdea($index)"} Cancel
+                %button.btn.btn-xs.btn-default{"ng-show" => "!ideasForm.$visible", "ng-click" => "ideasForm.$show()", tooltip: "Edit"}
+                  %span.glyphicon.glyphicon-edit
+                %button.btn.btn-xs.btn-danger{"ng-show" => "!ideasForm.$visible", "ng-click" => "deleteIdea($index)", tooltip: "Delete"}
+                  %span.glyphicon.glyphicon-remove
+        .panel-body
+          %button.btn.btn-sm.btn-success.pull-right{"ng-hide" => "temp", "ng-click" => "addIdea()"}
+            %span.glyphicon.glyphicon-plus 
+            Add
+  %hr
+  .row
+    .col-md-12.text-right
+      .btn.btn-link{"ng-click" => "back()"} Back
+      .btn.btn-primary{"ng-disabled" => "!primaryForm.$valid", "ng-click" => "update()"} Update
+  

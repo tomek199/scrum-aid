@@ -77,7 +77,7 @@ RSpec.describe RetrospectivesController, type: :controller do
       expect(retrospective.reload.name).to eql "New name"
     end
     
-    it 'should update Retrospective pluses' do
+    it 'should add Retrospective pluses' do
       retrospective = FactoryGirl.create(:classic_retrospective)
       @sprint.retrospectives << retrospective
       params = {id: retrospective.id, 
@@ -106,6 +106,15 @@ RSpec.describe RetrospectivesController, type: :controller do
       retrospective.reload.ideas.each do |idea|
         expect(idea['done']).to eql true
       end
+    end
+    
+    it 'should remove Retrospective pluses' do
+      retrospective = FactoryGirl.create(:classic_retrospective)
+      @sprint.retrospectives << retrospective
+      params = {id: retrospective.id, retrospective: {pluses: nil}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      expect(retrospective.reload.pluses).to be nil
     end
     
   end

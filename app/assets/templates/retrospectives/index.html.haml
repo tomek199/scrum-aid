@@ -35,7 +35,7 @@
       %tr
         %td {{$index + 1}}
         %td
-          %a{href: "#"} {{retrospective.name}}
+          %a{href: "#", "ng-click" => "show($index)"} {{retrospective.name}}
         %td {{retrospective.date}}
         %td
           %span.label.label-success {{retrospective.pluses.length || 0}} pluses
@@ -44,7 +44,7 @@
         %td.text-right
           %button.btn.btn-xs.btn-default{"ng-click" => "show($index)", tooltip: "Show"}
             %span.glyphicon.glyphicon-search
-          %button.btn.btn-xs.btn-default{tooltip: "Edit"}
+          %button.btn.btn-xs.btn-default{"ng-click" => "edit($index)", tooltip: "Edit"}
             %span.glyphicon.glyphicon-edit
           %button.btn.btn-xs.btn-danger{"ng-click" => "delete($index)", tooltip: "Remove retrospective"}
             %span.glyphicon.glyphicon-remove

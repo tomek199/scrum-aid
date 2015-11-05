@@ -52,7 +52,9 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/projects/:project_id/sprints/:sprint_id/retrospectives/new",
     templateUrl: "retrospectives/add.html"
     controller: "RetrospectivesCreateCtrl"
-  
+  $routeProvider.when "/projects/:project_id/sprints/:sprint_id/retrospectives/:retrospective_id/edit",
+    templateUrl: "retrospectives/edit.html"
+    controller: "RetrospectivesUpdateCtrl"  
 
   $locationProvider.html5Mode
     enabled: true

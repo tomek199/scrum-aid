@@ -53,6 +53,6 @@ class RetrospectivesController < ApplicationController
   private
   
   def retrospective_params
-    params.require(:retrospective).permit(:name, :date, pluses: [], minuses: [], ideas: [:description, :done])
+    params.require(:retrospective).permit(:name, :date, :pluses, :minuses, :ideas, pluses: [], minuses: [], ideas: [:description, :done])
   end
 end
