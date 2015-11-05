@@ -2,13 +2,13 @@ class RetrospectivesController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
-  # GET /projects/:project_id/sprints/:sprint_id/index
+  # GET /sprints/:sprint_id/index
   def index
     sprint = Sprint.find params[:sprint_id]
     render json: sprint.retrospectives, status: 200
   end
   
-  # POST /projects/:project_id/sprints/:sprint_id/retrospectives
+  # POST /sprints/:sprint_id/retrospectives
   def create
     sprint = Sprint.find params[:sprint_id]
     retrospective = ClassicRetrospective.new(retrospective_params)
@@ -20,7 +20,7 @@ class RetrospectivesController < ApplicationController
     end
   end
   
-  # GET /projects/:project_id/sprints/:sprint_id/retrospectives/:id
+  # GET /retrospectives/:id
   def show
     retrospective = Retrospective.find params[:id]
     if retrospective
@@ -30,7 +30,7 @@ class RetrospectivesController < ApplicationController
     end
   end
   
-  # PUT /projects/:project_id/sprints/:sprint_id/retrospectives/:id
+  # PUT /retrospectives/:id
   def update
     retrospective = Retrospective.find params[:id]
     if retrospective.update(retrospective_params)
@@ -40,7 +40,7 @@ class RetrospectivesController < ApplicationController
     end
   end
   
-  # DELETE /projects/:project_id/sprints/:sprint_id/retrospectives/:id
+  # DELETE /retrospectives/:id
   def destroy
     retrospective = Retrospective.find params[:id]
     if retrospective.destroy

@@ -25,7 +25,7 @@ RSpec.describe RetrospectivesController, type: :controller do
         ideas << {description: Faker::Lorem.sentence, done: false}
       end
       params = {retrospective: {name: Faker::Name.title, date: Date.new, 
-        pluses: pluses, minuses: minuses, ideas: ideas}, project_id: @project.id, sprint_id: @sprint.id}
+        pluses: pluses, minuses: minuses, ideas: ideas}, sprint_id: @sprint.id}
       post :create, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -42,7 +42,7 @@ RSpec.describe RetrospectivesController, type: :controller do
       COUNT.times do
         @sprint.retrospectives << FactoryGirl.create(:classic_retrospective)
       end
-      params = {project_id: @project.id, sprint_id: @sprint.id}
+      params = {sprint_id: @sprint.id}
       get :index, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -54,7 +54,7 @@ RSpec.describe RetrospectivesController, type: :controller do
     it 'should show Retrospective by Id' do
       retrospective = FactoryGirl.create(:classic_retrospective)
       @sprint.retrospectives << retrospective
-      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id}
+      params = {id: retrospective.id}
       get :show, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -69,7 +69,7 @@ RSpec.describe RetrospectivesController, type: :controller do
     it 'should update Retrospective name' do
       retrospective = FactoryGirl.create(:classic_retrospective)
       @sprint.retrospectives << retrospective
-      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id, retrospective: {name: "New name"}}
+      params = {id: retrospective.id, retrospective: {name: "New name"}}
       put :update, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)
@@ -80,7 +80,7 @@ RSpec.describe RetrospectivesController, type: :controller do
     it 'should update Retrospective pluses' do
       retrospective = FactoryGirl.create(:classic_retrospective)
       @sprint.retrospectives << retrospective
-      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id, 
+      params = {id: retrospective.id, 
         retrospective: {pluses: ["Plus", "Plus", "Plus"]}}
       put :update, params
       expect(response).to have_http_status(:ok)
@@ -96,8 +96,7 @@ RSpec.describe RetrospectivesController, type: :controller do
       COUNT.times do |index|
         retrospective.ideas << {description: "Idea", done: false}
       end
-      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id, 
-        retrospective: {ideas: [
+      params = {id: retrospective.id, retrospective: {ideas: [
           {description: "Idea", done: true},
           {description: "Idea", done: true},
           {description: "Idea", done: true}
@@ -116,7 +115,7 @@ RSpec.describe RetrospectivesController, type: :controller do
       retrospective = FactoryGirl.create(:classic_retrospective)
       @sprint.retrospectives << retrospective
       sprint_retrospectives = @sprint.retrospectives.count
-      params = {project_id: @project.id, sprint_id: @sprint.id, id: retrospective.id}
+      params = {id: retrospective.id}
       delete :destroy, params
       expect(response).to have_http_status(:ok)
       @sprint.reload

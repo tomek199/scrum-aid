@@ -24,7 +24,7 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
     $scope.get = () ->
       if $scope.sprint
         sprint_id = $scope.sprint._id.$oid
-        project.one('sprints', sprint_id).all('retrospectives').getList().then(
+        Restangular.one('sprints', sprint_id).all('retrospectives').getList().then(
           (response) -> 
             $scope.retrospectives = response
         )
@@ -41,10 +41,6 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
         controller: 'RetrospectivesShowCtrl'
         size: 'lg'
         resolve:
-          project_id: ->
-            $routeParams.project_id
-          sprint_id: -> 
-            $scope.sprint._id.$oid
           retrospective_id: ->
             $scope.retrospectives[index]._id.$oid
       
@@ -52,9 +48,8 @@ scrumAid.controller 'RetrospectivesIndexCtrl', [
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-delete.html'
       modalInstance.result.then (result) ->
-        sprint_id = $scope.sprint._id.$oid
         retrospective_id = $scope.retrospectives[index]._id.$oid
-        project.one('sprints', sprint_id).one('retrospectives', retrospective_id).remove().then(
+        Restangular.one('retrospectives', retrospective_id).remove().then(
           (response) ->
             $scope.retrospectives.splice(index, 1)
         )

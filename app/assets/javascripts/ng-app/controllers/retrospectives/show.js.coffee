@@ -1,11 +1,9 @@
 scrumAid.controller 'RetrospectivesShowCtrl', [
-  '$scope', '$modalInstance', 'Restangular', 'project_id', 'sprint_id', 'retrospective_id'
-  ($scope, $modalInstance, Restangular, project_id, sprint_id, retrospective_id) ->
-    
-    sprint = Restangular.one('projects', project_id).one('sprints', sprint_id)
+  '$scope', '$modalInstance', 'Restangular', 'retrospective_id'
+  ($scope, $modalInstance, Restangular, retrospective_id) ->
     
     init = () ->
-      sprint.one('retrospectives', retrospective_id).get().then(
+      Restangular.one('retrospectives', retrospective_id).get().then(
         (response) ->
           $scope.retrospective = response
           $scope.count = 0
@@ -28,7 +26,7 @@ scrumAid.controller 'RetrospectivesShowCtrl', [
       else
         $scope.done++
         
-      sprint.one('retrospectives').customPUT(retrospective: {ideas: $scope.retrospective}.ideas, retrospective_id).then(
+      Restangular.one('retrospectives').customPUT(retrospective: {ideas: $scope.retrospective}.ideas, retrospective_id).then(
         (response) ->
       )
       

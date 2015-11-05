@@ -12,12 +12,13 @@ Rails.application.routes.draw do
     resources :sprints, only: [:index, :create] do
       get 'closed', on: :collection
       post 'start'
-      resources :retrospectives, only: [:create, :index, :update, :show, :destroy]
     end
-  end
-  
+  end  
   resources :roles, only: [:update, :destroy]
-  resources :sprints, only: [:show, :update, :destroy]
+  resources :sprints, only: [:show, :update, :destroy] do
+    resources :retrospectives, only: [:create, :index]
+  end
+  resources :retrospectives, only: [:update, :show, :destroy]
 
   root to: 'application#index'
   get '*path' => 'application#index'

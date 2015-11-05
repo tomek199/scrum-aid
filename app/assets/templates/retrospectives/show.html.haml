@@ -11,7 +11,7 @@
             %span.glyphicon.glyphicon-plus-sign
             Pluses
             %span.badge.pull-right {{retrospective.pluses.length}}
-        %ul.list-group{"ng-repeat" => "plus in retrospective.pluses"}
+        %ul.list-group{"ng-repeat" => "plus in retrospective.pluses track by $index"}
           %li.list-group-item {{plus}}
     .col-md-6
       .panel.panel-danger
@@ -20,7 +20,7 @@
             %span.glyphicon.glyphicon-minus-sign
             Minuses
             %span.badge.pull-right {{retrospective.minuses.length}}
-        %ul.list-group{"ng-repeat" => "minus in retrospective.minuses"}
+        %ul.list-group{"ng-repeat" => "minus in retrospective.minuses track by $index"}
           %li.list-group-item {{minus}}
   .row
     .col-md-12
@@ -33,7 +33,7 @@
         .panel-body
           %h5 Completed
           %progressbar{value: "done", max: "count", type: "{{type}}"} {{done}} / {{count}}
-        %ul.list-group{"ng-repeat" => "idea in retrospective.ideas"}
+        %ul.list-group{"ng-repeat" => "idea in retrospective.ideas track by $index"}
           %li.list-group-item 
             {{idea.description}}
             %a.pull-right{href: "#", tooltip: "Change status", "ng-click" => "update($index)"}

@@ -2,17 +2,9 @@ scrumAid.controller 'RetrospectivesCreateCtrl', [
   '$scope', '$routeParams', '$location', 'Restangular'
   ($scope, $routeParams, $location, Restangular) ->
     
-    project = Restangular.one('projects', $routeParams.project_id)
-    
     init = () ->
       $scope.datepicker = {opened: false}
-
-      project.get().then(
-        (response) ->
-          $scope.project = response
-      )
-    
-      project.one('sprints', $routeParams.sprint_id).get().then(
+      Restangular.one('sprints', $routeParams.sprint_id).get().then(
         (response) ->
           $scope.sprint = response
           $scope.retrospective = {
@@ -33,7 +25,7 @@ scrumAid.controller 'RetrospectivesCreateCtrl', [
       $location.path '/projects/' + $routeParams.project_id + '/sprints/' + $routeParams.sprint_id + '/retrospectives'
       
     $scope.create = () ->
-      project.one('sprints', $routeParams.sprint_id).one('retrospectives').post('', {retrospective: $scope.retrospective}).then(
+      Restangular.one('sprints', $routeParams.sprint_id).one('retrospectives').post('', {retrospective: $scope.retrospective}).then(
         (response) ->
           $scope.back()
       )
