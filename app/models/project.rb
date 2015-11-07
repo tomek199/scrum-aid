@@ -22,7 +22,9 @@ class Project
   end
   
   def add_default_notebooks
-    self.notebooks << Notebook.create(name: NotebooksHelper::TRASH, removable: false, default: false)
-    self.notebooks << Notebook.create(name: NotebooksHelper::DEFAULT, removable: false, default: true)
+    self.notebooks << Notebook.create(name: NotebooksHelper::TRASH, 
+      description: NotebooksHelper::TRASH_DESCRIPTION, removable: false, default: false)
+    self.notebooks << Notebook.create(name: NotebooksHelper::DEFAULT, 
+      description: NotebooksHelper::DEFAULT_DESCRIPTION, removable: false, default: true)
   end
 end
