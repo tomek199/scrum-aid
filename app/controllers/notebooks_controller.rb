@@ -2,6 +2,12 @@ class NotebooksController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
+  # GET /projects/:project_id/notebooks
+  def index
+    project = Project.find params[:project_id]
+    render json: project.notebooks, status: 200
+  end
+  
   # POST /projects/:project_id/notebooks
   def create
     project = Project.find params[:project_id]

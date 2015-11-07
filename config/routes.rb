@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get 'closed', on: :collection
       post 'start'
     end
-    resources :notebooks, only: [:create]
+    resources :notebooks, only: [:index, :create]
   end  
   resources :roles, only: [:update, :destroy]
   resources :sprints, only: [:show, :update, :destroy] do

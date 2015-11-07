@@ -26,4 +26,17 @@ RSpec.describe NotebooksController, type: :controller do
       expect(result['removable']).to eql true
     end
   end
+  
+  describe 'GET #index' do
+    it 'should return project\' notebooks list' do
+      COUNT.times do
+        @project.notebooks << FactoryGirl.create(:notebook)
+      end
+      params = {project_id: @project.id}
+      get :index, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result.count).to eql COUNT
+    end
+  end
 end
