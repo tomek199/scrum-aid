@@ -11,6 +11,7 @@ class Project
   has_many :roles, dependent: :destroy
   has_many :user_roles, dependent: :destroy
   has_many :sprints, dependent: :destroy
+  has_many :notebooks
 
   validates_presence_of :name, :owner_id, :owner_username, :sprint_length
 
