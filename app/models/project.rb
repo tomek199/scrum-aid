@@ -20,4 +20,9 @@ class Project
     self.roles << Role.create(name: ProjectsHelper::SCRUM_MASTER, removable: false, editable: false)
     self.roles << Role.create(name: ProjectsHelper::DEVELOPER, removable: false, editable: true, default: true)
   end
+  
+  def add_default_notebooks
+    self.notebooks << Notebook.create(name: NotebooksHelper::TRASH, removable: false, default: false)
+    self.notebooks << Notebook.create(name: NotebooksHelper::DEFAULT, removable: false, default: true)
+  end
 end

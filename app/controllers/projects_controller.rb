@@ -26,6 +26,7 @@ class ProjectsController < ApplicationController
     if project.save
       project.users << current_user
       project.add_default_roles
+      project.add_default_notebooks
       render json: project
     else
       render json: {errors: project.errors}, status: 422

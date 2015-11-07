@@ -25,8 +25,16 @@ RSpec.describe ProjectsController, type: :controller do
       expect(result['name']).to eq params[:project][:name]
       expect(result['user_ids']).to_not be_nil
       expect(result['owner_id']['$oid']).to eql @user.id.to_s
+    end
+    
+    it 'should create project\'s default roles and notebooks' do
+      params = {project: {name: "Test project", description: "Test description"}}
+      post :create, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
       project = Project.find result['_id']['$oid']
       expect(project.roles.count).to eql 3
+      expect(project.notebooks.count).to eql 2
     end
 
     it 'should return error message when project name is nil' do
