@@ -52,7 +52,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
         templateUrl: 'directives/scModal-closeSprint.html'
       modalInstance.result.then (result) ->
         sprint_id = $scope.sprints[index]._id.$oid
-        project.all('sprints').customPUT({closed: true, current: false}, sprint_id).then(
+        Restangular.all('sprints').customPUT({closed: true, current: false}, sprint_id).then(
           (response) -> 
             $scope.sprints[index] = response
         )
