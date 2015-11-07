@@ -13,4 +13,16 @@ scrumAid.controller 'NotebooksIndexCtrl', [
       (response) ->
         $scope.notebooks = response
     )
+    
+    $scope.new = () ->
+      modalInstance = $modal.open
+        templateUrl: 'notebooks/add.html'
+        controller: 'NotebooksCreateCtrl'
+        size: 'lg'
+        resolve:
+          project_id: ->
+            $scope.project._id.$oid
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.notebooks.push(result)
 ]
