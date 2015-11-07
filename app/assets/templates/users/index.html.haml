@@ -45,8 +45,7 @@
       %th role name
       %th.text-right Actions
     %tbody{"ng-repeat" => "role in roles"}
-      %tr{"ng-class" => "{'bg-warning': !role.removable && !role.editable,
-      'bg-success': role.default}"}
+      %tr{"ng-class" => "{'bg-warning': !role.removable && !role.editable, 'bg-info': role.default}"}
         %td {{$index + 1}}
         %td
           %a{href: "#", "ng-click" => "updateRole($index)"} {{role.name}}

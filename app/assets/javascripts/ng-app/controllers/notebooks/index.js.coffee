@@ -9,9 +9,8 @@ scrumAid.controller 'NotebooksIndexCtrl', [
         $scope.project = response
     )
 
-    # project.getList('notebooks').then(
-#       (response) ->
-#         $scope.notebooks = response
-#     )
-
+    project.getList('notebooks').then(
+      (response) ->
+        $scope.notebooks = response
+    )
 ]
