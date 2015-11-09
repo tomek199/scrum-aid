@@ -59,4 +59,17 @@ RSpec.describe NotebooksController, type: :controller do
       expect(result['description']).to eql "New description"
     end
   end
+  
+  describe 'DELETE #destroy' do
+    it 'should remove notebook' do
+      notebook = FactoryGirl.create(:notebook)
+      @project.notebooks << notebook
+      notebooks_count = @project.notebooks.count
+      params = {id: notebook.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      @project.reload
+      expect(@project.notebooks.count).to eql notebooks_count - 1
+    end
+  end
 end
