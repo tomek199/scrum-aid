@@ -20,6 +20,16 @@ class NotebooksController < ApplicationController
     end
   end
   
+  # PUT /notebooks/:id
+  def update
+    notebook = Notebook.find params[:id]
+    if notebook.update(notebook_params)
+      render json: notebook
+    else
+      render json: {errors: notebook.errors}, status: 422
+    end
+  end
+  
   private
   
   def notebook_params

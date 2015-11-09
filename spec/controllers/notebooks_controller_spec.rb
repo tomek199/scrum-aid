@@ -39,4 +39,24 @@ RSpec.describe NotebooksController, type: :controller do
       expect(result.count).to eql COUNT
     end
   end
+  
+  describe 'PUT #update' do
+    it 'should update notebook name' do
+      notebook = FactoryGirl.create(:notebook)
+      params = {id: notebook.id, notebook: {name: "New name"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['name']).to eql "New name"
+    end
+    
+    it 'should update notebook description' do
+      notebook = FactoryGirl.create(:notebook)
+      params = {id: notebook.id, notebook: {description: "New description"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['description']).to eql "New description"
+    end
+  end
 end
