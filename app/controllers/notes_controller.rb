@@ -2,6 +2,12 @@ class NotesController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
+  # GET /notebookss/:notebook_id/notes
+  def index
+    notebook = Notebook.find params[:notebook_id]
+    render json: notebook.notes, status: 200
+  end
+  
   # POST /notebooks/:notebook_id/notes
   def create
     notebook = Notebook.find params[:notebook_id]

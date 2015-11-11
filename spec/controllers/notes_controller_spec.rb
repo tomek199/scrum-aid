@@ -22,7 +22,16 @@ RSpec.describe NotesController, type: :controller do
   end
   
   describe 'GET #index' do 
-    it 'should return Notebook\'s notes'
+    it 'should return Notebook\'s notes' do
+      COUNT.times do
+        @notebook.notes.create(text: Faker::Lorem.sentence, created_by: @user.username)
+      end
+      params = {notebook_id: @notebook.id}
+      get :index, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result.count).to eql COUNT
+    end
   end
   
   describe 'PUT #update' do 
