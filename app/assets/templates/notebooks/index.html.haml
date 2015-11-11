@@ -9,7 +9,7 @@
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
   .list-group
-    %a.list-group-item{href: "#", "ng-repeat" => "notebook in notebooks", "ng-class" => "{'list-group-item-warning': !notebook.removable && !notebook.default, 'list-group-item-info': notebook.default}"}
+    %a.list-group-item{href: "#", "ng-click" => "show($index)", "ng-repeat" => "notebook in notebooks", "ng-class" => "{'list-group-item-warning': !notebook.removable && !notebook.default, 'list-group-item-info': notebook.default}"}
       %h3.list-group-item-heading
         %span.glyphicon.glyphicon-trash{"ng-show" => "!notebook.removable && !notebook.default"}
         {{notebook.name}}

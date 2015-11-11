@@ -25,6 +25,10 @@ scrumAid.controller 'NotebooksIndexCtrl', [
       modalInstance.result.then (result) ->
         if result._id?
           $scope.notebooks.push(result)
+          
+    $scope.show = (index) ->
+      notebook_id = $scope.notebooks[index]._id.$oid
+      $location.path '/projects/' + $routeParams.project_id + '/notebooks/' + notebook_id + '/notes'
     
     $scope.update = (index) ->
       notebook = $scope.notebooks[index]
