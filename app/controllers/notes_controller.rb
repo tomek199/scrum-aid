@@ -30,6 +30,17 @@ class NotesController < ApplicationController
     end
   end
   
+  # DELETE /notebooks/:notebook_id/notes/:id
+  def destroy
+    notebook = Notebook.find params[:notebook_id]
+    note = notebook.notes.find params[:id]
+    if notebook.notes.delete(note)
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end
+  end
+  
   private
   
   def note_params

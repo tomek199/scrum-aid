@@ -46,6 +46,13 @@ RSpec.describe NotesController, type: :controller do
   end
   
   describe 'DELETE #destroy' do
-    it 'should remove Note'
+    it 'should remove Note' do
+      note = @notebook.notes.create(text: Faker::Lorem.sentence, created_by: @user.username)
+      notebook_notes = @notebook.notes.count
+      params = {notebook_id: @notebook.id, id: note.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      expect(@notebook.reload.notes.count).to eql notebook_notes - 1
+    end
   end
 end
