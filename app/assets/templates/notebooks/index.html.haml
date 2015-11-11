@@ -17,7 +17,7 @@
           %span.glyphicon.glyphicon-remove
         %button.btn.btn-default.btn-xs.pull-right{tooltip: "Edit", "ng-click" => "update($index)", "ng-show" => "notebook.removable || notebook.default"}
           %span.glyphicon.glyphicon-edit
-        %button.btn.btn-default.btn-xs.pull-right{tooltip: "Mark as default", "ng-show" => "notebook.removable"}
+        %button.btn.btn-default.btn-xs.pull-right{tooltip: "Mark as default", "ng-click" => "markAsDefault($index)", "ng-show" => "notebook.removable"}
           %span.glyphicon.glyphicon-star
       %p.list-group-item-text 
         {{notebook.description}}

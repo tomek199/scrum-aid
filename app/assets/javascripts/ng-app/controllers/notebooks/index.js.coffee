@@ -49,4 +49,12 @@ scrumAid.controller 'NotebooksIndexCtrl', [
             $scope.notebooks.splice(index, 1)
           (error) ->
         )
+    
+    $scope.markAsDefault = (index) ->
+      notebook = $scope.notebooks[index]
+      project_id = $routeParams.project_id
+      project.one('notebooks', notebook._id.$oid).customPOST('', 'mark_as_default').then(
+        (response) -> 
+          $scope.notebooks = response
+      )
 ]
