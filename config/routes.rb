@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       get 'closed', on: :collection
       post 'start'
     end
-    resources :notebooks, only: [:index, :create]
+    resources :notebooks, only: [:index, :create] do 
+      post 'mark_as_default'
+    end
   end  
   resources :roles, only: [:update, :destroy]
   resources :sprints, only: [:show, :update, :destroy] do

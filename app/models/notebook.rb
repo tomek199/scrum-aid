@@ -9,4 +9,10 @@ class Notebook
   belongs_to :project
   
   validates_presence_of :name
+  
+  def mark_as_default
+    last_default = Notebook.where(project_id: self.project_id, default: true)
+    last_default.update(default: false, removable: true) if last_default.exists?
+    self.update(default: true, removable: false)
+  end
 end

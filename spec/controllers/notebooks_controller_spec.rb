@@ -72,4 +72,18 @@ RSpec.describe NotebooksController, type: :controller do
       expect(@project.notebooks.count).to eql notebooks_count - 1
     end
   end
+  
+  describe 'POST #mark_as_default' do
+    it 'should mark notebook as default' do
+      @project.add_default_notebooks
+      notebook = FactoryGirl.create(:notebook)
+      @project.notebooks << notebook
+      params = {project_id: @project.id, notebook_id: notebook.id}
+      post :mark_as_default, params
+      expect(response).to have_http_status(:ok)
+      default_notebooks = Notebook.where(project_id: @project.id, default: true)
+      expect(default_notebooks.count).to eql 1
+      expect(default_notebooks[0].name).to eql notebook.name
+    end
+  end
 end

@@ -40,6 +40,16 @@ class NotebooksController < ApplicationController
     end
   end
   
+  # POST /projects/:project_id/notebooks/:notebook_id/mark_as_default
+  def mark_as_default
+    notebook = Notebook.find params[:notebook_id]
+    if notebook.mark_as_default
+      render json: Notebook.where(project_id: params[:project_id])
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end 
+  end
+  
   private
   
   def notebook_params
