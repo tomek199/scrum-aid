@@ -38,4 +38,15 @@ scrumAid.controller 'NotebooksIndexCtrl', [
       modalInstance.result.then (result) ->
         if result._id?
           $scope.notebooks[index] = result
+          
+    $scope.delete = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        notebook_id = $scope.notebooks[index]._id.$oid
+        Restangular.one('notebooks', notebook_id).remove().then(
+          (response) ->
+            $scope.notebooks.splice(index, 1)
+          (error) ->
+        )
 ]

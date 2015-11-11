@@ -13,7 +13,7 @@
       %h3.list-group-item-heading
         %span.glyphicon.glyphicon-trash{"ng-show" => "!notebook.removable && !notebook.default"}
         {{notebook.name}}
-        %button.btn.btn-danger.btn-xs.pull-right{tooltip: "Remove", "ng-show" => "notebook.removable"}
+        %button.btn.btn-danger.btn-xs.pull-right{tooltip: "Remove", "ng-click" => "delete($index)", "ng-show" => "notebook.removable"}
           %span.glyphicon.glyphicon-remove
         %button.btn.btn-default.btn-xs.pull-right{tooltip: "Edit", "ng-click" => "update($index)", "ng-show" => "notebook.removable || notebook.default"}
           %span.glyphicon.glyphicon-edit
