@@ -40,6 +40,18 @@ RSpec.describe NotebooksController, type: :controller do
     end
   end
   
+  describe 'GET #show' do
+    it 'should return notebook by Id' do
+      notebook = FactoryGirl.create(:notebook)
+      params = {id: notebook.id}
+      get :show, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['_id']['$oid']).to eql notebook.id.to_s
+      expect(result['name']).to eql notebook.name
+    end
+  end
+  
   describe 'PUT #update' do
     it 'should update notebook name' do
       notebook = FactoryGirl.create(:notebook)

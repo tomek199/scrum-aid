@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :retrospectives, only: [:create, :index]
   end
   resources :retrospectives, only: [:update, :show, :destroy]
-  resources :notebooks, only: [:update, :destroy]
+  resources :notebooks, only: [:show, :update, :destroy]
 
   root to: 'application#index'
   get '*path' => 'application#index'

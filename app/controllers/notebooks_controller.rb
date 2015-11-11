@@ -8,6 +8,16 @@ class NotebooksController < ApplicationController
     render json: project.notebooks, status: 200
   end
   
+  # GET /notebooks/:id
+  def show
+    notebook = Notebook.find params[:id]
+    if notebook
+      render json: notebook
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end
+  end
+  
   # POST /projects/:project_id/notebooks
   def create
     project = Project.find params[:project_id]
