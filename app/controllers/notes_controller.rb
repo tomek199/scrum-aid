@@ -18,6 +18,17 @@ class NotesController < ApplicationController
       render json: {errors: note.errors}, status: 422
     end
   end
+
+  # POST /notebooks/:notebook_id/notes/:id
+  def update
+    notebook = Notebook.find params[:notebook_id]
+    note = notebook.notes.find params[:id]
+    if note.update(note_params)
+      render json: note
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end
+  end
   
   private
   

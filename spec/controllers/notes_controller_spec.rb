@@ -35,7 +35,14 @@ RSpec.describe NotesController, type: :controller do
   end
   
   describe 'PUT #update' do 
-    it 'should update Note text'
+    it 'should update Note\'s text' do
+      note = @notebook.notes.create(text: Faker::Lorem.sentence, created_by: @user.username)
+      params = {notebook_id: @notebook.id, id: note.id, note: {text: "New note text"}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['text']).to eql "New note text"
+    end
   end
   
   describe 'DELETE #destroy' do

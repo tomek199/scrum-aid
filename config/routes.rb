@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
   resources :retrospectives, only: [:update, :show, :destroy]
   resources :notebooks, only: [:show, :update, :destroy] do
-    resources :notes, only: [:index, :create]
+    resources :notes, only: [:index, :create, :update]
   end
 
   root to: 'application#index'
