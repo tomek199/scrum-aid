@@ -97,7 +97,7 @@ RSpec.describe SprintsController, type: :controller do
       get :closed, params
       result = JSON.parse(response.body)
       expect(response).to have_http_status(:ok)
-      expect(result.count).to eql 3
+      expect(result.count).to eql COUNT
     end
   end
   
