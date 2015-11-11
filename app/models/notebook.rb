@@ -7,6 +7,7 @@ class Notebook
   field :default, type: Boolean, default: false
   
   belongs_to :project
+  embeds_many :notes
   
   validates_presence_of :name
   
