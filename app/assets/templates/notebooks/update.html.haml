@@ -1,0 +1,20 @@
+.modal-header
+  %h3 Update notebook
+.modal-body
+  %form.form-horizontal{name: "updateNotebookForm"}
+    .form-group{"sc-valid" => '{{updateNotebookForm.name}}'}
+      %label.control-label.col-sm-2{for: :name}
+        %span.text-danger*
+        Name
+      .col-sm-10
+        %input#name.form-control.input{type: "text", name: :name, "ng-model" => "name", required: true}
+        %sc-invalid{value: "{{updateNotebookForm.name}}"}
+    .form-group
+      %label.control-label.col-sm-2{for: :description} Description
+      .col-sm-10
+        %textarea.form-control{rows: "3", name: :description, "ng-model" => "description"}
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "update()", "ng-disabled" => "!updateNotebookForm.$valid"}
+    Update
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Cancel

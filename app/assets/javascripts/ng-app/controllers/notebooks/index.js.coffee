@@ -25,4 +25,17 @@ scrumAid.controller 'NotebooksIndexCtrl', [
       modalInstance.result.then (result) ->
         if result._id?
           $scope.notebooks.push(result)
+    
+    $scope.update = (index) ->
+      notebook = $scope.notebooks[index]
+      modalInstance = $modal.open
+        templateUrl: 'notebooks/update.html'
+        controller: 'NotebooksUpdateCtrl'
+        size: 'md'
+        resolve:
+          notebook: notebook
+
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.notebooks[index] = result
 ]

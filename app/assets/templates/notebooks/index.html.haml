@@ -10,9 +10,15 @@
 .col-md-10
   .list-group
     %a.list-group-item{href: "#", "ng-repeat" => "notebook in notebooks", "ng-class" => "{'list-group-item-warning': !notebook.removable && !notebook.default, 'list-group-item-info': notebook.default}"}
-      %h3.list-group-item-heading 
+      %h3.list-group-item-heading
         %span.glyphicon.glyphicon-trash{"ng-show" => "!notebook.removable && !notebook.default"}
         {{notebook.name}}
+        %button.btn.btn-danger.btn-xs.pull-right{tooltip: "Remove", "ng-show" => "notebook.removable"}
+          %span.glyphicon.glyphicon-remove
+        %button.btn.btn-default.btn-xs.pull-right{tooltip: "Edit", "ng-click" => "update($index)", "ng-show" => "notebook.removable || notebook.default"}
+          %span.glyphicon.glyphicon-edit
+        %button.btn.btn-default.btn-xs.pull-right{tooltip: "Mark as default", "ng-show" => "notebook.removable"}
+          %span.glyphicon.glyphicon-star
       %p.list-group-item-text 
         {{notebook.description}}
   %button.btn.btn-success.pull-right{"ng-click" => "new()"}
