@@ -12,22 +12,40 @@
 .col-md-10
   %h3
     Notes
+    .btn-group.pull-right{dropdown: ""}
+      %button#actionsDropdown.btn.btn-success{type: :button, "ng-click" => "add()", "ng-disabled" => "temp"}
+        %span.glyphicon.glyphicon-plus 
+        New
+      %button.btn.btn-default{"dropdown-toggle" => "", "ng-disabled" => "temp"}
+        %span.caret
+      %ul.dropdown-menu{"aria-labelledby" => "actionsDropdown"}
+        %li
+          %a{href: "#"} Mark notebook as default
+        %li
+          %a{href: "#"} Remove notebook      
+  %hr
   %sc-empty-list{list: "{{notes}}"}
   .row
-    .col-md-4{"ng-repeat" => "note in notes"}
+    .col-md-4{"ng-repeat" => "note in notes track by $index"}
       .thumbnail
         .caption
-          Creted by 
-          %a{href: "#"} {{note.created_by}}
-          .btn-group.pull-right{dropdown: ""}
-            %button.btn.btn-default.btn-xs{id: "dropdown{{$index}}", type: :button, "dropdown-toggle" => ""}
-              %span.glyphicon.glyphicon-option-horizontal
-            %ul.dropdown-menu{"aria-labelledby" => "dropdown{{$index}}"}
-              %li
-                %a{href: ""} Edit
-              %li
-                %a{href: ""} Move to trash
-          %h5.text-muted
+          %span{"ng-show" => "note.created_by"}
+            Created by 
+            %a{href: "#"} {{note.created_by}}
+            .btn-group.pull-right{dropdown: ""}
+              %button.btn.btn-default.btn-xs{id: "dropdown{{$index}}", type: :button, "dropdown-toggle" => ""}
+                %span.glyphicon.glyphicon-option-horizontal
+              %ul.dropdown-menu{"aria-labelledby" => "dropdown{{$index}}"}
+                %li
+                  %a{href: ""} Edit
+                %li
+                  %a{href: ""} Move to trash
+          %h5.text-muted{"ng-show" => "note.created_at"}
             %span.glyphicon.glyphicon-calendar
             {{note.created_at | date: "dd.MM.yyyy HH:mm"}}
-          %h4 {{note.text}}
+          %h4
+            %span{"editable-textarea" => "note.text", "e-name" => "text", "e-form" => "noteForm", "e-required" => "", "onbeforesave" => "checkText($data)"} {{note.text}}
+            %form{"editable-form" => "", name: "noteForm", "ng-show" => "noteForm.$visible", shown: "temp.text == note.text", "onbeforesave" => "save($data, $index)"}
+              %button.btn.btn-primary{type: :submit} Save
+              %button.btn.btn-default{"ng-click" => "noteForm.$cancel(); cancel($index)"} Cancel
+              

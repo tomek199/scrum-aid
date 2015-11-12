@@ -20,4 +20,24 @@ scrumAid.controller 'NotesIndexCtrl', [
       (response) ->
         $scope.notes = response
     )
+    
+    $scope.checkText = (data) ->
+      if !data
+        return "Can't be blank"
+    
+    $scope.add = () ->
+      $scope.temp = {text: ""}
+      $scope.notes.push($scope.temp)
+      
+    $scope.save = (data, index) -> 
+      $scope.temp = null
+      note = {text: data.text}
+      notebook.one('notes').post('', note: note).then(
+        (response) ->
+          $scope.notes[index] = response
+      )
+      
+    $scope.cancel = (index) ->
+      $scope.temp = null
+      $scope.notes.splice(index, 1)
 ]
