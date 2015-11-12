@@ -37,7 +37,7 @@
                 %span.glyphicon.glyphicon-option-horizontal
               %ul.dropdown-menu{"aria-labelledby" => "dropdown{{$index}}"}
                 %li
-                  %a{href: ""} Edit
+                  %a{href: "", "ng-click" => "noteForm.$show()"} Edit
                 %li
                   %a{href: ""} Move to trash
           %h5.text-muted{"ng-show" => "note.created_at"}
@@ -47,5 +47,5 @@
             %span{"editable-textarea" => "note.text", "e-name" => "text", "e-form" => "noteForm", "e-required" => "", "onbeforesave" => "checkText($data)"} {{note.text}}
             %form{"editable-form" => "", name: "noteForm", "ng-show" => "noteForm.$visible", shown: "temp.text == note.text", "onbeforesave" => "save($data, $index)"}
               %button.btn.btn-primary{type: :submit} Save
-              %button.btn.btn-default{"ng-click" => "noteForm.$cancel(); cancel($index)"} Cancel
+              %button.btn.btn-default{type: :button, "ng-click" => "noteForm.$cancel(); cancel($index)"} Cancel
               

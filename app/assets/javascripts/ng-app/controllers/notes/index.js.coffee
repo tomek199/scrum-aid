@@ -32,12 +32,21 @@ scrumAid.controller 'NotesIndexCtrl', [
     $scope.save = (data, index) -> 
       $scope.temp = null
       note = {text: data.text}
-      notebook.one('notes').post('', note: note).then(
-        (response) ->
-          $scope.notes[index] = response
-      )
+      note_id = $scope.notes[index]._id
+      
+      if !note_id
+        notebook.one('notes').post('', note: note).then(
+          (response) ->
+            $scope.notes[index] = response
+        )
+      else
+        notebook.one('notes').customPUT(note, note_id.$oid).then(
+          (response) ->
+            $scope.notes[index] = response
+        )
       
     $scope.cancel = (index) ->
       $scope.temp = null
-      $scope.notes.splice(index, 1)
+      if !$scope.notes[index]._id
+        $scope.notes.splice(index, 1)
 ]
