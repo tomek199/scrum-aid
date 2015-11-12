@@ -41,6 +41,16 @@ class NotesController < ApplicationController
     end
   end
   
+  # POST /notebooks/:notebook_id/notes/:note_id/move_to_trash
+  def move_to_trash
+    notebook = Notebook.find params[:notebook_id]
+    if notebook.move_note_to_trash(params[:note_id])
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end
+  end
+  
   private
   
   def note_params

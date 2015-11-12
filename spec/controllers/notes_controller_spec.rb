@@ -55,4 +55,22 @@ RSpec.describe NotesController, type: :controller do
       expect(@notebook.reload.notes.count).to eql notebook_notes - 1
     end
   end
+  
+  describe 'POST #move_to_trash' do
+    it 'should move Note from current Notebook to trash' do
+      project = Project.new(name: Faker::Company.name)
+      project.owner_id = @user.id
+      project.owner_username = @user.username
+      project.save
+      project.add_default_notebooks
+      project.notebooks << @notebook
+      note = @notebook.notes.create(text: Faker::Lorem.sentence, created_by: @user.username)
+      params = {notebook_id: @notebook.id, note_id: note.id}
+      post :move_to_trash, params
+      expect(response).to have_http_status(:ok)
+      trash = project.notebooks.where(removable: false, default: false).one
+      expect(@notebook.reload.notes.exists?).to eql false
+      expect(trash.notes.count).to eql 1 
+    end
+  end
 end
