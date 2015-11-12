@@ -9,8 +9,15 @@ scrumAid.controller 'NotesIndexCtrl', [
         $scope.project = response
     )
     
-    Restangular.one('notebooks', $routeParams.notebook_id).get().then(
+    notebook = Restangular.one('notebooks', $routeParams.notebook_id)
+    
+    notebook.get().then(
       (response) ->
         $scope.notebook = response
+    )
+    
+    notebook.all('notes').getList().then(
+      (response) ->
+        $scope.notes = response
     )
 ]

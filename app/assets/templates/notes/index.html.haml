@@ -12,3 +12,22 @@
 .col-md-10
   %h3
     Notes
+  %sc-empty-list{list: "{{notes}}"}
+  .row
+    .col-md-4{"ng-repeat" => "note in notes"}
+      .thumbnail
+        .caption
+          Creted by 
+          %a{href: "#"} {{note.created_by}}
+          .btn-group.pull-right{dropdown: ""}
+            %button.btn.btn-default.btn-xs{id: "dropdown{{$index}}", type: :button, "dropdown-toggle" => ""}
+              %span.glyphicon.glyphicon-option-horizontal
+            %ul.dropdown-menu{"aria-labelledby" => "dropdown{{$index}}"}
+              %li
+                %a{href: ""} Edit
+              %li
+                %a{href: ""} Move to trash
+          %h5.text-muted
+            %span.glyphicon.glyphicon-calendar
+            {{note.created_at | date: "dd.MM.yyyy HH:mm"}}
+          %h4 {{note.text}}
