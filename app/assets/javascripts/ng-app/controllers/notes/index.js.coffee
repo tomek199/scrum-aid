@@ -49,4 +49,24 @@ scrumAid.controller 'NotesIndexCtrl', [
       $scope.temp = null
       if !$scope.notes[index]._id
         $scope.notes.splice(index, 1)
+        
+    $scope.moveToTrash = (index) ->      
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        note_id = $scope.notes[index]._id.$oid
+        notebook.one('notes', note_id).customPOST('', 'move_to_trash').then(
+          (response) ->
+            $scope.notes.splice(index, 1)
+        )
+        
+    $scope.delete = (index) ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        note_id = $scope.notes[index]._id.$oid
+        notebook.one('notes', note_id).remove().then(
+          (response) ->
+            $scope.notes.splice(index, 1)
+        )
 ]

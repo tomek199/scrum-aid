@@ -38,8 +38,10 @@
               %ul.dropdown-menu{"aria-labelledby" => "dropdown{{$index}}"}
                 %li
                   %a{href: "", "ng-click" => "noteForm.$show()"} Edit
-                %li
-                  %a{href: ""} Move to trash
+                %li{"ng-show" => "notebook.removable || notebook.default"}
+                  %a{href: "", "ng-click" => "moveToTrash($index)"} Move to trash
+                %li{"ng-show" => "!notebook.removable && !notebook.default"}
+                  %a{href: "", "ng-click" => "delete($index)"} Remove
           %h5.text-muted{"ng-show" => "note.created_at"}
             %span.glyphicon.glyphicon-calendar
             {{note.created_at | date: "dd.MM.yyyy HH:mm"}}
