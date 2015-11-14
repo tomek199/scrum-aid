@@ -1,6 +1,6 @@
 scrumAid.controller 'NotesIndexCtrl', [
-  '$scope', '$routeParams', '$modal', 'Restangular'
-  ($scope, $routeParams, $modal, Restangular) ->
+  '$scope', '$routeParams', '$location', '$modal', 'Restangular'
+  ($scope, $routeParams, $location, $modal, Restangular) ->
     
     project = Restangular.one('projects', $routeParams.project_id)
 
@@ -68,5 +68,14 @@ scrumAid.controller 'NotesIndexCtrl', [
         notebook.one('notes', note_id).remove().then(
           (response) ->
             $scope.notes.splice(index, 1)
+        )
+        
+    $scope.deleteNotebook = () ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        notebook.remove().then(
+          (response) ->
+            $location.path '/projects/' + $routeParams.project_id + '/notebooks'
         )
 ]

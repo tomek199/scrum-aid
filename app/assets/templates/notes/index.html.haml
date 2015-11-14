@@ -22,7 +22,7 @@
         %li
           %a{href: "#"} Mark notebook as default
         %li
-          %a{href: "#"} Remove notebook      
+          %a{href: "#", "ng-click" => "deleteNotebook()"} Remove notebook      
   %hr
   %sc-empty-list{list: "{{notes}}"}
   .row
