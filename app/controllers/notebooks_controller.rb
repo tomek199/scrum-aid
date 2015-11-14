@@ -63,6 +63,16 @@ class NotebooksController < ApplicationController
     end 
   end
   
+  # DELETE /notebooks/:notebook_id/remove_all_notes
+  def remove_all_notes
+    notebook = Notebook.find params[:notebook_id]
+    if notebook.notes.destroy_all
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 422
+    end
+  end
+  
   private
   
   def notebook_params

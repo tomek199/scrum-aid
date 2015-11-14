@@ -112,4 +112,17 @@ RSpec.describe NotebooksController, type: :controller do
       expect(default_notebooks[0].name).to eql notebook.name
     end
   end
+  
+  describe 'DELETE #remove_all_notes' do
+    it 'should remove all notes from notebook' do
+      notebook = FactoryGirl.create(:notebook)
+      COUNT.times do
+        notebook.notes.create(text: Faker::Lorem.sentence, created_by: @user.username)
+      end
+      params = {notebook_id: notebook.id}
+      delete :remove_all_notes, params
+      expect(response).to have_http_status(:ok)
+      expect(notebook.reload.notes.count).to eql 0
+    end
+  end
 end
