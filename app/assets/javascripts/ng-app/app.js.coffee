@@ -3,6 +3,7 @@
   "templates"
   "ngCookies"
   "ui.bootstrap"
+  "ui.calendar"
   "xeditable"
   "restangular"
 ])

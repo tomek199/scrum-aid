@@ -13,9 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require lodash
+//= require moment
 //= require angular
 //= require angular-route
 //= require angular-bootstrap
+//= require angular-ui-calendar
+//= require fullcalendar
 //= require angular-cookies
 //= require angular-xeditable
 //= require angular-rails-templates
