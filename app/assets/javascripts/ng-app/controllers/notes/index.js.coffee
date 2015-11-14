@@ -78,4 +78,12 @@ scrumAid.controller 'NotesIndexCtrl', [
           (response) ->
             $location.path '/projects/' + $routeParams.project_id + '/notebooks'
         )
+        
+    $scope.markAsDefault = () ->
+      notebook_id = $scope.notebook._id.$oid
+      project.one('notebooks', notebook_id).customPOST('', 'mark_as_default').then(
+        (response) -> 
+          $scope.notebook.removable = false
+          $scope.notebook.default = true
+      )
 ]
