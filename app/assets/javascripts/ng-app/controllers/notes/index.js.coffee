@@ -86,4 +86,13 @@ scrumAid.controller 'NotesIndexCtrl', [
           $scope.notebook.removable = false
           $scope.notebook.default = true
       )
+      
+    $scope.deleteAll = () ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        notebook.customDELETE('remove_all_notes').then(
+          (response) ->
+            $scope.notes = []
+        )
 ]

@@ -13,10 +13,12 @@
   %h3
     Notes
     .btn-group.pull-right{dropdown: ""}
-      %button#actionsDropdown.btn.btn-success{type: :button, "ng-click" => "add()", "ng-disabled" => "temp"}
+      %button.btn.btn-success{type: :button, "ng-click" => "add()", "ng-disabled" => "temp"}
         %span.glyphicon.glyphicon-plus 
         New
-      %button.btn.btn-default{"dropdown-toggle" => "", "ng-disabled" => "temp", "ng-show" => "notebook.removable"}
+      %button.btn.btn-danger{type: :button, "ng-click" => "deleteAll()", "ng-show" => "!notebook.removable && !notebook.default && notes.length"}
+        Empty trash
+      %button#actionsDropdown.btn.btn-default{"dropdown-toggle" => "", "ng-disabled" => "temp", "ng-show" => "notebook.removable"}
         %span.caret
       %ul.dropdown-menu{"aria-labelledby" => "actionsDropdown"}
         %li{ }
