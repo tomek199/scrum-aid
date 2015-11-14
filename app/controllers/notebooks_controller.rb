@@ -43,6 +43,9 @@ class NotebooksController < ApplicationController
   # DELETE /notebooks/:id
   def destroy
     notebook = Notebook.find params[:id]
+    notebook.notes.all.each do |note|
+      notebook.move_note_to_trash(note.id)
+    end    
     if notebook.destroy
       render json: {}
     else

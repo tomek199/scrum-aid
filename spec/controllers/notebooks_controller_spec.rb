@@ -83,6 +83,20 @@ RSpec.describe NotebooksController, type: :controller do
       @project.reload
       expect(@project.notebooks.count).to eql notebooks_count - 1
     end
+    
+    it 'should move all notes from removed notebook to trash' do
+      @project.add_default_notebooks
+      notebook = FactoryGirl.create(:notebook)
+      @project.notebooks << notebook
+      COUNT.times do
+        notebook.notes.create(text: Faker::Lorem.sentence, created_by: @user.username)
+      end
+      params = {id: notebook.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      trash = @project.notebooks.where(removable: false, default: false).one
+      expect(trash.notes.count).to eql COUNT
+    end
   end
   
   describe 'POST #mark_as_default' do
