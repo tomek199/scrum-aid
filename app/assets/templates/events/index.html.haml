@@ -1,0 +1,18 @@
+%h4
+  %ol.breadcrumb
+    %li 
+      %a{href: "/projects"} Projects
+    %li
+      %a{href: "/projects/{{project._id.$oid}}"} {{project.name}}
+    %li.active Events
+.col-md-2
+  %ng-include{src: "'projects/nav.html'"}
+.col-md-10
+  %h3
+    Events
+    %button.btn.btn-success.pull-right{type: :button}
+      %span.glyphicon.glyphicon-plus 
+      New
+  %hr
+  %div{"ui-calendar" => "uiConfig.calendar", "ng-model" => "events"}
+  

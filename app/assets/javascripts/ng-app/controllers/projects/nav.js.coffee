@@ -22,5 +22,9 @@ scrumAid.controller 'ProjectsNavCtrl', [
         title: "Notes"
         href: '/projects/' + $routeParams.project_id + '/notebooks'
       }
+      {
+        title: "Calendar"
+        href: '/projects/' + $routeParams.project_id + '/events'
+      }
     ]
 ]

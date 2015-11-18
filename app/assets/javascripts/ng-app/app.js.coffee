@@ -64,6 +64,10 @@ scrumAid.config ($routeProvider, $locationProvider, $httpProvider) ->
   $routeProvider.when "/projects/:project_id/notebooks/:notebook_id/notes",
     templateUrl: "notes/index.html"
     controller: "NotesIndexCtrl"
+# Events
+  $routeProvider.when "/projects/:project_id/events",
+    templateUrl: "events/index.html"
+    controller: "EventsIndexCtrl"
 
   $locationProvider.html5Mode
     enabled: true
