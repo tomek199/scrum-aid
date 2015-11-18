@@ -12,4 +12,5 @@ RSpec.describe Project, type: :model do
   it {is_expected.to have_many(:user_roles)}
   it {is_expected.to have_many(:sprints)}
   it {is_expected.to have_many(:notebooks)}
+  it {is_expected.to have_many(:events)}
 end
