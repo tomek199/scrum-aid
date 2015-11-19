@@ -45,7 +45,7 @@ RSpec.describe EventsController, type: :controller do
         start: Faker::Time.forward(1, :morning), end: Faker::Time.forward(1, :evening),
         color: 'green'
       }
-      params = {project_id: @project.id, user_id: @user.id, event: event}
+      params = {project_id: @project.id, event: event}
       post :create, params
       expect(response).to have_http_status(:ok)
       result = JSON.parse(response.body)

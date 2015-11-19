@@ -14,7 +14,7 @@ class EventsController < ApplicationController
     event = Event.new(event_params)
     event.project = project
     event.created_by = current_user.username
-    event.user_id = params[:user_id] if params[:user_id]
+    event.user_id = current_user.id if event_params[:color] == 'green'
     if event.save
       render json: event
     else
