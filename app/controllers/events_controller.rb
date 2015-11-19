@@ -2,6 +2,12 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
+  # GET /projects/:project_id/events
+  def index
+    project = Project.find params[:project_id]
+    render json: project.events, status: 200
+  end
+  
   # POST /projects/:project_id/events
   def create
     project = Project.find params[:project_id]

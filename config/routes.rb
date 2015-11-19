@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :notebooks, only: [:index, :create] do 
       post 'mark_as_default'
     end
-    resources :events, only: [:create]
+    resources :events, only: [:index, :create]
   end  
   resources :roles, only: [:update, :destroy]
   resources :sprints, only: [:show, :update, :destroy] do
