@@ -26,6 +26,7 @@ class User
 
   has_and_belongs_to_many :projects
   has_many :user_roles
+  has_many :events
 
   # Hack for Devise 3.4.1
   def self.serialize_into_session(record)
