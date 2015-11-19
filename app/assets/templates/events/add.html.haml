@@ -1,0 +1,57 @@
+.modal-header
+  %h3 New event
+.modal-body
+  %form.form-horizontal{name: "createEventForm"}
+    .form-group{"sc-valid" => '{{createEventForm.title}}'}
+      %label.control-label.col-sm-2{for: :title}
+        %span.text-danger*
+        Title
+      .col-sm-10
+        %input#name.form-control.input{type: :text, name: :title, "ng-model" => "event.title", required: true}
+        %sc-invalid{value: "{{createEventForm.title}}"}
+    .form-group
+      %label.control-label.col-sm-2
+        Type
+      .col-sm-1.radio
+        %label
+          %input{type: :radio, name: :color, value: :blue, "ng-model" => "event.color"} Typical
+      .col-sm-1.radio
+        %label
+          %input{type: :radio, name: :color, value: :green, "ng-model" => "event.color"} Absence        
+    .form-group{"sc-valid" => '{{createEventForm.start}}'}
+      %label.control-label.col-sm-2{for: :start}
+        %span.text-danger*
+        Start date
+      .col-sm-4
+        .input-group
+          %input#start.form-control.input{type: :text, name: :start, "ng-model" => "event.start", "datepicker-popup" => "dd.MM.yyyy", "is-open" => "datepickers[0].opened", "ng-change" => "updateEndDate()", required: true, readonly: :readonly}
+          %span.input-group-btn
+            %button.btn.btn-default{type: :button, "ng-click" => "open($event, 0)"}
+              %span.glyphicon.glyphicon-calendar
+      .col-sm-2
+        %timepicker{"ng-model" => "event.start", "show-spinners" => "false", "show-meridian" => "false"}
+      .col-sm-2.checkbox{"ng-class" => "{'disabled': event.color == 'green'}"}
+        %label
+          %input{type: :checkbox, "ng-model" => "event.allDay", "ng-disabled" => "event.color == 'green'"} All day event
+    .form-group{"sc-valid" => '{{createEventForm.end}}', "ng-hide" => "event.allDay"}
+      %label.control-label.col-sm-2{for: :end}
+        %span.text-danger*
+        End date
+      .col-sm-4
+        .input-group
+          %input#end.form-control.input{type: :text, name: :end, "ng-model" => "event.end", "datepicker-popup" => "dd.MM.yyyy", "is-open" => "datepickers[1].opened", required: true, readonly: :readonly}
+          %span.input-group-btn
+            %button.btn.btn-default{type: :button, "ng-click" => "open($event, 1)"}
+              %span.glyphicon.glyphicon-calendar
+      .col-sm-2
+        %timepicker{"ng-model" => "event.end", "show-spinners" => "false", "show-meridian" => "false"}
+    .form-group
+      %label.control-label.col-sm-2{for: :description} Description
+      .col-sm-10
+        %textarea.form-control{rows: "3", name: "description", "ng-model" => "event.description"}
+  %pre {{event | json}}
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "create()", "ng-disabled" => "!createEventForm.$valid"}
+    Create
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Cancel

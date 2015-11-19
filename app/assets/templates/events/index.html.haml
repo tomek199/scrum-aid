@@ -10,9 +10,9 @@
 .col-md-10
   %h3
     Events
-    %button.btn.btn-success.pull-right{type: :button}
+    %button.btn.btn-success.pull-right{type: :button, "ng-click" => "new()"}
       %span.glyphicon.glyphicon-plus 
       New
   %hr
-  %div{"ui-calendar" => "uiConfig.calendar", "ng-model" => "events"}
+  %div{"ui-calendar" => "uiConfig.calendar", "ng-model" => "eventSources"}
   
