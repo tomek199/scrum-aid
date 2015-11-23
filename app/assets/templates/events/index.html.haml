@@ -14,5 +14,20 @@
       %span.glyphicon.glyphicon-plus 
       New
   %hr
-  %div{"ui-calendar" => "uiConfig.calendar", "ng-model" => "eventSources"}
-  
+  %div{"ui-calendar" => "uiConfig.calendar", "ng-model" => "eventSources", "ng-class" => "viewMode.calendarClass"}
+  %div{collapse: "viewMode.isCollapsed", "ng-class" => "viewMode.eventClass"}
+    %button.close{type: :button, tooltip: "Close", "ng-click" => "close()"}
+      %span &times;
+    %form
+      .form-group
+        %label Title:
+        %p.form-control-static.text-muted {{selectedEvent.title}}
+      .form-group
+        %label Start:
+        %p.form-control-static.text-muted {{selectedEvent.start | date: 'dd.MM.yyyy'}}
+      .form-group
+        %label End:
+        %p.form-control-static.text-muted {{(selectedEvent.end | date: 'dd.MM.yyyy HH:mm') || 'All day event'}}
+      .form-group
+        %label Description:
+        %p.form-control-static.text-muted {{selectedEvent.description}}
