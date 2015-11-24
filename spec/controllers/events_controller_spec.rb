@@ -80,4 +80,17 @@ RSpec.describe EventsController, type: :controller do
       expect(result['allDay']).to eql false
     end
   end
+  
+  describe 'DELETE #destroy' do
+    it 'should remove event from project' do
+      event = FactoryGirl.create(:event)
+      @project.events << event
+      project_events = @project.events.count
+      params = {id: event.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      @project.reload
+      expect(@project.events.count).to eql project_events - 1
+    end
+  end
 end

@@ -32,6 +32,16 @@ class EventsController < ApplicationController
     end
   end
   
+  # DELETE /events/:id
+  def destroy
+    event = Event.find params[:id]
+    if event.destroy
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
+  
   private
   
   def event_params
