@@ -30,6 +30,7 @@ scrumAid.controller 'EventsIndexCtrl', [
       }
       
       $scope.selectedEvent = {
+        _id: data._id
         title: data.title
         start: new Date(data.start)
         allDay: data.allDay
@@ -43,8 +44,7 @@ scrumAid.controller 'EventsIndexCtrl', [
         calendarClass: 'col-md-12'
         eventClass: ''
       }
-      $scope.selectedEvent = null
-    
+      $scope.selectedEvent = null    
     
     $scope.uiConfig = {
       calendar:
@@ -67,4 +67,17 @@ scrumAid.controller 'EventsIndexCtrl', [
       modalInstance.result.then (result) ->
         if result._id?
           $scope.events.push(result)
+          
+    $scope.delete = () ->
+      modalInstance = $modal.open
+        templateUrl: 'directives/scModal-delete.html'
+      modalInstance.result.then (result) ->
+        event_id = $scope.selectedEvent._id.$oid        
+        Restangular.one('events', event_id).remove().then(
+          (response) ->
+            angular.forEach($scope.events, (obj, index) ->
+              if obj._id.$oid == event_id
+                $scope.events.splice(index, 1)
+            )
+          )        
 ]
