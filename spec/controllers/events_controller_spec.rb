@@ -68,4 +68,16 @@ RSpec.describe EventsController, type: :controller do
       expect(result.count).to eql COUNT
     end
   end
+  
+  describe 'PUT #update' do
+    it 'should update event title and allDay fields' do
+      event = FactoryGirl.create(:event)
+      params = {id: event.id, event: {title: "New title", allDay: false}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result['title']).to eql "New title"
+      expect(result['allDay']).to eql false
+    end
+  end
 end

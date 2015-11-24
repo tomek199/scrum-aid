@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       post 'move_to_trash'
     end
   end
+  resources :events, only: [:update]
 
   root to: 'application#index'
   get '*path' => 'application#index'

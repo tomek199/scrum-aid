@@ -22,6 +22,16 @@ class EventsController < ApplicationController
     end
   end
   
+  # PUT /events/:id
+  def update
+    event = Event.find params[:id]
+    if event.update(event_params)
+      render json: event
+    else
+      render json: {errors: event.errors}, status: 422
+    end
+  end
+  
   private
   
   def event_params
