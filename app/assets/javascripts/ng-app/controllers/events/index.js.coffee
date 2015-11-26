@@ -35,6 +35,7 @@ scrumAid.controller 'EventsIndexCtrl', [
         start: new Date(data.start)
         allDay: data.allDay
         description: data.description
+        color: data.color
       }
       $scope.selectedEvent.end = new Date(data.end) if !data.allDay
     
@@ -56,6 +57,12 @@ scrumAid.controller 'EventsIndexCtrl', [
         eventClick: $scope.show
     }
     
+    getIndex = (id) ->
+      angular.forEach($scope.events, (obj, index) ->
+        if obj._id.$oid == id
+          return index
+      )
+    
     $scope.new = () ->
       modalInstance = $modal.open
         templateUrl: 'events/add.html'
@@ -75,9 +82,19 @@ scrumAid.controller 'EventsIndexCtrl', [
         event_id = $scope.selectedEvent._id.$oid        
         Restangular.one('events', event_id).remove().then(
           (response) ->
-            angular.forEach($scope.events, (obj, index) ->
-              if obj._id.$oid == event_id
-                $scope.events.splice(index, 1)
-            )
+            $scope.events.splice(getIndex(event_id), 1)
           )        
+    
+    $scope.update = () ->
+      event_id = $scope.selectedEvent._id.$oid
+      modalInstance = $modal.open
+        templateUrl: 'events/update.html'
+        controller: 'EventsUpdateCtrl'
+        size: 'lg'
+        resolve:
+          event: ->
+            $scope.selectedEvent
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.events[getIndex(event_id)] = result
 ]

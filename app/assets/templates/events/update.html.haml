@@ -1,0 +1,56 @@
+.modal-header
+  %h3 New event
+.modal-body
+  %form.form-horizontal{name: "updateEventForm"}
+    .form-group{"sc-valid" => '{{updateEventForm.title}}'}
+      %label.control-label.col-sm-2{for: :title}
+        %span.text-danger*
+        Title
+      .col-sm-10
+        %input#name.form-control.input{type: :text, name: :title, "ng-model" => "title", required: true, "ng-disabled" => "color == 'green'"}
+        %sc-invalid{value: "{{updateEventForm.title}}"}
+    .form-group
+      %label.control-label.col-sm-2
+        Type
+      .col-sm-1.radio
+        %label
+          %input{type: :radio, name: :color, value: :blue, "ng-model" => "color", "ng-change" => "updateAllDay()"} Typical
+      .col-sm-1.radio
+        %label
+          %input{type: :radio, name: :color, value: :green, "ng-model" => "color", "ng-change" => "updateAllDay()"} Absence        
+    .form-group{"sc-valid" => '{{updateEventForm.start}}'}
+      %label.control-label.col-sm-2{for: :start}
+        %span.text-danger*
+        Start date
+      .col-sm-4
+        .input-group
+          %input#start.form-control.input{type: :text, name: :start, "ng-model" => "start", "datepicker-popup" => "dd.MM.yyyy", "is-open" => "datepickers[0].opened", "ng-change" => "updateEndDate()", required: true, readonly: :readonly}
+          %span.input-group-btn
+            %button.btn.btn-default{type: :button, "ng-click" => "open($event, 0)"}
+              %span.glyphicon.glyphicon-calendar
+      .col-sm-2
+        %timepicker{"ng-model" => "start", "show-spinners" => "false", "show-meridian" => "false"}
+      .col-sm-2.checkbox{"ng-class" => "{'disabled': color == 'green'}"}
+        %label
+          %input{type: :checkbox, "ng-model" => "allDay", "ng-disabled" => "color == 'green'"} All day event
+    .form-group{"sc-valid" => '{{updateEventForm.end}}', "ng-hide" => "allDay"}
+      %label.control-label.col-sm-2{for: :end}
+        %span.text-danger*
+        End date
+      .col-sm-4
+        .input-group
+          %input#end.form-control.input{type: :text, name: :end, "ng-model" => "end", "datepicker-popup" => "dd.MM.yyyy", "is-open" => "datepickers[1].opened", required: true, readonly: :readonly}
+          %span.input-group-btn
+            %button.btn.btn-default{type: :button, "ng-click" => "open($event, 1)"}
+              %span.glyphicon.glyphicon-calendar
+      .col-sm-2
+        %timepicker{"ng-model" => "end", "show-spinners" => "false", "show-meridian" => "false"}
+    .form-group
+      %label.control-label.col-sm-2{for: :description} Description
+      .col-sm-10
+        %textarea.form-control{rows: "3", name: "description", "ng-model" => "description"}
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "update()", "ng-disabled" => "!updateEventForm.$valid"}
+    Update
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Cancel

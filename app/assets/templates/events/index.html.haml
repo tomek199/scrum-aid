@@ -17,7 +17,7 @@
   %div{"ui-calendar" => "uiConfig.calendar", "ng-model" => "eventSources", "ng-class" => "viewMode.calendarClass"}
   %div{collapse: "viewMode.isCollapsed", "ng-class" => "viewMode.eventClass"}
     .btn-group{dropdown: ""}
-      %button.btn.btn-default.btn-xs{type: :button}
+      %button.btn.btn-default.btn-xs{type: :button, "ng-click" => "update()"}
         Edit
       %button.btn.btn-danger.btn-xs{type: :button, "ng-click" => "delete()"}
         Remove
