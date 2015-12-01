@@ -12,6 +12,7 @@ class Story
   field :updated_by, type: String
   
   belongs_to :project
+  belongs_to :sprint
   
   validates_presence_of :title, :index, :created_at, :created_by
   
