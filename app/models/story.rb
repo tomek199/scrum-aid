@@ -14,4 +14,11 @@ class Story
   belongs_to :project
   
   validates_presence_of :title, :index, :created_at, :created_by
+  
+  def initialize(params, project, username)
+    super(params)
+    self.created_by = username
+    self.index = project.stories.count
+    self.project = project
+  end
 end
