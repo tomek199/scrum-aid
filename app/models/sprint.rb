@@ -11,7 +11,6 @@ class Sprint
 
   belongs_to :project
   has_many :retrospectives
-  has_many :stories
 
   validates_presence_of :name, :index, :start_date, :end_date
 

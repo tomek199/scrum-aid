@@ -13,6 +13,7 @@ class Project
   has_many :sprints, dependent: :destroy
   has_many :notebooks
   has_many :events
+  has_many :stories
 
   validates_presence_of :name, :owner_id, :owner_username, :sprint_length
 
