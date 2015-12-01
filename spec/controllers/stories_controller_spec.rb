@@ -29,4 +29,17 @@ RSpec.describe StoriesController, type: :controller do
       expect(result['created_by']).to eql @user.username
     end
   end
+  
+  describe 'GET #index' do
+    it 'should return projec\'s stories list' do
+      COUNT.times do |index|
+        @project.stories << FactoryGirl.create(:story)
+      end
+      params = {project_id: @project.id}
+      get :index, params
+      expect(response).to have_http_status(:ok)
+      result = JSON.parse(response.body)
+      expect(result.count).to eql COUNT
+    end
+  end
 end

@@ -2,6 +2,12 @@ class StoriesController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json
   
+  # GET /projects/:project_id/stories
+  def index
+    project = Project.find params[:project_id]
+    render json: project.stories, status: 200
+  end
+  
   # POST /projects/:project_id/stories
   def create
     project = Project.find params[:project_id]

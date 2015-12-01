@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       post 'mark_as_default'
     end
     resources :events, only: [:index, :create]
-    resources :stories, only: [:create]
+    resources :stories, only: [:index, :create]
   end  
   resources :roles, only: [:update, :destroy]
   resources :sprints, only: [:show, :update, :destroy] do
