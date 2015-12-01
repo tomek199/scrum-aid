@@ -15,10 +15,10 @@ class Story
   
   validates_presence_of :title, :index, :created_at, :created_by
   
-  def initialize(params, project, username)
+  def initialize(params = nil, project = nil, username = nil)
     super(params)
     self.created_by = username
-    self.index = project.stories.count
+    self.index = project.stories.count if project
     self.project = project
   end
 end
