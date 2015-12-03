@@ -61,7 +61,44 @@
       %span.glyphicon.glyphicon-plus
       New
   %hr
-  .list-group
-    %a.list-group-item{href: "#", "ng-repeat" => "story in stories"}
+  .list-group{"ng-class" => "{'col-md-12': !selectedStory, 'col-md-8': selectedStory}"}
+    %a.list-group-item{href: "#", "ng-repeat" => "story in stories", "ng-click" => "showStory($index)"}
       %span.badge {{story.points}}
       {{story.title}}
+  .col-md-4{"ng-show" => "selectedStory"}
+    .btn-group{dropdown: ""}
+      %button.btn.btn-default.btn-xs{type: :button, "ng-click" => "updateStory()"}
+        Edit
+      %button.btn.btn-danger.btn-xs{type: :button, "ng-click" => "deleteStory()"}
+        Remove
+    %button.close{type: :button, tooltip: "Close", "ng-click" => "closeStoryDetails()"}
+      %span &times;
+    %hr
+    %form
+      .form-group
+        %label Title:
+        %p.form-control-static.text-muted {{selectedStory.title}}
+      .form-group{"ng-show" => "selectedStory.summary"}
+        %label Summary:
+        %p.form-control-static.text-muted {{selectedStory.summary}}
+      .form-group
+        %label Story points:
+        %span.badge {{selectedStory.points}}
+    %form.form-horizontal
+      .form-group
+        %label.control-label.col-md-5 Created by:
+        .col-md-6
+          %p.form-control-static.text-muted {{selectedStory.created_by}}
+      .form-group{"ng-show" => "selectedStory.updated_by"}
+        %label.control-label.col-md-5 Updated by:
+        .col-md-6
+          %p.form-control-static.text-muted {{selectedStory.updated_by}}
+      .form-group
+        %label.control-label.col-md-5 Created at:
+        .col-md-6
+          %p.form-control-static.text-muted {{selectedStory.created_at | date: 'dd.MM.yyyy HH:mm'}}
+      .form-group{"ng-show" => "selectedStory.updated_at"}
+        %label.control-label.col-md-5 Updated at:
+        .col-md-6
+          %p.form-control-static.text-muted {{selectedStory.updated_at | date: 'dd.MM.yyyy HH:mm'}}
+    

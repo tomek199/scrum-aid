@@ -97,4 +97,10 @@ scrumAid.controller 'SprintsIndexCtrl', [
       modalInstance.result.then (result) ->
         if result._id?
           $scope.stories.push(result)
+    
+    $scope.showStory = (index) -> 
+      $scope.selectedStory = $scope.stories[index]
+    
+    $scope.closeStoryDetails = () ->
+      $scope.selectedStory = null
 ]
