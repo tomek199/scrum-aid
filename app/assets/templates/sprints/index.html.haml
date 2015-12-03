@@ -60,5 +60,8 @@
     %button.btn.btn-success.pull-right{"ng-click" => "newStory()"}
       %span.glyphicon.glyphicon-plus
       New
-    %hr
-    
+  %hr
+  .list-group
+    %a.list-group-item{href: "#", "ng-repeat" => "story in stories"}
+      %span.badge {{story.points}}
+      {{story.title}}

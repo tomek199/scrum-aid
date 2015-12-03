@@ -2,7 +2,7 @@ scrumAid.controller 'StoriesCreateCtrl', [
   '$scope', '$modalInstance', 'Restangular', 'project_id'
   ($scope, $modalInstance, Restangular, project_id) ->
     
-    $scope.points = [0, 1.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
+    $scope.points = [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
     $scope.story = {
       points: 0
     }
