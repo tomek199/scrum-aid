@@ -4,7 +4,7 @@ class Story
   field :title, type: String
   field :summary, type: String
   field :index, type: Integer
-  field :points, type: Integer
+  field :points, type: Float
   field :status, type: String, default: "open"
   field :created_at, type: DateTime, default: DateTime.now
   field :created_by, type: String
