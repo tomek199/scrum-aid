@@ -1,0 +1,24 @@
+.modal-header
+  %h3 New story
+.modal-body
+  %form.form-horizontal{name: "createStoryForm"}
+    .form-group{"sc-valid" => '{{createStoryForm.title}}'}
+      %label.control-label.col-sm-2{for: :title}
+        %span.text-danger*
+        Title
+      .col-sm-10
+        %input#name.form-control.input{type: :text, name: :title, "ng-model" => "story.title", required: true}
+        %sc-invalid{value: "{{createStoryForm.title}}"}
+    .form-group
+      %label.control-label.col-sm-2{for: :summary} Summary
+      .col-sm-10
+        %textarea.form-control{rows: "3", name: :summary, "ng-model" => "story.summary"}
+    .form-group
+      %label.control-label.col-sm-2{for: :points} Points
+      .col-sm-10
+        %select.form-control{"ng-model" => "story.points", "ng-options" => "point as point for point in points"}
+.modal-footer
+  %button.btn.btn-primary{"ng-click" => "create()", "ng-disabled" => "!createStoryForm.$valid"}
+    Create
+  %button.btn.btn-default{"ng-click" => "cancel()"}
+    Cancel

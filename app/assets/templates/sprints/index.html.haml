@@ -8,6 +8,12 @@
 .col-md-2
   %ng-include{src: "'projects/nav.html'"}
 .col-md-10
+  %h3
+    Sprints
+    %button.btn.btn-success.pull-right{"ng-click" => "newSprint()"}
+      %span.glyphicon.glyphicon-plus
+      New
+  %hr
   %sc-empty-list{list: "{{sprints}}"}
   %accordion{"close-others" => "true"}
     %accordion-group{"ng-repeat" => "sprint in sprints", "ng-class" => "{'panel-success': sprint.current, 'panel-danger': sprint.closed}"}
@@ -34,21 +40,25 @@
             .col-md-6
               %p.form-control-static.text-muted {{sprint.goal}}
       .col-md-2.btn-group-vertical{role: :group}
-        %button.btn.btn-danger{"ng-hide" => "sprint.current", "ng-click" => "delete($index)", "tooltip-placement" => :right, tooltip: "Remove sprint"}
+        %button.btn.btn-danger{"ng-hide" => "sprint.current", "ng-click" => "deleteSprint($index)", "tooltip-placement" => :right, tooltip: "Remove sprint"}
           %span.glyphicon.glyphicon-remove
           Remove
-        %button.btn.btn-danger{"ng-show" => "sprint.current", "ng-click" => "close($index)", "tooltip-placement" => :right, tooltip: "Close sprint"} 
+        %button.btn.btn-danger{"ng-show" => "sprint.current", "ng-click" => "closeSprint($index)", "tooltip-placement" => :right, tooltip: "Close sprint"} 
           %span.glyphicon.glyphicon-stop
           Close
-        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "start($index)", "tooltip-placement" => :right, tooltip: "Start sprint"}
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "startSprint($index)", "tooltip-placement" => :right, tooltip: "Start sprint"}
           %span.glyphicon.glyphicon-play
           Start
-        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "update($index)", "tooltip-placement" => :right, tooltip: "Edit sprint"}
+        %button.btn.btn-default{"ng-hide" => "sprint.closed || sprint.current", "ng-click" => "updateSprint($index)", "tooltip-placement" => :right, tooltip: "Edit sprint"}
           %span.glyphicon.glyphicon-edit
           Edit
-        %button.btn.btn-default{"tooltip-placement" => :right, "ng-click" => "show($index)", tooltip: "Sprint details"}
+        %button.btn.btn-default{"tooltip-placement" => :right, "ng-click" => "showSprint($index)", tooltip: "Sprint details"}
           %span.glyphicon.glyphicon-search
           Details
-  %button.btn.btn-success.pull-right{"ng-click" => "new()"}
-    %span.glyphicon.glyphicon-plus
-    New
+  %h3 
+    Backlog
+    %button.btn.btn-success.pull-right{"ng-click" => "newStory()"}
+      %span.glyphicon.glyphicon-plus
+      New
+    %hr
+    

@@ -13,8 +13,13 @@ scrumAid.controller 'SprintsIndexCtrl', [
       (response) ->
         $scope.sprints = response
     )
+    
+    project.getList('stories').then(
+      (response) ->
+        $scope.stories = response
+    )
 
-    $scope.new = () ->
+    $scope.newSprint = () ->
       modalInstance = $modal.open
         templateUrl: 'sprints/add.html'
         controller: 'SprintsCreateCtrl'
@@ -31,7 +36,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
         if result._id?
           $scope.sprints.push(result)
       
-    $scope.update = (index) ->
+    $scope.updateSprint = (index) ->
       modalInstance = $modal.open
         templateUrl: 'sprints/update.html'
         controller: 'SprintsUpdateCtrl'
@@ -47,7 +52,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
         if result._id?
           $scope.sprints[index] = result
           
-    $scope.close = (index) ->
+    $scope.closeSprint = (index) ->
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-closeSprint.html'
       modalInstance.result.then (result) ->
@@ -57,7 +62,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
             $scope.sprints[index] = response
         )
         
-    $scope.delete = (index) ->
+    $scope.deleteSprint = (index) ->
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-delete.html'
       modalInstance.result.then (result) ->
@@ -67,7 +72,7 @@ scrumAid.controller 'SprintsIndexCtrl', [
             $scope.sprints.splice(index, 1)
         )
         
-    $scope.start = (index) ->
+    $scope.startSprint = (index) ->
       modalInstance = $modal.open
         templateUrl: 'directives/scModal-startSprint.html'
       modalInstance.result.then (result) ->
@@ -77,7 +82,19 @@ scrumAid.controller 'SprintsIndexCtrl', [
             $scope.sprints = response
         )
         
-    $scope.show = (index) ->
+    $scope.showSprint = (index) ->
       sprint_id = $scope.sprints[index]._id.$oid
       $location.path '/projects/' + $routeParams.project_id + '/sprints/' + sprint_id
+      
+    $scope.newStory = () ->
+      modalInstance = $modal.open
+        templateUrl: 'stories/add.html'
+        controller: 'StoriesCreateCtrl'
+        size: 'lg'
+        resolve:
+          project_id: ->
+            $scope.project._id.$oid
+      modalInstance.result.then (result) ->
+        if result._id?
+          $scope.stories.push(result)
 ]
