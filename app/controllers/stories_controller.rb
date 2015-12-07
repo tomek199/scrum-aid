@@ -19,9 +19,19 @@ class StoriesController < ApplicationController
     end
   end
   
+  # PUT /stories/:id
+  def update
+    story = Story.find params[:id]
+    if story.update(story_params) 
+      render json: story
+    else
+      render json: {errors: story.errors}, status: 422
+    end
+  end
+  
   private
   
   def story_params
-    params.require(:story).permit(:title, :summary, :index, :points, :status)
+    params.require(:story).permit(:title, :summary, :index, :points, :status, :sprint_id)
   end
 end

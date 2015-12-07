@@ -42,4 +42,35 @@ RSpec.describe StoriesController, type: :controller do
       expect(result.count).to eql COUNT
     end
   end
+  
+  describe 'PUT #update' do
+    it 'should update story fields' do
+      story = FactoryGirl.create(:story)
+      params = {id: story.id, story: {title: "New title", summary: "New summary", status: "closed", points: 7}}
+      put :update, params
+      expect(response).to have_http_status(:ok)
+      story.reload
+      expect(story.title).to eql "New title"
+      expect(story.summary).to eql "New summary"
+      expect(story.status).to eql "closed"
+      expect(story.points).to eql 7.0
+    end
+    
+    it 'should assign story to sprint' do
+      sprint = FactoryGirl.create(:sprint)
+      story = FactoryGirl.create(:story)
+      params = {id: story.id, story: {sprint_id: sprint.id}}
+      put :update, params
+      expect(story.reload.sprint).to_not be_nil
+    end
+    
+    it 'should remove story from sprint' do
+      sprint = FactoryGirl.create(:sprint)
+      story = FactoryGirl.create(:story)
+      sprint.stories << story
+      params = {id: story.id, story: {sprint_id: nil}}
+      put :update, params
+      expect(story.reload.sprint).to be_nil
+    end
+  end
 end
