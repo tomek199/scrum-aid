@@ -61,6 +61,7 @@ RSpec.describe StoriesController, type: :controller do
       story = FactoryGirl.create(:story)
       params = {id: story.id, story: {sprint_id: sprint.id}}
       put :update, params
+      expect(response).to have_http_status(:ok)
       expect(story.reload.sprint).to_not be_nil
     end
     
@@ -70,7 +71,21 @@ RSpec.describe StoriesController, type: :controller do
       sprint.stories << story
       params = {id: story.id, story: {sprint_id: nil}}
       put :update, params
+      expect(response).to have_http_status(:ok)
       expect(story.reload.sprint).to be_nil
+    end
+  end
+  
+  describe 'DELETE #destroy' do
+    it 'should remove story from project' do
+      story = FactoryGirl.create(:story)
+      @project.stories << story
+      project_stories = @project.stories.count
+      params = {id: story.id}
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      @project.reload
+      expect(@project.stories.count).to eql project_stories - 1
     end
   end
 end

@@ -29,6 +29,16 @@ class StoriesController < ApplicationController
     end
   end
   
+  # DELETE /sprints/:id
+  def destroy
+    story = Story.find params[:id]
+    if story.destroy
+      render json: {}
+    else
+      render json: {errors: "Unexpected error"}, status: 412
+    end
+  end
+  
   private
   
   def story_params

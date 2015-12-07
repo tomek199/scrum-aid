@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
   end
   resources :events, only: [:update, :destroy]
-  resources :stories, only: [:update]
+  resources :stories, only: [:update, :destroy]
 
   root to: 'application#index'
   get '*path' => 'application#index'
