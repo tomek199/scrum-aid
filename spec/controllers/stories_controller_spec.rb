@@ -54,6 +54,8 @@ RSpec.describe StoriesController, type: :controller do
       expect(story.summary).to eql "New summary"
       expect(story.status).to eql "closed"
       expect(story.points).to eql 7.0
+      expect(story.updated_at).to_not be_nil
+      expect(story.updated_by).to_not be_nil
     end
     
     it 'should assign story to sprint' do

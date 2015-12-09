@@ -23,6 +23,7 @@ class StoriesController < ApplicationController
   def update
     story = Story.find params[:id]
     if story.update(story_params) 
+      story.update({updated_at: DateTime.now, updated_by: current_user.username})
       render json: story
     else
       render json: {errors: story.errors}, status: 422
